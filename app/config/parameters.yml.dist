@@ -17,3 +17,15 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    # make sure the symfony login cookies work with multiple apps on 
+    # a single domain.
+    router.request_context.host: localhost
+    router.request_context.scheme: http
+    router.request_context.base_url: /web/app_dev.php
+    secure_cookies: false
+
+    # blog stuff
+    nines_blog.excerpt_length: 100
+    nines_blog.homepage_posts: 3
+    nines_blog.menu_posts: 5
