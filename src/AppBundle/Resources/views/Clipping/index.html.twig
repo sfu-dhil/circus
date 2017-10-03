@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}clippings{% endblock %}
+
+{% block pageheader %}
+    <h1>Clipping List</h1>
+    <p class="count">
+        Displaying {{ clippings|length }} clippings of {{ clippings.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+        <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+            <a href="{{ path('clipping_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            {% endif %}
+            <a href="{{ path('clipping_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+        
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr><th>Image Number</th><th>Number</th><th>Written Date</th><th>Date</th><th>Transcription</th><th>Annotations</th><th>Created</th><th>Updated</th>            </tr>
+        </thead>
+        <tbody>
+        {% for clipping in clippings %}
+            <tr>
+                <td>
+                    <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
+                        {{ clipping.imageNumber }}
+                    </a>
+                </td>
+                <td>{{ clipping.number }}</td>
+                <td>{{ clipping.writtenDate }}</td>
+                <td>{{ clipping.date }}</td>
+                <td>{{ clipping.transcription }}</td>
+                <td>{{ clipping.annotations }}</td>
+                <td>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+    <div class="navigation">
+        {{ knp_pagination_render(clippings) }}
+    </div>
+
+{% endblock %}
