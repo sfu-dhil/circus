@@ -50,7 +50,7 @@ twig:
         '%kernel.root_dir%/../src/Nines/UtilBundle/Resources/views': NinesUtilBundle
     exception_controller:  NinesUtilBundle:Error:showException
     globals:
-        comment_service: "@feedback.comment"
+        # comment_service: "@feedback.comment"
         text_service: "@nines.util.text"
         clipping_img_prefix: "%clipping_img_prefix%"
     date:
@@ -125,21 +125,6 @@ ivory_ck_editor:
 knp_menu:
     twig:
         template: KnpMenuBundle::menu.html.twig
-
-nines_feedback:
-    default_status: submitted
-    public_status: published
-    commenting:
-        blog_post:
-            class: Nines\BlogBundle\Post
-            route: post_show
-        blog_page:
-            class: Nines\BlogBundle\Page
-            route: page_show
-
-nines_blog:
-    default_status: draft
-    default_category: none
 
 nines_user:
     permission_levels: [ ROLE_ADMIN, ROLE_BLOG_ADMIN, ROLE_COMMENT_ADMIN, ROLE_CONTENT_ADMIN, ROLE_CONTENT_EDITOR ]
