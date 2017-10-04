@@ -2,14 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Repository\ClippingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Clipping
  *
  * @ORM\Table(name="clipping")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClippingRepository")
+ * @ORM\Entity(repositoryClass="ClippingRepository")
  */
 class Clipping extends AbstractEntity
 {
@@ -18,6 +21,14 @@ class Clipping extends AbstractEntity
      * @ORM\Column(type="string", length=24, nullable=false)
      */
     private $imageNumber;
+    
+    /**
+     * @var File
+     * @ORM\Column(type="string", length=48, nullable=false)
+     * @Assert\NotBlank(message="Upload the clipping image.")
+     * @Assert\Image()
+     */
+    private $imageFile;
 
     /**
      * @var string
@@ -217,11 +228,11 @@ class Clipping extends AbstractEntity
     /**
      * Set category
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param Category $category
      *
      * @return Clipping
      */
-    public function setCategory(\AppBundle\Entity\Category $category)
+    public function setCategory(Category $category)
     {
         $this->category = $category;
 
@@ -231,7 +242,7 @@ class Clipping extends AbstractEntity
     /**
      * Get category
      *
-     * @return \AppBundle\Entity\Category
+     * @return Category
      */
     public function getCategory()
     {
@@ -241,11 +252,11 @@ class Clipping extends AbstractEntity
     /**
      * Set source
      *
-     * @param \AppBundle\Entity\Source $source
+     * @param Source $source
      *
      * @return Clipping
      */
-    public function setSource(\AppBundle\Entity\Source $source)
+    public function setSource(Source $source)
     {
         $this->source = $source;
 
@@ -255,10 +266,34 @@ class Clipping extends AbstractEntity
     /**
      * Get source
      *
-     * @return \AppBundle\Entity\Source
+     * @return Source
      */
     public function getSource()
     {
         return $this->source;
+    }
+
+    /**
+     * Set imageFile
+     *
+     * @param File $imageFile
+     *
+     * @return Clipping
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    /**
+     * Get imageFile
+     *
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

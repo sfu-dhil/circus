@@ -15,18 +15,17 @@ use AppBundle\Form\ClippingType;
  *
  * @Route("/clipping")
  */
-class ClippingController extends Controller
-{
+class ClippingController extends Controller {
+
     /**
      * Lists all Clipping entities.
      *
      * @Route("/", name="clipping_index")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Clipping::class, 'e')->orderBy('e.id', 'ASC');
@@ -38,88 +37,88 @@ class ClippingController extends Controller
             'clippings' => $clippings,
         );
     }
+
     /**
      * Search for Clipping entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:Clipping repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated search.html.twig
-	 * template.
-	 * 
-     //    public function searchQuery($q) {
-     //        $qb = $this->createQueryBuilder('e');
-     //        $qb->where("e.fieldName like '%$q%'");
-     //        return $qb->getQuery();
-     //    }
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:Clipping repository. Replace the fieldName with
+     * something appropriate, and adjust the generated search.html.twig
+     * template.
+     * 
+      //    public function searchQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->where("e.fieldName like '%$q%'");
+      //        return $qb->getQuery();
+      //    }
+     *
      *
      * @Route("/search", name="clipping_search")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function searchAction(Request $request)
-    {
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:Clipping');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->searchQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$clippings = array();
-		}
+        $repo = $em->getRepository('AppBundle:Clipping');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $clippings = array();
+        }
 
         return array(
             'clippings' => $clippings,
-			'q' => $q,
+            'q' => $q,
         );
     }
+
     /**
      * Full text search for Clipping entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:Clipping repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated fulltext.html.twig
-	 * template.
-	 * 
-	//    public function fulltextQuery($q) {
-	//        $qb = $this->createQueryBuilder('e');
-	//        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-	//        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-	//        $qb->orderBy('score', 'desc');
-	//        $qb->setParameter('q', $q);
-	//        return $qb->getQuery();
-	//    }	 
-	 * 
-	 * Requires a MatchAgainst function be added to doctrine, and appropriate
-	 * fulltext indexes on your Clipping entity.
-	 *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:Clipping repository. Replace the fieldName with
+     * something appropriate, and adjust the generated fulltext.html.twig
+     * template.
+     * 
+      //    public function fulltextQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
+      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
+      //        $qb->orderBy('score', 'desc');
+      //        $qb->setParameter('q', $q);
+      //        return $qb->getQuery();
+      //    }
+     * 
+     * Requires a MatchAgainst function be added to doctrine, and appropriate
+     * fulltext indexes on your Clipping entity.
+     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
+     *
      *
      * @Route("/fulltext", name="clipping_fulltext")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
-	 * @return array
+     * @param Request $request
+     * @return array
      */
-    public function fulltextAction(Request $request)
-    {
+    public function fulltextAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:Clipping');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->fulltextQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$clippings = array();
-		}
+        $repo = $em->getRepository('AppBundle:Clipping');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->fulltextQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $clippings = array();
+        }
 
         return array(
             'clippings' => $clippings,
-			'q' => $q,
+            'q' => $q,
         );
     }
 
@@ -129,11 +128,10 @@ class ClippingController extends Controller
      * @Route("/new", name="clipping_new")
      * @Method({"GET", "POST"})
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function newAction(Request $request)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+    public function newAction(Request $request) {
+        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -141,7 +139,12 @@ class ClippingController extends Controller
         $form = $this->createForm(ClippingType::class, $clipping);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {            
+            $file = $clipping->getImageFile();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('clipping_img_dir'), $filename);
+            $clipping->setImageFile($filename);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($clipping);
             $em->flush();
@@ -162,10 +165,9 @@ class ClippingController extends Controller
      * @Route("/{id}", name="clipping_show")
      * @Method("GET")
      * @Template()
-	 * @param Clipping $clipping
+     * @param Clipping $clipping
      */
-    public function showAction(Clipping $clipping)
-    {
+    public function showAction(Clipping $clipping) {
 
         return array(
             'clipping' => $clipping,
@@ -178,12 +180,11 @@ class ClippingController extends Controller
      * @Route("/{id}/edit", name="clipping_edit")
      * @Method({"GET", "POST"})
      * @Template()
-	 * @param Request $request
-	 * @param Clipping $clipping
+     * @param Request $request
+     * @param Clipping $clipping
      */
-    public function editAction(Request $request, Clipping $clipping)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+    public function editAction(Request $request, Clipping $clipping) {
+        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -208,12 +209,11 @@ class ClippingController extends Controller
      *
      * @Route("/{id}/delete", name="clipping_delete")
      * @Method("GET")
-	 * @param Request $request
-	 * @param Clipping $clipping
+     * @param Request $request
+     * @param Clipping $clipping
      */
-    public function deleteAction(Request $request, Clipping $clipping)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+    public function deleteAction(Request $request, Clipping $clipping) {
+        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -224,4 +224,5 @@ class ClippingController extends Controller
 
         return $this->redirectToRoute('clipping_index');
     }
+
 }
