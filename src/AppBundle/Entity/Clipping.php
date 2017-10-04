@@ -12,13 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Clipping
  *
  * @ORM\Table(name="clipping")
- * @ORM\Entity(repositoryClass="ClippingRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ClippingRepository")
  */
 class Clipping extends AbstractEntity
 {
     /**
      * @var string
-     * @ORM\Column(type="string", length=24, nullable=false)
+     * @ORM\Column(type="string", length=64, nullable=false)
      */
     private $imageNumber;
     
@@ -29,6 +29,24 @@ class Clipping extends AbstractEntity
      * @Assert\Image()
      */
     private $imageFile;
+    
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $imageSize;
+    
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $imageWidth;
+    
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $imageHeight;
 
     /**
      * @var string
@@ -295,5 +313,77 @@ class Clipping extends AbstractEntity
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    /**
+     * Set imageSize
+     *
+     * @param integer $imageSize
+     *
+     * @return Clipping
+     */
+    public function setImageSize($imageSize)
+    {
+        $this->imageSize = $imageSize;
+
+        return $this;
+    }
+
+    /**
+     * Get imageSize
+     *
+     * @return integer
+     */
+    public function getImageSize()
+    {
+        return $this->imageSize;
+    }
+
+    /**
+     * Set imageWidth
+     *
+     * @param integer $imageWidth
+     *
+     * @return Clipping
+     */
+    public function setImageWidth($imageWidth)
+    {
+        $this->imageWidth = $imageWidth;
+
+        return $this;
+    }
+
+    /**
+     * Get imageWidth
+     *
+     * @return integer
+     */
+    public function getImageWidth()
+    {
+        return $this->imageWidth;
+    }
+
+    /**
+     * Set imageHeight
+     *
+     * @param integer $imageHeight
+     *
+     * @return Clipping
+     */
+    public function setImageHeight($imageHeight)
+    {
+        $this->imageHeight = $imageHeight;
+
+        return $this;
+    }
+
+    /**
+     * Get imageHeight
+     *
+     * @return integer
+     */
+    public function getImageHeight()
+    {
+        return $this->imageHeight;
     }
 }

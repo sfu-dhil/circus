@@ -144,6 +144,11 @@ class ClippingController extends Controller {
             $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('clipping_img_dir'), $filename);
             $clipping->setImageFile($filename);
+            $clipping->setImageNumber($file->getClientOriginalName());
+            $clipping->setImageSize($file->getClientSize());
+            $dimensions = getimagesize($this->getParameter('clipping_img_dir') . '/' . $filename);
+            $clipping->setImageWidth($dimensions[0]);
+            $clipping->setImageHeight($dimensions[1]);
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($clipping);
