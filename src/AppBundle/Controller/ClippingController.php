@@ -141,10 +141,10 @@ class ClippingController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {            
             $file = $clipping->getImageFile();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();            
             $file->move($this->getParameter('clipping_img_dir'), $filename);
-            $clipping->setImageFile($filename);
-            $clipping->setImageNumber($file->getClientOriginalName());
+            $clipping->setImageFilePath($filename);
+            $clipping->setOriginalName($file->getClientOriginalName());
             $clipping->setImageSize($file->getClientSize());
             $dimensions = getimagesize($this->getParameter('clipping_img_dir') . '/' . $filename);
             $clipping->setImageWidth($dimensions[0]);

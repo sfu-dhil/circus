@@ -23,13 +23,13 @@
         </div>
     </div>
         <div>
-            <img src="{{ asset(clipping_img_prefix ~ clipping.imageFile) }}">
+            <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}">
         </div>
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
                 <th>Image Number</th>
-                <td>{{ clipping.imageNumber }}</td>
+                <td>{{ clipping.originalName }}</td>
             </tr>            
             <tr>
                 <th>Number</th>

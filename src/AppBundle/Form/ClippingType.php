@@ -16,16 +16,13 @@ class ClippingType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('imageNumber', null, array(
-            'label' => 'Image Number',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-            ),
-        ));
         
         $builder->add('imageFile', FileType::class, array(
             'label' => 'Clipping Image',
+            'required' => true,
+            'attr' => array(
+                'help_block' => 'Select a file to upload.',
+            ),
         ));
         
         $builder->add('number', null, array(

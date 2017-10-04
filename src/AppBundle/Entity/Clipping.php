@@ -14,34 +14,38 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="clipping")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ClippingRepository")
  */
-class Clipping extends AbstractEntity
-{
+class Clipping extends AbstractEntity {
+
     /**
      * @var string
      * @ORM\Column(type="string", length=64, nullable=false)
      */
-    private $imageNumber;
-    
+    private $originalName;
+
     /**
      * @var File
-     * @ORM\Column(type="string", length=48, nullable=false)
-     * @Assert\NotBlank(message="Upload the clipping image.")
-     * @Assert\Image()
      */
     private $imageFile;
-    
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=48, nullable=false)
+     */
+    private $imageFilePath;
+
     /**
      * @var int
      * @ORM\Column(type="integer", nullable=false)
      */
     private $imageSize;
-    
+
     /**
      * @var int
      * @ORM\Column(type="integer", nullable=true)
      */
     private $imageWidth;
-    
+
     /**
      * @var int
      * @ORM\Column(type="integer", nullable=true)
@@ -51,15 +55,15 @@ class Clipping extends AbstractEntity
     /**
      * @var string
      * @ORM\Column(type="string", length=24, nullable=false)
-     */    
+     */
     private $number;
-    
+
     /**
      * @var string
      * @ORM\Column(type="string", length=24, nullable=false)
      */
     private $writtenDate;
-    
+
     /**
      * YYYY-MM-DD
      * 
@@ -73,12 +77,12 @@ class Clipping extends AbstractEntity
      * @ORM\Column(type="text", nullable=true)
      */
     private $transcription;
-    
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    private $annotations;    
+    private $annotations;
 
     /**
      * @var Category
@@ -86,7 +90,7 @@ class Clipping extends AbstractEntity
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
-    
+
     /**
      * @var Source
      * @ORM\ManyToOne(targetEntity="Source", inversedBy="clippings")
@@ -95,224 +99,66 @@ class Clipping extends AbstractEntity
     private $source;
 
     public function __toString() {
-        return $this->imageNumber;
+        return $this->originalName;
     }
 
-
     /**
-     * Set imageNumber
+     * Set originalName
      *
-     * @param string $imageNumber
+     * @param string $originalName
      *
      * @return Clipping
      */
-    public function setImageNumber($imageNumber)
-    {
-        $this->imageNumber = $imageNumber;
+    public function setOriginalName($originalName) {
+        $this->originalName = $originalName;
 
         return $this;
     }
 
     /**
-     * Get imageNumber
+     * Get originalName
      *
      * @return string
      */
-    public function getImageNumber()
-    {
-        return $this->imageNumber;
+    public function getOriginalName() {
+        return $this->originalName;
     }
-
+    
     /**
-     * Set number
-     *
-     * @param string $number
-     *
-     * @return Clipping
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return string
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * Set writtenDate
-     *
-     * @param string $writtenDate
-     *
-     * @return Clipping
-     */
-    public function setWrittenDate($writtenDate)
-    {
-        $this->writtenDate = $writtenDate;
-
-        return $this;
-    }
-
-    /**
-     * Get writtenDate
-     *
-     * @return string
-     */
-    public function getWrittenDate()
-    {
-        return $this->writtenDate;
-    }
-
-    /**
-     * Set date
-     *
-     * @param string $date
-     *
-     * @return Clipping
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return string
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set transcription
-     *
-     * @param string $transcription
-     *
-     * @return Clipping
-     */
-    public function setTranscription($transcription)
-    {
-        $this->transcription = $transcription;
-
-        return $this;
-    }
-
-    /**
-     * Get transcription
-     *
-     * @return string
-     */
-    public function getTranscription()
-    {
-        return $this->transcription;
-    }
-
-    /**
-     * Set annotations
-     *
-     * @param string $annotations
-     *
-     * @return Clipping
-     */
-    public function setAnnotations($annotations)
-    {
-        $this->annotations = $annotations;
-
-        return $this;
-    }
-
-    /**
-     * Get annotations
-     *
-     * @return string
-     */
-    public function getAnnotations()
-    {
-        return $this->annotations;
-    }
-
-    /**
-     * Set category
-     *
-     * @param Category $category
-     *
-     * @return Clipping
-     */
-    public function setCategory(Category $category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set source
-     *
-     * @param Source $source
-     *
-     * @return Clipping
-     */
-    public function setSource(Source $source)
-    {
-        $this->source = $source;
-
-        return $this;
-    }
-
-    /**
-     * Get source
-     *
-     * @return Source
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * Set imageFile
-     *
-     * @param File $imageFile
-     *
-     * @return Clipping
-     */
-    public function setImageFile($imageFile)
-    {
-        $this->imageFile = $imageFile;
-
-        return $this;
-    }
-
-    /**
-     * Get imageFile
-     *
+     * Get the image file
+     * 
      * @return File
      */
-    public function getImageFile()
-    {
+    public function getImageFile() {
         return $this->imageFile;
+    }
+    
+    public function setImageFile(File $imageFile) {
+        $this->imageFile = $imageFile;
+        
+        return $this;
+    }
+
+    /**
+     * Set imageFilePath
+     *
+     * @param string $imageFilePath
+     *
+     * @return Clipping
+     */
+    public function setImageFilePath($imageFilePath) {
+        $this->imageFilePath = $imageFilePath;
+
+        return $this;
+    }
+
+    /**
+     * Get imageFilePath
+     *
+     * @return string
+     */
+    public function getImageFilePath() {
+        return $this->imageFilePath;
     }
 
     /**
@@ -322,8 +168,7 @@ class Clipping extends AbstractEntity
      *
      * @return Clipping
      */
-    public function setImageSize($imageSize)
-    {
+    public function setImageSize($imageSize) {
         $this->imageSize = $imageSize;
 
         return $this;
@@ -334,8 +179,7 @@ class Clipping extends AbstractEntity
      *
      * @return integer
      */
-    public function getImageSize()
-    {
+    public function getImageSize() {
         return $this->imageSize;
     }
 
@@ -346,8 +190,7 @@ class Clipping extends AbstractEntity
      *
      * @return Clipping
      */
-    public function setImageWidth($imageWidth)
-    {
+    public function setImageWidth($imageWidth) {
         $this->imageWidth = $imageWidth;
 
         return $this;
@@ -358,8 +201,7 @@ class Clipping extends AbstractEntity
      *
      * @return integer
      */
-    public function getImageWidth()
-    {
+    public function getImageWidth() {
         return $this->imageWidth;
     }
 
@@ -370,8 +212,7 @@ class Clipping extends AbstractEntity
      *
      * @return Clipping
      */
-    public function setImageHeight($imageHeight)
-    {
+    public function setImageHeight($imageHeight) {
         $this->imageHeight = $imageHeight;
 
         return $this;
@@ -382,8 +223,162 @@ class Clipping extends AbstractEntity
      *
      * @return integer
      */
-    public function getImageHeight()
-    {
+    public function getImageHeight() {
         return $this->imageHeight;
     }
+
+    /**
+     * Set number
+     *
+     * @param string $number
+     *
+     * @return Clipping
+     */
+    public function setNumber($number) {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getNumber() {
+        return $this->number;
+    }
+
+    /**
+     * Set writtenDate
+     *
+     * @param string $writtenDate
+     *
+     * @return Clipping
+     */
+    public function setWrittenDate($writtenDate) {
+        $this->writtenDate = $writtenDate;
+
+        return $this;
+    }
+
+    /**
+     * Get writtenDate
+     *
+     * @return string
+     */
+    public function getWrittenDate() {
+        return $this->writtenDate;
+    }
+
+    /**
+     * Set date
+     *
+     * @param string $date
+     *
+     * @return Clipping
+     */
+    public function setDate($date) {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return string
+     */
+    public function getDate() {
+        return $this->date;
+    }
+
+    /**
+     * Set transcription
+     *
+     * @param string $transcription
+     *
+     * @return Clipping
+     */
+    public function setTranscription($transcription) {
+        $this->transcription = $transcription;
+
+        return $this;
+    }
+
+    /**
+     * Get transcription
+     *
+     * @return string
+     */
+    public function getTranscription() {
+        return $this->transcription;
+    }
+
+    /**
+     * Set annotations
+     *
+     * @param string $annotations
+     *
+     * @return Clipping
+     */
+    public function setAnnotations($annotations) {
+        $this->annotations = $annotations;
+
+        return $this;
+    }
+
+    /**
+     * Get annotations
+     *
+     * @return string
+     */
+    public function getAnnotations() {
+        return $this->annotations;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Clipping
+     */
+    public function setCategory(\AppBundle\Entity\Category $category) {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory() {
+        return $this->category;
+    }
+
+    /**
+     * Set source
+     *
+     * @param \AppBundle\Entity\Source $source
+     *
+     * @return Clipping
+     */
+    public function setSource(\AppBundle\Entity\Source $source) {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return \AppBundle\Entity\Source
+     */
+    public function getSource() {
+        return $this->source;
+    }
+
 }
