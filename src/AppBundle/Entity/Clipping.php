@@ -33,6 +33,13 @@ class Clipping extends AbstractEntity {
      * @ORM\Column(type="string", length=48, nullable=false)
      */
     private $imageFilePath;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string", length=48, nullable=false)
+     */
+    private $thumbnailPath;
 
     /**
      * @var int
@@ -381,4 +388,28 @@ class Clipping extends AbstractEntity {
         return $this->source;
     }
 
+
+    /**
+     * Set thumbnailPath
+     *
+     * @param string $thumbnailPath
+     *
+     * @return Clipping
+     */
+    public function setThumbnailPath($thumbnailPath)
+    {
+        $this->thumbnailPath = $thumbnailPath;
+
+        return $this;
+    }
+
+    /**
+     * Get thumbnailPath
+     *
+     * @return string
+     */
+    public function getThumbnailPath()
+    {
+        return $this->thumbnailPath;
+    }
 }

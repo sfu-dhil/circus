@@ -30,6 +30,12 @@ services:
         tags: ['controller.service_arguments']
 
     # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
+    AppBundle\Service\FileUploader:
+        arguments:
+            $imageDir: '%clipping_img_dir%'
+
+    AppBundle\EventListener\ClippingListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }            
+            - { name: doctrine.event_listener, event: postLoad }            

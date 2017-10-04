@@ -2,13 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Clipping;
+use AppBundle\Form\ClippingType;
+use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Clipping;
-use AppBundle\Form\ClippingType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Clipping controller.
@@ -140,16 +141,6 @@ class ClippingController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {            
-            $file = $clipping->getImageFile();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();            
-            $file->move($this->getParameter('clipping_img_dir'), $filename);
-            $clipping->setImageFilePath($filename);
-            $clipping->setOriginalName($file->getClientOriginalName());
-            $clipping->setImageSize($file->getClientSize());
-            $dimensions = getimagesize($this->getParameter('clipping_img_dir') . '/' . $filename);
-            $clipping->setImageWidth($dimensions[0]);
-            $clipping->setImageHeight($dimensions[1]);
-            
             $em = $this->getDoctrine()->getManager();
             $em->persist($clipping);
             $em->flush();
@@ -173,7 +164,7 @@ class ClippingController extends Controller {
      * @param Clipping $clipping
      */
     public function showAction(Clipping $clipping) {
-
+        dump($clipping);
         return array(
             'clipping' => $clipping,
         );
@@ -197,6 +188,7 @@ class ClippingController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $clipping->preUpdate(); // force doctrine to update.
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The clipping has been updated.');

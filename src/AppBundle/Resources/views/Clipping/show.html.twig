@@ -23,7 +23,9 @@
         </div>
     </div>
         <div>
-            <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}">
+            <a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">
+                <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}">
+            </a>
         </div>
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
