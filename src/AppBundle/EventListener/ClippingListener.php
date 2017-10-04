@@ -25,9 +25,21 @@ class ClippingListener {
      * @var FileUploader
      */
     private $uploader;
+        
+    private $thumbWidth;
+    
+    private $thumbHeight;
     
     public function __construct(FileUploader $uploader) {
         $this->uploader = $uploader;
+    }
+    
+    public function setThumbWidth($width) {
+        $this->thumbWidth = $width;
+    }
+    
+    public function setThumbHeight($height) {
+        $this->thumbHeight = $height;
     }
     
     public function prePersist(LifecycleEventArgs $args) {
@@ -48,17 +60,19 @@ class ClippingListener {
         $entity = $args->getEntity();
         if($entity instanceof Clipping) {
             $filename = $entity->getImageFilePath();
-            $file = new File($this->uploader->getImageDir() . '/' . $filename);
-            $entity->setImageFile($file);
+            if(file_exists($this->uploader->getImageDir() . '/' . $filename)) {
+                $file = new File($this->uploader->getImageDir() . '/' . $filename);
+                $entity->setImageFile($file);
+            }
         }
     }
     
     private function thumbnail(Clipping $clipping) {
         $file = $clipping->getImageFile();
-        $thumbname = $file->getBasename($file->getExtension()) . '_tn.jpg';
+        $thumbname = $file->getBasename('.' . $file->getExtension()) . '_tn.jpg';
         $magick = new Imagick($file->getPathname());
         
-        $magick->cropThumbnailImage(256, 171);
+        $magick->cropThumbnailImage($this->thumbWidth, $this->thumbHeight);
         $magick->setImageFormat('jpg');
         $handle = fopen($file->getPath() . '/' . $thumbname, 'wb');
         fwrite($handle, $magick->getimageblob());

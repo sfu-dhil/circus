@@ -164,7 +164,6 @@ class ClippingController extends Controller {
      * @param Clipping $clipping
      */
     public function showAction(Clipping $clipping) {
-        dump($clipping);
         return array(
             'clipping' => $clipping,
         );

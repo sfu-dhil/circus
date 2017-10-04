@@ -39,3 +39,6 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }            
             - { name: doctrine.event_listener, event: postLoad }            
+        calls:
+            - [ setThumbWidth, [ '%clipping_thumb_width%'] ]
+            - [ setThumbHeight, [ '%clipping_thumb_height%'] ]            
