@@ -30,10 +30,18 @@ class Builder implements ContainerAwareInterface {
         ));
         $menu->setAttribute('dropdown', true);
 
-//         $menu->addChild('artwork', array(
-//             'label' => 'Artworks',
-//             'route' => 'artwork_index',
-//         ));
+        $menu->addChild('clippings', array(
+            'label' => 'Clippings',
+            'route' => 'clipping_index',
+        ));
+        $menu->addChild('categories', array(
+            'label' => 'Categories',
+            'route' => 'category_index',
+        ));
+        $menu->addChild('sources', array(
+            'label' => 'Sources',
+            'route' => 'source_index',
+        ));
 
         if ($this->container->get('security.token_storage')->getToken() && $this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $menu->addChild('divider', array(

@@ -2,13 +2,14 @@
 
 namespace AppBundle\Form;
 
+use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategoryType extends AbstractType
+class CategoryType extends TermType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,6 +17,7 @@ class CategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {        
+        parent::buildForm($builder, $options);
     }
     
     /**

@@ -43,8 +43,6 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-
-    
     form_themes:      
         - 'bootstrap_3_horizontal_layout.html.twig'
         - '@NinesUtilBundle/Form/fields.html.twig'
@@ -54,6 +52,9 @@ twig:
     globals:
         comment_service: "@feedback.comment"
         text_service: "@nines.util.text"
+    date:
+        format: d.m.Y, H:i:s
+        interval_format: '%%d days'        
         
 # Doctrine Configuration
 doctrine:
