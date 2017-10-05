@@ -27,7 +27,7 @@ class ClippingType extends AbstractType {
         
         $builder->add('number', null, array(
             'label' => 'Number',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),

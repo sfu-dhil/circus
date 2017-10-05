@@ -61,7 +61,7 @@ class Clipping extends AbstractEntity {
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=24, nullable=false)
+     * @ORM\Column(type="string", length=24, nullable=true)
      */
     private $number;
 

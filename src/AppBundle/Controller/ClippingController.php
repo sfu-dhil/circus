@@ -184,6 +184,7 @@ class ClippingController extends Controller {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $editForm = $this->createForm(ClippingType::class, $clipping);
+        // $editForm->get('imageFile')->setRequired(false);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
