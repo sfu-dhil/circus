@@ -14,9 +14,36 @@
         {{ clipping.originalName }}        
         </div>
     </div>
+        
     {{ form_start(edit_form) }}
-    {{ form_row(edit_form.newImageFile) }}
-    {{ form_rest(edit_form) }}
+    
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#transcript" data-toggle="tab">Transcript</a></li>
+            <li><a href="#newImage" data-toggle="tab">Replace Image</a></li>
+            <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
+        </ul>
+        
+        
+        <div class="tab-content">
+            
+            <div class="spacer">&nbsp;</div>
+            
+            <div class="tab-pane active" id="transcript">
+                {{ form_row(edit_form.transcription) }}
+                {{ form_row(edit_form.annotations) }}
+            </div>
+            
+            <div class="tab-pane" id="newImage">
+                {{ form_row(edit_form.newImageFile) }}
+            </div>
+            
+            <div class="tab-pane" id="metadata">
+                {{ form_rest(edit_form) }}
+            </div>
+        </div>
+    </div>
+            
     <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">

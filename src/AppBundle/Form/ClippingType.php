@@ -2,10 +2,9 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -46,14 +45,14 @@ class ClippingType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('transcription', null, array(
+        $builder->add('transcription', CKEditorType::class, array(
             'label' => 'Transcription',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('annotations', null, array(
+        $builder->add('annotations', CKEditorType::class, array(
             'label' => 'Annotations',
             'required' => false,
             'attr' => array(
