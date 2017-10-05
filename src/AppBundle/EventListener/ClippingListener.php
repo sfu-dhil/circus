@@ -10,9 +10,10 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Clipping;
 use AppBundle\Service\FileUploader;
+use AppBundle\Service\Thumbnailer;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Imagick;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Description of ClippingListener
@@ -25,13 +26,15 @@ class ClippingListener {
      * @var FileUploader
      */
     private $uploader;
-        
-    private $thumbWidth;
     
-    private $thumbHeight;
+    /**
+     * @var Thumbnailer
+     */
+    private $thumbnailer;
     
-    public function __construct(FileUploader $uploader) {
+    public function __construct(FileUploader $uploader, Thumbnailer $thumbnailer) {
         $this->uploader = $uploader;
+        $this->thumbnailer = $thumbnailer;
     }
     
     public function setThumbWidth($width) {
@@ -67,21 +70,11 @@ class ClippingListener {
         }
     }
     
-    private function thumbnail(Clipping $clipping) {
-        $file = $clipping->getImageFile();
-        $thumbname = $file->getBasename('.' . $file->getExtension()) . '_tn.jpg';
-        $magick = new Imagick($file->getPathname());
-        
-        $magick->cropThumbnailImage($this->thumbWidth, $this->thumbHeight);
-        $magick->setImageFormat('jpg');
-        $handle = fopen($file->getPath() . '/' . $thumbname, 'wb');
-        fwrite($handle, $magick->getimageblob());
-        
-        return $thumbname;
-    }
-    
     private function uploadFile(Clipping $clipping) {
         $file = $clipping->getImageFile();
+        if( ! $file instanceof UploadedFile) {
+            return;
+        }
         $filename = $this->uploader->upload($file);        
         $clipping->setImageFilePath($filename);            
         $clipping->setOriginalName($file->getClientOriginalName());
@@ -92,7 +85,7 @@ class ClippingListener {
         
         $clippingFile = new File($this->uploader->getImageDir() . '/' . $filename);        
         $clipping->setImageFile($clippingFile);
-        $clipping->setThumbnailPath($this->thumbnail($clipping));
+        $clipping->setThumbnailPath($this->thumbnailer->thumbnail($clipping));
     }
     
 }

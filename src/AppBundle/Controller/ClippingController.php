@@ -4,11 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Clipping;
 use AppBundle\Form\ClippingType;
-use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -184,15 +184,26 @@ class ClippingController extends Controller {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $editForm = $this->createForm(ClippingType::class, $clipping);
-        // $editForm->get('imageFile')->setRequired(false);
+        $editForm->remove('imageFile');
+        $editForm->add('newImageFile', FileType::class, array(
+            'label' => 'New Image',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'Select a file to replace the current one. Optional.',
+            ),           
+            'mapped' => false,
+        ));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $clipping->preUpdate(); // force doctrine to update.
+            if(($upload = $editForm->get('newImageFile')->getData())) {
+                $clipping->setImageFile($upload);
+                $clipping->preUpdate(); // force doctrine to update.
+            }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The clipping has been updated.');
-            return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
+//            return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
         }
 
         return array(

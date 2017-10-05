@@ -27,7 +27,7 @@ class FileUploader {
     }
 
     /**
-     * @param \AppBundle\Service\UploadedFile $file
+     * @param UploadedFile $file
      */
     public function upload(UploadedFile $file) {
         $filename = md5(uniqid()) . '.' . $file->guessExtension();            
