@@ -22,61 +22,98 @@
             {% endif %}
         </div>
     </div>
-        <div>
-            <a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">
-                <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}">
-            </a>
+        
+    <div id="image-container">
+        <div id="image-pz">
+            <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="400" height="300">
         </div>
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Image Number</th>
-                <td>{{ clipping.originalName }}</td>
-            </tr>            
-            <tr>
-                <th>Number</th>
-                <td>{{ clipping.number }}</td>
-            </tr>
-            <tr>
-                <th>Written Date</th>
-                <td>{{ clipping.writtenDate }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ clipping.date }}</td>
-            </tr>
-            <tr>
-                <th>Transcription</th>
-                <td>{{ clipping.transcription }}</td>
-            </tr>
-            <tr>
-                <th>Annotations</th>
-                <td>{{ clipping.annotations }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>        
-            <tr>
-                <th>Category</th>
-                <td>
-                    <a href="{{ path('category_show', { 'id': clipping.category.id}) }}">
-                        {{ clipping.category }}
-                    </a>
-                </td>
-            </tr>        
-            <tr>
-                <th>Source</th>
-                <td>
-                    <a href="{{ path('source_show', { 'id': clipping.source.id}) }}">
-                        {{ clipping.source }}
-                    </a>
-                </td>
-            </tr>        
-        </tbody>
-    </table>
+        <div class="buttons">
+            <button class="zoom-in">Zoom In</button>
+            <button class="zoom-out">Zoom Out</button>
+            <input type="range" class="zoom-range" step="0.05" min="0.3" max="6">
+            <button class="reset">Reset</button>
+        </div>
+    </div>
+
+
+    <div class="spacer">&nbsp;</div>
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#transcript" data-toggle="tab">Transcript</a></li>
+            <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="spacer">&nbsp;</div>
+
+            <div class="tab-pane active" id="transcript">
+                <h2>Transcription</h2>
+                {{ clipping.transcription|raw }}
+
+                <h2>Annotations</h2>
+                {{ clipping.annotations|raw }}
+            </div>
+
+            <div class="tab-pane" id="metadata">
+                <table class="table table-bordered table-condensed table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Image Number</th>
+                            <td>{{ clipping.originalName }}</td>
+                        </tr>            
+                        <tr>
+                            <th>Number</th>
+                            <td>{{ clipping.number }}</td>
+                        </tr>
+                        <tr>
+                            <th>Written Date</th>
+                            <td>{{ clipping.writtenDate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td>{{ clipping.date }}</td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>        
+                        <tr>
+                            <th>Category</th>
+                            <td>
+                                <a href="{{ path('category_show', { 'id': clipping.category.id}) }}">
+                                    {{ clipping.category }}
+                                </a>
+                            </td>
+                        </tr>        
+                        <tr>
+                            <th>Source</th>
+                            <td>
+                                <a href="{{ path('source_show', { 'id': clipping.source.id}) }}">
+                                    {{ clipping.source }}
+                                </a>
+                            </td>
+                        </tr>        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        #image-container {
+            border: 1px solid grey;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
 {% endblock %}
