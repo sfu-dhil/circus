@@ -22,19 +22,14 @@
             {% endif %}
         </div>
     </div>
-        
-    <div id="image-container">
-        <div id="image-pz">
-            <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="400" height="300">
-        </div>
-        <div class="buttons">
-            <button class="zoom-in">Zoom In</button>
-            <button class="zoom-out">Zoom Out</button>
-            <input type="range" class="zoom-range" step="0.05" min="0.3" max="6">
-            <button class="reset">Reset</button>
+
+    <div class="zoomable">
+        <div class="parent" style="overflow: hidden; position: relative;">
+            <div class="panzoom">
+                <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
+            </div>
         </div>
     </div>
-
 
     <div class="spacer">&nbsp;</div>
 
@@ -109,11 +104,19 @@
 
 {% block styles %}
     <style type="text/css">
-        #image-container {
+        .parent {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        .zoomable {
             border: 1px solid grey;
         }
     </style>
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('bower/jquery.panzoom/dist/jquery.panzoom.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/zoomview.js') }}"></script>
 {% endblock %}
