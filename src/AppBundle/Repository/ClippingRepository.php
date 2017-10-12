@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class ClippingRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function searchQuery($q) {
+        $qb = $this->createQueryBuilder('e');
+        $qb->addSelect("MATCH (e.transcription) AGAINST (:q) AS HIDDEN score");
+//        $qb->add('where', "MATCH (e.transcription, :q) > 0.5");
+        $qb->orderBy('score', 'desc');
+        $qb->setParameter('q', $q);
+        return $qb->getQuery();        
+    }
+    
 }

@@ -11,7 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Clipping
  *
- * @ORM\Table(name="clipping")
+ * @ORM\Table(name="clipping", indexes={
+ *  @ORM\Index(columns="transcription", flags={"fulltext"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ClippingRepository")
  */
 class Clipping extends AbstractEntity {

@@ -25,31 +25,43 @@ class ClippingType extends AbstractType {
         ));
         
         $builder->add('number', null, array(
-            'label' => 'Number',
+            'label' => 'Handwritten Number',
             'required' => false,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'Usually found in the corner.',
             ),
         ));
         $builder->add('writtenDate', null, array(
             'label' => 'Written Date',
             'required' => true,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'eg. “April 6 98” or “April 1768” for a handwritten date or leave blank for no date.',
             ),
         ));
         $builder->add('date', null, array(
             'label' => 'Date',
             'required' => true,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'Standard form: dd/mm/yyyy. Eg. “06/04/1768” or “00/04/1768” if no day is given.',
             ),
         ));
+        $builder->add('category', null, array(
+            'attr' => array(
+                'help_block' => 'Categorize the clipping as text, playbill, or manuscript.'
+            )
+        ));
+        
+        $builder->add('source', null, array(
+            'attr' => array(
+                'help_block' => 'Select the source of the clipping.'
+            )
+        ));
+        
         $builder->add('transcription', CKEditorType::class, array(
             'label' => 'Transcription',
             'required' => false,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'If there is any non-standard spelling, please note this by [sic].',
             ),
         ));
         $builder->add('annotations', CKEditorType::class, array(
@@ -59,8 +71,6 @@ class ClippingType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('category');
-        $builder->add('source');
     }
 
     /**
