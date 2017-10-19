@@ -1,24 +1,30 @@
 (function () {
-    var SCALE = 0.2;
+    
+    function initialScale(img, $vp) {
+        var scale = Math.min(1.0, $vp.width() / img.naturalWidth, $vp.height() / img.naturalHeight);
+        return scale;
+    }
+    
     $(document).ready(function () {
-        var $z = $('.zoomable');
-        $z.find('.panzoom').each(function () {
-            var $pz = $(this);
-            var img = $pz.children('img')[0];
+        $('.panzoom').each(function () {
+            var $parent = $(this);
+            var img = $parent.children('img')[0];            
+            var scale = initialScale(img, $parent);
             console.log(img);
-            $pz.panzoom({
-                minScale: 0.1,
+            console.log(scale);
+            var $pz = $(img).panzoom({
                 maxScale: 2.0,
                 rangeStep: 0.05,
-                increment: 0.05,
+                increment: scale / 2,
             });
-            $pz.panzoom("zoom", SCALE, {silent: true, focal: {clientX: $z.parent().width() * SCALE, clientY: $z.parent().height() * SCALE}});
+            $pz.panzoom("zoom", scale, {silent: true});
+            $pz.panzoom('pan', ($parent.width() - img.naturalWidth) / 2, ($parent.height() - img.naturalHeight) /  2);
             $pz.parent().on('mousewheel.focal', function (e) {
                 e.preventDefault();
                 var delta = e.delta || e.originalEvent.wheelDelta;
                 var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
                 $pz.panzoom('zoom', zoomOut, {
-                    increment: 0.05,
+                    increment: 0.01,
                     animate: false,
                     focal: e
                 });
