@@ -98,18 +98,6 @@
 
 {% endblock %}
 
-{% block styles %}
-    <style type="text/css">
-        .panzoom {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid grey;
-        }
-    </style>
-{% endblock %}
-
 {% block javascripts %}
     <script src="{{ asset('bower/jquery.panzoom/dist/jquery.panzoom.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/zoomview.js') }}"></script>

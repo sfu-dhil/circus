@@ -10,13 +10,9 @@
             <b>Current Image</b>
         </div>
         <div class="col-sm-10">
-            <div class="zoomable">
-                <div class="parent" style="overflow: hidden; position: relative;">
-                    <div class="panzoom">
-                        <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
-                    </div>
-                </div>
-            </div>
+    <div class="panzoom">
+        <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
+    </div>
             {{ clipping.originalName }}        
         </div>
     </div>

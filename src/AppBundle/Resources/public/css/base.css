@@ -56,3 +56,12 @@ a[href ^= 'https://']::after {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;        
 }
+
+/* Pan/Zooming an image. */
+.panzoom {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    outline: 1px solid grey;
+}
