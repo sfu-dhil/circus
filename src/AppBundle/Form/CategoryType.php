@@ -2,10 +2,8 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Nines\UtilBundle\Form\TermType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +15,25 @@ class CategoryType extends TermType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {        
-        parent::buildForm($builder, $options);
+        $builder->add('name', null, array(
+            'label' => 'Name',
+            'attr' => array(
+                'help_block' => 'Internal use only. Lowercase letters, numbers, and hyphens only please. Should not be changed.',
+            )
+        ));
+        $builder->add('label', null, array(
+            'label' => 'Name',
+            'attr' => array(
+                'help_block' => 'A proper, human-readable label in English.',
+            )
+        ));
+        $builder->add('description', CKEditorType::class, array(
+            'label' => 'Description',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'A description of the category.',
+            )
+        ));
     }
     
     /**

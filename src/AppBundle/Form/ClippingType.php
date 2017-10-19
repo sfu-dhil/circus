@@ -33,14 +33,14 @@ class ClippingType extends AbstractType {
         ));
         $builder->add('writtenDate', null, array(
             'label' => 'Written Date',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => 'eg. “April 6 98” or “April 1768” for a handwritten date or leave blank for no date.',
             ),
         ));
         $builder->add('date', null, array(
             'label' => 'Date',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => 'Standard form: dd/mm/yyyy. Eg. “06/04/1768” or “00/04/1768” if no day is given.',
             ),

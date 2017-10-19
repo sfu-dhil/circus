@@ -69,7 +69,7 @@ class Clipping extends AbstractEntity {
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=24, nullable=false)
+     * @ORM\Column(type="string", length=24, nullable=true)
      */
     private $writtenDate;
 
@@ -77,7 +77,7 @@ class Clipping extends AbstractEntity {
      * YYYY-MM-DD
      * 
      * @var string
-     * @ORM\Column(type="string", length=10, nullable=false)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $date;
 

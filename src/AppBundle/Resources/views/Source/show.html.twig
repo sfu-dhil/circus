@@ -34,14 +34,7 @@
 
     {% if source.clippings | length > 0 %}    
         <h2>Clippings</h2>
-        <ul>
-            {% for clippings in source.clippings %}
-                <li>
-                    <a href="{{ path("clipping_show", {"id":clippings.id}) }}">
-                        {{ clippings }}
-                    </a>
-                </li>
-            {% endfor %} 
-        </ul>
+        {% embed "AppBundle:Clipping:partial/list.html.twig" with {'clippings': source.clippings } %}
+        {% endembed %}
     {% endif %}
 {% endblock %}
