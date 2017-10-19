@@ -108,7 +108,10 @@ fos_user:
     change_password:
         form:
             type: Nines\UserBundle\Form\PasswordType
-            
+    from_email:
+        address: noreply@dhil.lib.sfu.ca
+        sender_name: Circus User Manager
+        
 ivory_ck_editor:
     input_sync: true
     default_config: circus_config
