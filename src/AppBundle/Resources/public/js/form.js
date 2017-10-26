@@ -63,6 +63,15 @@
     }
 
     $(document).ready(function () {
+        $('input:file').each(function(idx, input){
+            var $input = $(input);
+            $input.change(function(){
+                if($input.data('maxsize') && $input.data('maxsize') < input.files[0].size) {
+                    alert('The selected file is too big.');
+                }
+            });
+        });
+        
         $('form div.collection').each(function (idx, element) {
             var $e = $(element);
             $e.children("label").append('<a href="#" class="btn btn-primary">Add</a>');
@@ -75,5 +84,5 @@
             });
         });
     });
-
+    
 })(jQuery, window);
