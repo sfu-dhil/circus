@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Service\FileUploader;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -9,6 +10,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClippingType extends AbstractType {
+    
+    /**
+     * @var FileUploader
+     */
+    private $fileUploader;
+    
+    public function __construct(FileUploader $fileUploader) {
+        $this->fileUploader = $fileUploader;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -20,7 +30,7 @@ class ClippingType extends AbstractType {
             'label' => 'Clipping Image',
             'required' => true,
             'attr' => array(
-                'help_block' => 'Select a file to upload which is less than 2Mb in size.',
+                'help_block' => "Select a file to upload which is less than {$this->fileUploader->getMaxUploadSize(false)} in size.",
             ),
         ));
         
