@@ -20,7 +20,7 @@ class ClippingType extends AbstractType {
             'label' => 'Clipping Image',
             'required' => true,
             'attr' => array(
-                'help_block' => 'Select a file to upload.',
+                'help_block' => 'Select a file to upload which is less than ' . ini_get('post_max_size') . ' in size.',
             ),
         ));
         
