@@ -26,9 +26,11 @@
     {% embed "NinesUtilBundle:Term:partial/show.html.twig" with {'term': category} %}
     {% endembed %}
 
-    {% if category.clippings | length > 0 %}    
-        <h2>Clippings</h2>
-        {% embed "AppBundle:Clipping:partial/list.html.twig" with {'clippings': category.clippings } %}
-        {% endembed %}
+    {% if clippings|length > 0 %}
+        {% include 'AppBundle:Clipping:partial/list.html.twig' %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(clippings) }}
+        </div>
     {% endif %}
 {% endblock %}

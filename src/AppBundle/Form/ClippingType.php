@@ -31,6 +31,7 @@ class ClippingType extends AbstractType {
             'required' => true,
             'attr' => array(
                 'help_block' => "Select a file to upload which is less than {$this->fileUploader->getMaxUploadSize(false)} in size.",
+                 'data-maxsize' => $this->fileUploader->getMaxUploadSize(),
             ),
         ));
         
