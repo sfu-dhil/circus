@@ -22,7 +22,6 @@
     "require": {
         "php": ">=5.5.9",
         "ext-imagick": "*",
-        
         "beberlei/DoctrineExtensions": "^1.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
@@ -37,6 +36,7 @@
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
+        "tetranz/select2entity-bundle": "^2.9",
         "twig/extensions": "^1.5",
         "twig/twig": "^1.0||^2.0"
     },

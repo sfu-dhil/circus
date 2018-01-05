@@ -7,17 +7,12 @@
                 <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
                     <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}">
                 </a>
-                <div class="caption">
-                    <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
-                        {{ clipping.originalName }}
-                    </a>
-                </div>
             </div>
         </div>
         <div class="col-sm-9">
             <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
                 {{ clipping.originalName }}
-            </a>
+            </a><br/>
             {% if query is defined %}
                 <ul>
                 {% for result in text_service.searchHighlight(clipping.transcription, query) %}

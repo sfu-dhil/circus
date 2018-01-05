@@ -42,18 +42,6 @@ class ClippingController extends Controller {
     /**
      * Search for Clipping entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Clipping repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
-     *
      * @Route("/search", name="clipping_search")
      * @Method("GET")
      * @Template()
@@ -65,52 +53,6 @@ class ClippingController extends Controller {
         $q = $request->query->get('q');
         if ($q) {
             $query = $repo->searchQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $clippings = array();
-        }
-
-        return array(
-            'clippings' => $clippings,
-            'q' => $q,
-        );
-    }
-
-    /**
-     * Full text search for Clipping entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Clipping repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Clipping entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="clipping_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Clipping');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
             $paginator = $this->get('knp_paginator');
             $clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {

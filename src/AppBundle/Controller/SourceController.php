@@ -2,31 +2,31 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Clipping;
+use AppBundle\Entity\Source;
+use AppBundle\Form\SourceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Source;
-use AppBundle\Form\SourceType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Source controller.
  *
  * @Route("/source")
  */
-class SourceController extends Controller
-{
+class SourceController extends Controller {
+
     /**
      * Lists all Source entities.
      *
      * @Route("/", name="source_index")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Source::class, 'e')->orderBy('e.id', 'ASC');
@@ -38,90 +38,6 @@ class SourceController extends Controller
             'sources' => $sources,
         );
     }
-    /**
-     * Search for Source entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:Source repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated search.html.twig
-	 * template.
-	 * 
-     //    public function searchQuery($q) {
-     //        $qb = $this->createQueryBuilder('e');
-     //        $qb->where("e.fieldName like '%$q%'");
-     //        return $qb->getQuery();
-     //    }
-	 *
-     *
-     * @Route("/search", name="source_search")
-     * @Method("GET")
-     * @Template()
-	 * @param Request $request
-     */
-    public function searchAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:Source');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->searchQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$sources = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$sources = array();
-		}
-
-        return array(
-            'sources' => $sources,
-			'q' => $q,
-        );
-    }
-    /**
-     * Full text search for Source entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:Source repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated fulltext.html.twig
-	 * template.
-	 * 
-	//    public function fulltextQuery($q) {
-	//        $qb = $this->createQueryBuilder('e');
-	//        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-	//        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-	//        $qb->orderBy('score', 'desc');
-	//        $qb->setParameter('q', $q);
-	//        return $qb->getQuery();
-	//    }	 
-	 * 
-	 * Requires a MatchAgainst function be added to doctrine, and appropriate
-	 * fulltext indexes on your Source entity.
-	 *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-	 *
-     *
-     * @Route("/fulltext", name="source_fulltext")
-     * @Method("GET")
-     * @Template()
-	 * @param Request $request
-	 * @return array
-     */
-    public function fulltextAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:Source');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->fulltextQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$sources = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$sources = array();
-		}
-
-        return array(
-            'sources' => $sources,
-			'q' => $q,
-        );
-    }
 
     /**
      * Creates a new Source entity.
@@ -129,11 +45,10 @@ class SourceController extends Controller
      * @Route("/new", name="source_new")
      * @Method({"GET", "POST"})
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function newAction(Request $request)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+    public function newAction(Request $request) {
+        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -162,13 +77,19 @@ class SourceController extends Controller
      * @Route("/{id}", name="source_show")
      * @Method("GET")
      * @Template()
-	 * @param Source $source
+     * @param Source $source
+     * @param Request $request
      */
-    public function showAction(Source $source)
-    {
-
+    public function showAction(Request $request, Source $source) {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Clipping::class);
+        $query = $repo->sourceQuery($source);
+        $paginator = $this->get('knp_paginator');
+        $clippings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
+        
         return array(
             'source' => $source,
+            'clippings' => $clippings,
         );
     }
 
@@ -178,12 +99,11 @@ class SourceController extends Controller
      * @Route("/{id}/edit", name="source_edit")
      * @Method({"GET", "POST"})
      * @Template()
-	 * @param Request $request
-	 * @param Source $source
+     * @param Request $request
+     * @param Source $source
      */
-    public function editAction(Request $request, Source $source)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+    public function editAction(Request $request, Source $source) {
+        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -208,12 +128,11 @@ class SourceController extends Controller
      *
      * @Route("/{id}/delete", name="source_delete")
      * @Method("GET")
-	 * @param Request $request
-	 * @param Source $source
+     * @param Request $request
+     * @param Source $source
      */
-    public function deleteAction(Request $request, Source $source)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+    public function deleteAction(Request $request, Source $source) {
+        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -224,4 +143,5 @@ class SourceController extends Controller
 
         return $this->redirectToRoute('source_index');
     }
+
 }
