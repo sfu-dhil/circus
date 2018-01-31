@@ -12,7 +12,7 @@
     {% include 'AppBundle:misc:search-form.html.twig' with {'search_path': 'clipping_search'} %}
 
     {% if q %}
-        {% include 'AppBundle:Clipping:partial/list.html.twig' with {'query': q} %}
+        {% include 'AppBundle:clipping:partial/list.html.twig' with {'query': q} %}
     {% endif %}
 
     {% include 'AppBundle:misc:search-footer.html.twig' with {'results': clippings} %}

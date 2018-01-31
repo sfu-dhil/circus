@@ -1,0 +1,40 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    container.autowiring.strict_mode: true
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    AppBundle\Menu\Builder:
+        public: true
+        tags:
+            - { name: knp_menu.menu_builder, method: mainMenu, alias: main}
+            
+    AppBundle\Services\:
+        public: true
+        resource: '../../src/AppBundle/Services'
+        
+    AppBundle\Services\FileUploader:
+        public: true
+        arguments:
+            $imageDir: '%clipping_img_dir%'
+
+    AppBundle\Services\Thumbnailer:
+        public: true
+        calls:
+            - [ setThumbWidth, [ '%clipping_thumb_width%'] ]
+            - [ setThumbHeight, [ '%clipping_thumb_height%'] ]          
+            
+    AppBundle\EventListener\ClippingListener:
+        public: true
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }            
+            - { name: doctrine.event_listener, event: postLoad }            
+        calls:
+            - [ setThumbWidth, [ '%clipping_thumb_width%'] ]
+            - [ setThumbHeight, [ '%clipping_thumb_height%'] ]          
