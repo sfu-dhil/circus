@@ -11,7 +11,9 @@ parameters:
 
 framework:
     #esi: ~
-    translator: ~
+    translator: 
+        enabled: true
+        logging: false
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -28,11 +30,10 @@ framework:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
-        
+        name: PHP_SESSION_CIRCUS
         cookie_path: '%router.request_context.base_url%'
         cookie_domain: '%router.request_context.host%'
         cookie_secure: '%secure_cookies%'
-        
     fragments: ~
     http_method_override: true
     assets: ~
@@ -70,6 +71,8 @@ doctrine:
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
+#        logging: false
+#        profiling: false
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -95,6 +98,10 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # bootstrapy pagination
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
+knp_menu:
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -108,9 +115,6 @@ fos_user:
     change_password:
         form:
             type: Nines\UserBundle\Form\PasswordType
-    from_email:
-        address: noreply@dhil.lib.sfu.ca
-        sender_name: Circus User Manager
         
 ivory_ck_editor:
     input_sync: true
@@ -124,10 +128,6 @@ ivory_ck_editor:
                 - [ Source, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo ]
                 - [ Link, Unlink, Anchor, -, SpecialChar ]
                 - [ Format, Styles, -, Bold, Italic, Strike, -, RemoveFormat, -, NumberedList, BulletedList, -, Indent, Outdent, -, Blockquote, -, JustifyLeft, JustifyCenter, JustifyRight, JustifyBlock ]
-
-knp_menu:
-    twig:
-        template: KnpMenuBundle::menu.html.twig
 
 nines_user:
     permission_levels: [ ROLE_ADMIN, ROLE_BLOG_ADMIN, ROLE_COMMENT_ADMIN, ROLE_CONTENT_ADMIN, ROLE_CONTENT_EDITOR ]

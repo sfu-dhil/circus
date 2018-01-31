@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Service;
+namespace AppBundle\Services;
 
 use AppBundle\Entity\Clipping;
 use Imagick;

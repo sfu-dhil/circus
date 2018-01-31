@@ -3,16 +3,16 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Clipping;
-use AppBundle\Tests\DataFixtures\ORM\LoadClipping;
-use AppBundle\Tests\Util\BaseTestCase;
-use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
+use AppBundle\DataFixtures\ORM\LoadClipping;
+use Nines\UserBundle\DataFixtures\ORM\LoadUser;
+use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
 class ClippingControllerTest extends BaseTestCase
 {
 
     protected function getFixtures() {
         return [
-            LoadUsers::class,
+            LoadUser::class,
             LoadClipping::class
         ];
     }

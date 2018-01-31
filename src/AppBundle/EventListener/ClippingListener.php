@@ -9,8 +9,8 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Clipping;
-use AppBundle\Service\FileUploader;
-use AppBundle\Service\Thumbnailer;
+use AppBundle\Services\FileUploader;
+use AppBundle\Services\Thumbnailer;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

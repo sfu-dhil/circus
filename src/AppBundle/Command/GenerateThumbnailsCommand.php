@@ -3,7 +3,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Clipping;
-use AppBundle\Service\Thumbnailer;
+use AppBundle\Services\Thumbnailer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
