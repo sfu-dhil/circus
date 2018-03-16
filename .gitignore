@@ -17,3 +17,5 @@
 /web/bundles/
 web/bower
 web/images
+nbproject
+web/docs

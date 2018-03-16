@@ -31,6 +31,7 @@
         <whitelist>
             <directory>src/AppBundle</directory>
             <exclude>
+                <directory>src/AppBundle/DataFixtures</directory>
                 <directory>src/AppBundle/Resources</directory>
                 <directory>src/AppBundle/Tests</directory>
             </exclude>
