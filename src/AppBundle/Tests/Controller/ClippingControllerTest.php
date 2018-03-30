@@ -97,20 +97,23 @@ class ClippingControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/clipping/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
+       
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'clippings[FIELDNAME]' => 'FIELDVALUE',
+            // 'clipping[imageFile]' => 0, // UNREACHABLE FIELD "imageFile"
+            'clipping[number]' => '47',
+            'clipping[writtenDate]' => 'April 1972',
+            'clipping[date]' => '04/04/1972',
+            'clipping[category]' => 1,
+            'clipping[source]' => 1,
+            'clipping[transcription]' => 'It is a circus',
+            'clipping[annotations]' => 'Circus photo'
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/clipping/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("April 1972")')->count());
     }
     
     public function testAnonNew() {
@@ -137,20 +140,23 @@ class ClippingControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/clipping/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
+       
         $form = $formCrawler->selectButton('Create')->form([
-            // DO STUFF HERE.
-            // 'clippings[FIELDNAME]' => 'FIELDVALUE',
+            // 'clipping[imageFile]' => 0, // UNREACHABLE FIELD "imageFile"
+            'clipping[number]' => '47',
+            'clipping[writtenDate]' => 'April 1972',
+            'clipping[date]' => '04/04/1972',
+            'clipping[category]' => 1,
+            'clipping[source]' => 1,
+            'clipping[transcription]' => 'It is a circus',
+            'clipping[annotations]' => 'Circus photo'
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("April 1972")')->count());
     }
     
     public function testAnonDelete() {
