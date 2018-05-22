@@ -145,7 +145,7 @@ class ClippingController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The clipping has been updated.');
-//            return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
+           return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
         }
 
         return array(
