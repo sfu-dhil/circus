@@ -15,7 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-web/bower
-web/images
-nbproject
-web/docs
+/web/bower
+/web/images
+/nbproject
+/web/docs
