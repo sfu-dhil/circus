@@ -2,10 +2,11 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\Clipping;
 use AppBundle\DataFixtures\ORM\LoadClipping;
+use AppBundle\Entity\Clipping;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ClippingControllerTest extends BaseTestCase
 {
@@ -97,9 +98,10 @@ class ClippingControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/clipping/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-       
+
+        $image = new UploadedFile(dirname(dirname(__FILE__)) . '/data/image.jpg', 'image.jpg', 'image/jpeg', 123);
         $form = $formCrawler->selectButton('Update')->form([
-            // 'clipping[imageFile]' => 0, // UNREACHABLE FIELD "imageFile"
+            'clipping[newImageFile]' => $image,
             'clipping[number]' => '47',
             'clipping[writtenDate]' => 'April 1972',
             'clipping[date]' => '04/04/1972',
@@ -140,9 +142,10 @@ class ClippingControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/clipping/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-       
+
+        $image = new UploadedFile(dirname(dirname(__FILE__)) . '/data/image.jpg', 'image.jpg', 'image/jpeg', 123);
         $form = $formCrawler->selectButton('Create')->form([
-            // 'clipping[imageFile]' => 0, // UNREACHABLE FIELD "imageFile"
+            'clipping[imageFile]' => $image,
             'clipping[number]' => '47',
             'clipping[writtenDate]' => 'April 1972',
             'clipping[date]' => '04/04/1972',
@@ -151,7 +154,7 @@ class ClippingControllerTest extends BaseTestCase
             'clipping[transcription]' => 'It is a circus',
             'clipping[annotations]' => 'Circus photo'
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();

@@ -82,7 +82,7 @@ class ClippingController extends Controller {
         $form = $this->createForm(ClippingType::class, $clipping);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {            
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($clipping);
             $em->flush();
