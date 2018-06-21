@@ -4,5 +4,5 @@
 	branch = master
 [submodule "src/Nines"]
 	path = src/Nines
-	url = url = https://github.com/ubermichael/nines-bundles.git
+	url = https://github.com/ubermichael/nines-bundles.git
 	branch = master
