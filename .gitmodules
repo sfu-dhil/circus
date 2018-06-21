@@ -1,8 +1,8 @@
 [submodule "app/Resources/SensioGeneratorBundle/skeleton"]
 	path = app/Resources/SensioGeneratorBundle/skeleton
-	url = http://github.com/ubermichael/skeleton.git
+	url = https://github.com/ubermichael/skeleton.git
 	branch = master
 [submodule "src/Nines"]
 	path = src/Nines
-	url = url = http://github.com/ubermichael/nines-bundles.git
+	url = url = https://github.com/ubermichael/nines-bundles.git
 	branch = master
