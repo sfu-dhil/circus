@@ -51,7 +51,7 @@ twig:
         '%kernel.root_dir%/../src/Nines/UtilBundle/Resources/views': NinesUtilBundle
     exception_controller:  NinesUtilBundle:Error:showException
     globals:
-        # comment_service: "@feedback.comment"
+        comment_service: "@feedback.comment"
         text_service: "@nines.util.text"
         clipping_img_prefix: "%clipping_img_prefix%"
     date:
