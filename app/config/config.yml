@@ -11,7 +11,7 @@ parameters:
 
 framework:
     #esi: ~
-    translator: 
+    translator:
         enabled: true
         logging: false
     secret: '%secret%'
@@ -44,7 +44,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    form_themes:      
+    form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - '@NinesUtilBundle/Form/fields.html.twig'
     paths:
@@ -56,8 +56,8 @@ twig:
         clipping_img_prefix: "%clipping_img_prefix%"
     date:
         format: d.m.Y, H:i:s
-        interval_format: '%%d days'        
-        
+        interval_format: '%%d days'
+
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -106,7 +106,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Nines\UserBundle\Entity\User
-    from_email: 
+    from_email:
         sender_name: No Reply
         address: noreply@dhil.lib.sfu.ca
     profile:
@@ -115,7 +115,7 @@ fos_user:
     change_password:
         form:
             type: Nines\UserBundle\Form\PasswordType
-        
+
 ivory_ck_editor:
     input_sync: true
     default_config: circus_config
@@ -124,11 +124,21 @@ ivory_ck_editor:
             toolbar: circus_toolbar
     toolbars:
         configs:
-            circus_toolbar: 
+            circus_toolbar:
                 - [ Source, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo ]
                 - [ Link, Unlink, Anchor, -, SpecialChar ]
                 - [ Format, Styles, -, Bold, Italic, Strike, -, RemoveFormat, -, NumberedList, BulletedList, -, Indent, Outdent, -, Blockquote, -, JustifyLeft, JustifyCenter, JustifyRight, JustifyBlock ]
 
 nines_user:
     permission_levels: [ ROLE_ADMIN, ROLE_BLOG_ADMIN, ROLE_COMMENT_ADMIN, ROLE_CONTENT_ADMIN, ROLE_CONTENT_EDITOR ]
-        
+
+nines_feedback:
+    default_status: submitted
+    public_status: published
+    commenting:
+        blog_post:
+            class: Nines\BlogBundle\Post
+            route: post_show
+        blog_page:
+            class: Nines\BlogBundle\Page
+            route: page_show
