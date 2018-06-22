@@ -16,7 +16,8 @@
 /vendor/
 /web/bundles/
 /web/bower
-/web/images
+/web/images/clippings/*
+!/web/images/clippings/.gitkeep
 /nbproject
 /web/docs
 .idea
