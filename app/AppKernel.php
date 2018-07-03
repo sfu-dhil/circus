@@ -16,15 +16,15 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-            
+
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            
+
             new Nines\UserBundle\NinesUserBundle(),
 //            new Nines\DublinCoreBundle\NinesDublinCoreBundle(),
-//            new Nines\FeedbackBundle\NinesFeedbackBundle(),
+            new Nines\FeedbackBundle\NinesFeedbackBundle(),
             new Nines\BlogBundle\NinesBlogBundle(),
             new Nines\UtilBundle\NinesUtilBundle(),
         ];
@@ -41,7 +41,7 @@ class AppKernel extends Kernel
             }
             if('test' === $this->getEnvironment()) {
 	            $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
-    		}        
+    		}
         }
 
         return $bundles;
