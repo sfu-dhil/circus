@@ -2,9 +2,9 @@
 
 {% block title %}Clipping{% endblock %}
 
-{% block pageheader %} 
+{% block pageheader %}
     <h1>Clipping</h1>
-{% endblock %} 
+{% endblock %}
 
 {% block body %}
     <div class="btn-toolbar">
@@ -53,11 +53,13 @@
                         <tr>
                             <th>Image Number</th>
                             <td>{{ clipping.originalName }}</td>
-                        </tr>            
-                        <tr>
-                            <th>Number</th>
-                            <td>{{ clipping.number }}</td>
                         </tr>
+                        {% if is_granted('ROLE_USER') %}
+                            <tr>
+                                <th>Number</th>
+                                <td>{{ clipping.number }}</td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <th>Written Date</th>
                             <td>{{ clipping.writtenDate }}</td>
@@ -73,7 +75,7 @@
                         <tr>
                             <th>Updated</th>
                             <td>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                        </tr>        
+                        </tr>
                         <tr>
                             <th>Category</th>
                             <td>
@@ -81,7 +83,7 @@
                                     {{ clipping.category }}
                                 </a>
                             </td>
-                        </tr>        
+                        </tr>
                         <tr>
                             <th>Source</th>
                             <td>
@@ -89,7 +91,7 @@
                                     {{ clipping.source }}
                                 </a>
                             </td>
-                        </tr>        
+                        </tr>
                     </tbody>
                 </table>
             </div>

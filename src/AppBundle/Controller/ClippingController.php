@@ -132,7 +132,7 @@ class ClippingController extends Controller {
             'required' => false,
             'attr' => array(
                 'help_block' => 'Select a file to replace the current one. Optional.',
-            ),           
+            ),
             'mapped' => false,
         ));
         $editForm->handleRequest($request);
