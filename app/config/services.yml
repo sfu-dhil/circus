@@ -49,15 +49,11 @@ services:
         resource: '../../src/AppBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
 
-    Nines\BlogBundle\DataFixtures:
+    Nines\BlogBundle\DataFixtures\:
         resource: '../../src/Nines/BlogBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
 
-    Nines\DublinCoreBundle\DataFixtures:
-        resource: '../../src/Nines/DublinCoreBundle/DataFixtures'
-        tags: ['doctrine.fixture.orm']
-
-    Nines\UserBundle\DataFixtures:
+    Nines\UserBundle\DataFixtures\:
         resource: '../../src/Nines/UserBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
 
