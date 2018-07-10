@@ -19,7 +19,7 @@ class AppKernel extends Kernel
 
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             new Nines\UserBundle\NinesUserBundle(),
