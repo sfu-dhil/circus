@@ -20,16 +20,16 @@ services:
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
         exclude: '../../src/Nines/UserBundle/{DataFixtures,Entity,Repository,Resources,Tests}'
-
+        
     Nines\UserBundle\Menu\Builder:
         tags:
             - { name: knp_menu.menu_builder, method: userNavMenu, alias: user}
-
+            
     Nines\BlogBundle\Menu\Builder:
         tags:
             - { name: knp_menu.menu_builder, method: postNavMenu, alias: posts}
             - { name: knp_menu.menu_builder, method: pageNavMenu, alias: pages}
-
+            
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     AppBundle\:
@@ -45,22 +45,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    AppBundle\DataFixtures\:
-        resource: '../../src/AppBundle/DataFixtures'
-        tags: ['doctrine.fixture.orm']
-
-    Nines\BlogBundle\DataFixtures\:
-        resource: '../../src/Nines/BlogBundle/DataFixtures'
-        tags: ['doctrine.fixture.orm']
-
-    Nines\UserBundle\DataFixtures\:
-        resource: '../../src/Nines/UserBundle/DataFixtures'
-        tags: ['doctrine.fixture.orm']
-
     AppBundle\Menu\Builder:
         tags:
             - { name: knp_menu.menu_builder, method: mainMenu, alias: main}
-
+            
     # add more services, or override services that need manual wiring
     AppBundle\Services\FileUploader:
         arguments:

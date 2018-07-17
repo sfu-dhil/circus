@@ -116,7 +116,7 @@ fos_user:
         form:
             type: Nines\UserBundle\Form\PasswordType
 
-fos_ck_editor:
+ivory_ck_editor:
     input_sync: true
     default_config: circus_config
     configs:
