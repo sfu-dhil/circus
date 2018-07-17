@@ -3,19 +3,19 @@
 namespace AppBundle\Form;
 
 use AppBundle\Services\FileUploader;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClippingType extends AbstractType {
-    
+
     /**
      * @var FileUploader
      */
     private $fileUploader;
-    
+
     public function __construct(FileUploader $fileUploader) {
         $this->fileUploader = $fileUploader;
     }
@@ -25,7 +25,7 @@ class ClippingType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
+
         $builder->add('imageFile', FileType::class, array(
             'label' => 'Clipping Image',
             'required' => true,
@@ -34,7 +34,7 @@ class ClippingType extends AbstractType {
                  'data-maxsize' => $this->fileUploader->getMaxUploadSize(),
             ),
         ));
-        
+
         $builder->add('number', null, array(
             'label' => 'Handwritten Number',
             'required' => false,
@@ -61,13 +61,13 @@ class ClippingType extends AbstractType {
                 'help_block' => 'Categorize the clipping as text, playbill, or manuscript.'
             )
         ));
-        
+
         $builder->add('source', null, array(
             'attr' => array(
                 'help_block' => 'Select the source of the clipping.'
             )
         ));
-        
+
         $builder->add('transcription', CKEditorType::class, array(
             'label' => 'Transcription',
             'required' => false,
