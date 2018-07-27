@@ -22,3 +22,4 @@
 /web/docs
 .idea
 etc
+app/config/deploy.yml
