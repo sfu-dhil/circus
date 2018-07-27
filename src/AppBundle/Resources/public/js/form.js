@@ -1,7 +1,7 @@
 (function ($, window) {
 
     $(document).ready(function () {
-        
+
         var hostname = window.location.hostname.replace('www.', '');
         $('a').each(function (index, value) {
             if (value.hostname !== hostname) {
@@ -22,6 +22,13 @@
                 e.returnValue = message;
                 return message;
             }
+        });
+
+        $("*[data-confirm]").each(function () {
+            var $this = $(this);
+            $this.click(function () {
+                return window.confirm($this.data('confirm'));
+            });
         });
 
         $('form').each(function () {
@@ -70,7 +77,7 @@
                 alert('The selected file is too big.');
             }
         });
-        
+
         $('form div.collection').each(function (idx, element) {
             var $e = $(element);
             $e.children("label").append('<a href="#" class="btn btn-primary">Add</a>');
@@ -83,5 +90,5 @@
             });
         });
     });
-    
+
 })(jQuery, window);
