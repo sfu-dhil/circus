@@ -14,9 +14,12 @@ foreach($settings['.settings'] as $key => $value) {
     set($key, $value);
 }
 
-task('c', function(){
+task('dhil:precheck', function(){
     $out = runLocally('git cherry -v');
-    writeln($out);
+    if($out !== '') {
+        writeln("Warning: You have unpublished commits which will not be included in the deployment.");
+    }
+    writeln('[' . $out . ']');
 });
 
 task('dhil:ckeditor', function(){
