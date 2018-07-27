@@ -17,9 +17,9 @@ foreach($settings['.settings'] as $key => $value) {
 task('dhil:precheck', function(){
     $out = runLocally('git cherry -v');
     if($out !== '') {
-        writeln("Warning: You have unpublished commits which will not be included in the deployment.");
+        $commits = count(explode("\n", $out));
+        writeln("<error>Warning: {$commits} unpublished commits will not be included in the deployment.</error>");
     }
-    writeln('[' . $out . ']');
 });
 
 task('dhil:ckeditor', function(){
@@ -140,6 +140,7 @@ task('success', function(){
 
 task('deploy', [
     'deploy:info',
+    'dhil:precheck',
     'deploy:prepare',
     'deploy:lock',
     'deploy:release',
