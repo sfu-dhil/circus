@@ -121,6 +121,7 @@ fos_ck_editor:
     default_config: circus_config
     configs:
         circus_config:
+            entities: false
             toolbar: circus_toolbar
     toolbars:
         configs:
