@@ -14,7 +14,7 @@ class CategoryType extends TermType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        
+    {
         $builder->add('name', null, array(
             'label' => 'Name',
             'attr' => array(
@@ -22,7 +22,7 @@ class CategoryType extends TermType
             )
         ));
         $builder->add('label', null, array(
-            'label' => 'Name',
+            'label' => 'Label',
             'attr' => array(
                 'help_block' => 'A proper, human-readable label in English.',
             )
@@ -35,7 +35,7 @@ class CategoryType extends TermType
             )
         ));
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

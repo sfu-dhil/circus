@@ -21,7 +21,7 @@ class SourceType extends TermType {
             )
         ));
         $builder->add('label', null, array(
-            'label' => 'Name',
+            'label' => 'Label',
             'attr' => array(
                 'help_block' => 'A proper, human-readable label in English.',
             )
