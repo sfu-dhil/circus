@@ -15,6 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ConvertEntitiesCommand extends ContainerAwareCommand
 {
+    const BATCH_SIZE = 100;
+
     /**
      * @var EntityManagerInterface
      */
@@ -47,13 +49,16 @@ class ConvertEntitiesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $qb = $this->em->createQueryBuilder();
-        $qb->select('e')->from(Clipping::class, 'e');
+        $qb->select('e')->from(Clipping::class, 'e')->where('e.edition is not null');
         $iterator = $qb->getQuery()->iterate();
+        $matches = array();
         while($row = $iterator->next()) {
-            $clipping = $row[0];
-            $clipping->setTranscription(html_entity_decode($clipping->getTranscription(), ENT_QUOTES | ENT_HTML5, "UTF-8"));
-            $this->em->flush();
-            $this->em->clear();
+            $title = $row[0];
+            if(preg_match('/^(\d+)/', $title, $matches)) {
+                $title->setEditionNumber($matches[1]);
+                $this->em->flush();
+                $this->em->clear();
+            }
         }
     }
 
