@@ -1,17 +1,15 @@
 (function () {
-    
+
     function initialScale(img, $vp) {
         var scale = Math.min(1.0, $vp.width() / img.naturalWidth, $vp.height() / img.naturalHeight);
         return scale;
     }
-    
+
     $(document).ready(function () {
         $('.panzoom').each(function () {
             var $parent = $(this);
-            var img = $parent.children('img')[0];            
+            var img = $parent.children('img')[0];
             var scale = initialScale(img, $parent);
-            console.log(img);
-            console.log(scale);
             var $pz = $(img).panzoom({
                 maxScale: 2.0,
                 rangeStep: 0.05,

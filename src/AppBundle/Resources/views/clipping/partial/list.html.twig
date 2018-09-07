@@ -13,14 +13,14 @@
             <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
                 {{ clipping.originalName }}
             </a><br/>
-            {% if query is defined %}
+            {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
                 <ul>
                 {% for result in text_service.searchHighlight(clipping.transcription, query) %}
                     <li>{{ result|raw }}</li>
                 {% endfor %}
                 </ul>
             {% else %}
-                {{ text_service.trim(clipping.transcription, 60)|raw }}                
+                {{ text_service.trim(clipping.transcription, 60)|raw }}
             {% endif %}
         </div>
     </div>

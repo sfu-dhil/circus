@@ -1,7 +1,8 @@
-(function ($, window) {
+(function ($, window, document) {
+
+    var dirty = false;
 
     $(document).ready(function () {
-
         var hostname = window.location.hostname.replace('www.', '');
         $('a').each(function (index, value) {
             if (value.hostname !== hostname) {
@@ -10,14 +11,7 @@
         });
 
         $(window).bind('beforeunload', function (e) {
-            var clean = true;
-            $('form').each(function () {
-                var $form = $(this);
-                if ($form.data('dirty')) {
-                    clean = false;
-                }
-            });
-            if (!clean) {
+            if (dirty) {
                 var message = 'You have unsaved changes.';
                 e.returnValue = message;
                 return message;
@@ -33,9 +27,8 @@
 
         $('form').each(function () {
             var $form = $(this);
-            $form.data('dirty', false);
-            $form.on('change', function () {
-                $form.data('dirty', true);
+            $form.on('input', function () {
+                dirty = true;
             });
             $form.on('submit', function () {
                 $(window).unbind('beforeunload');
@@ -45,7 +38,6 @@
 
     function addFormItem($container) {
         var prototype = $container.data('prototype');
-        console.log(prototype);
         var index = $container.data('count');
         var $form = $(prototype.replace(/__name__/g, index).replace(/label__/g, ''));
         $container.append($form);
@@ -70,13 +62,30 @@
     }
 
     $(document).ready(function () {
-        $('input:file').change(function(){
+        $('input:file').change(function () {
             var $input = $(this);
-            if($input.data('maxsize') && $input.data('maxsize') < this.files[0].size) {
+            if ($input.data('maxsize') && $input.data('maxsize') < this.files[0].size) {
                 $input.prop('files', new FileList());
                 alert('The selected file is too big.');
             }
         });
+
+        if (window.CKEDITOR) {
+            for (var key in window.CKEDITOR.instances) {
+                var instance = window.CKEDITOR.instances[key];
+                instance.on('mode', function () {
+                    if (this.mode == 'source') {
+                        var editable = instance.editable();
+                        editable.attachListener(editable, 'input', function () {
+                            dirty = true;
+                        });
+                    }
+                });
+                instance.on('change', function () {
+                    dirty = true;
+                });
+            }
+        }
 
         $('form div.collection').each(function (idx, element) {
             var $e = $(element);
@@ -91,4 +100,4 @@
         });
     });
 
-})(jQuery, window);
+})(jQuery, window, document);

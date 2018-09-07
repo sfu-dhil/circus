@@ -14,16 +14,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClippingRepository extends EntityRepository
 {
-    
+
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect("MATCH (e.transcription) AGAINST (:q) AS HIDDEN score");
-        $qb->andWhere("MATCH (e.transcription) AGAINST(:q) > 0.0");
+        $qb->addSelect("MATCH (e.transcription) AGAINST (:q BOOLEAN) AS HIDDEN score");
+        $qb->andWhere("MATCH (e.transcription) AGAINST(:q BOOLEAN) > 0.0");
         $qb->orderBy('score', 'desc');
         $qb->setParameter('q', $q);
-        return $qb->getQuery();        
+        return $qb->getQuery();
     }
-    
+
     public function categoryQuery(Category $category) {
         $qb = $this->createQueryBuilder('e');
         $qb->andWhere('e.category = :category');
@@ -31,7 +31,7 @@ class ClippingRepository extends EntityRepository
         $qb->orderBy('e.id');
         return $qb->getQuery();
     }
-    
+
     public function sourceQuery(Source $source) {
         $qb = $this->createQueryBuilder('e');
         $qb->andWhere('e.source = :source');
