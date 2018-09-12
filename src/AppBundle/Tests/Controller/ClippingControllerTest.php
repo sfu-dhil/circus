@@ -17,14 +17,14 @@ class ClippingControllerTest extends BaseTestCase
             LoadClipping::class
         ];
     }
-    
+
     public function testAnonIndex() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/clipping/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testUserIndex() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -34,7 +34,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAdminIndex() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -44,7 +44,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAnonShow() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/clipping/1');
@@ -52,7 +52,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testUserShow() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -63,7 +63,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testAdminShow() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -80,7 +80,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testUserEdit() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -90,7 +90,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testAdminEdit() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -104,27 +104,27 @@ class ClippingControllerTest extends BaseTestCase
             'clipping[newImageFile]' => $image,
             'clipping[number]' => '47',
             'clipping[writtenDate]' => 'April 1972',
-            'clipping[date]' => '04/04/1972',
+            'clipping[date]' => '1792-09-13',
             'clipping[category]' => 1,
             'clipping[source]' => 1,
             'clipping[transcription]' => 'It is a circus',
             'clipping[annotations]' => 'Circus photo'
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/clipping/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("April 1972")')->count());
     }
-    
+
     public function testAnonNew() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/clipping/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testUserNew() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -148,7 +148,7 @@ class ClippingControllerTest extends BaseTestCase
             'clipping[imageFile]' => $image,
             'clipping[number]' => '47',
             'clipping[writtenDate]' => 'April 1972',
-            'clipping[date]' => '04/04/1972',
+            'clipping[date]' => '1792-09-13',
             'clipping[category]' => 1,
             'clipping[source]' => 1,
             'clipping[transcription]' => 'It is a circus',
@@ -161,14 +161,14 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("April 1972")')->count());
     }
-    
+
     public function testAnonDelete() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/clipping/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testUserDelete() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -192,7 +192,7 @@ class ClippingControllerTest extends BaseTestCase
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $em->clear();
         $postCount = count($em->getRepository(Clipping::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
