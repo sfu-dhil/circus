@@ -6,6 +6,7 @@ use AppBundle\Services\FileUploader;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -53,7 +54,7 @@ class ClippingType extends AbstractType {
             'label' => 'Date',
             'required' => false,
             'attr' => array(
-                'help_block' => 'Standard form: dd/mm/yyyy. Eg. “06/04/1768” or “00/04/1768” if no day is given.',
+                'help_block' => 'Standard form: yyyy-mm-dd. Eg. “1768-04-21” or “1768-04-00” if no day is given.',
             ),
         ));
         $builder->add('category', null, array(
@@ -79,7 +80,7 @@ class ClippingType extends AbstractType {
             'label' => 'Annotations',
             'required' => false,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'Not shown to the public.',
             ),
         ));
     }

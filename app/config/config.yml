@@ -55,8 +55,9 @@ twig:
         text_service: "@nines.util.text"
         clipping_img_prefix: "%clipping_img_prefix%"
     date:
-        format: d.m.Y, H:i:s
+        format: Y/m/d
         interval_format: '%%d days'
+        timezone: America/Vancouver
 
 # Doctrine Configuration
 doctrine:

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Repository\ClippingRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -31,14 +31,14 @@ class Clipping extends AbstractEntity {
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=48, nullable=false)
      */
     private $imageFilePath;
-    
+
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=48, nullable=false)
      */
     private $thumbnailPath;
@@ -75,9 +75,10 @@ class Clipping extends AbstractEntity {
 
     /**
      * YYYY-MM-DD
-     * 
+     *
      * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Regex(pattern="/\d{4}-\d{2}-\d{2}/", message="The format must be YYYY-MM-DD. The year must be four digits. Month and day must be two digits.")
      */
     private $date;
 
@@ -132,19 +133,19 @@ class Clipping extends AbstractEntity {
     public function getOriginalName() {
         return $this->originalName;
     }
-    
+
     /**
      * Get the image file
-     * 
+     *
      * @return File
      */
     public function getImageFile() {
         return $this->imageFile;
     }
-    
+
     public function setImageFile(File $imageFile) {
         $this->imageFile = $imageFile;
-        
+
         return $this;
     }
 
@@ -349,11 +350,11 @@ class Clipping extends AbstractEntity {
     /**
      * Set category
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param Category $category
      *
      * @return Clipping
      */
-    public function setCategory(\AppBundle\Entity\Category $category) {
+    public function setCategory(Category $category) {
         $this->category = $category;
 
         return $this;
@@ -362,7 +363,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get category
      *
-     * @return \AppBundle\Entity\Category
+     * @return Category
      */
     public function getCategory() {
         return $this->category;
@@ -371,11 +372,11 @@ class Clipping extends AbstractEntity {
     /**
      * Set source
      *
-     * @param \AppBundle\Entity\Source $source
+     * @param Source $source
      *
      * @return Clipping
      */
-    public function setSource(\AppBundle\Entity\Source $source) {
+    public function setSource(Source $source) {
         $this->source = $source;
 
         return $this;
@@ -384,7 +385,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get source
      *
-     * @return \AppBundle\Entity\Source
+     * @return Source
      */
     public function getSource() {
         return $this->source;
