@@ -15,8 +15,10 @@ monolog:
     use_microseconds: false
     handlers:
         main:
-            type: stream
-            path: '%kernel.logs_dir%/%kernel.environment%.log'
+            type:  rotating_file
+            level: warning
+            handler: nested
+            max_files: 3
             level: warning
             channels: ['!event', '!doctrine', '!console', '!translation']
         console:
