@@ -39,3 +39,9 @@ parameters:
     clipping_img_prefix: images/clippings/
     clipping_thumb_width: 320
     clipping_thumb_height: 240
+
+    # tracking configuration
+    dhil.piwik_enabled: false
+    dhil.piwik_url: ~
+    dhil.piwik_siteid: ~
+    dhil.piwik_domain: ~

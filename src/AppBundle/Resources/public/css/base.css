@@ -38,10 +38,10 @@ a[href ^= 'mailto:']::after {
     font-weight: 400;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;    
+    -moz-osx-font-smoothing: grayscale;
 }
 
-a[href ^= 'http://']::after, 
+a[href ^= 'http://']::after,
 a[href ^= 'https://']::after {
     content: "\e164";
 
@@ -54,7 +54,7 @@ a[href ^= 'https://']::after {
     font-weight: 400;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;        
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Pan/Zooming an image. */
@@ -64,4 +64,25 @@ a[href ^= 'https://']::after {
     overflow: hidden;
     position: relative;
     outline: 1px solid grey;
+}
+
+/* Footer styles. */
+html {
+    min-height: 100vh;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex-grow: 1;
+    /* padding-bottom: 6em; */
+}
+
+.footer {
+    background-color: #ddd;
+    color: #000;
 }

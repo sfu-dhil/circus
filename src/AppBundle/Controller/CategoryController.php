@@ -86,7 +86,7 @@ class CategoryController extends Controller {
         $query = $repo->categoryQuery($category);
         $paginator = $this->get('knp_paginator');
         $clippings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
-        
+
         return array(
             'category' => $category,
             'clippings' => $clippings,
