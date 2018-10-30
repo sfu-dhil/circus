@@ -92,7 +92,8 @@
             })();
         </script>
         <noscript>
-        <p><img src="//piwik.lib.sfu.ca/piwik/piwik.php?idsite={{ piwik_siteid }}" style="border:0;" alt="" /></p></noscript>
+        <p><img src="{{ piwik_url }}piwik.php?idsite={{ piwik_siteid }}" style="border:0;" alt="" /></p>
+        </noscript>
         <!-- End Piwik Code -->
         {% endif %}
     </body>
