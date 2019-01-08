@@ -33,11 +33,14 @@ task('dhil:phpunit', function() {
 		writeln('Skipped');
 		return;
 	}
-    $cacheOutput = run('cd {{ release_path }} && ./bin/console cache:clear --env=test', ['timeout' => null]);
-    writeln($cacheOutput);
     $output = run('cd {{ release_path }} && ./vendor/bin/phpunit', ['timeout' => null]);
     writeln($output);
 })->desc('Run phpunit.');
+
+task('dhil:clear:test-cache', function(){
+    $output = run('{{bin/php}} {{bin/console}} cache:clear {{console_options}} --env=test');
+    writeln($output);
+});
 
 task('dhil:test', [
     'deploy:info',
@@ -48,6 +51,7 @@ task('dhil:test', [
     'deploy:create_cache_dir',
     'deploy:shared',
     'deploy:vendors',
+    'dhil:clear:test-cache',
     'dhil:phpunit',
 ])->desc('Run test suite on server in a clean environment.');
 after('dhil:test', 'deploy:unlock');
@@ -151,6 +155,7 @@ task('deploy', [
     'deploy:create_cache_dir',
     'deploy:shared',
     'deploy:vendors',
+    'dhil:clear:test-cache',
     'dhil:phpunit',
     'dhil:ckeditor',
     'deploy:assets:install',
