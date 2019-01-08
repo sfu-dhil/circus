@@ -16,15 +16,16 @@ class SourceControllerTest extends BaseTestCase
             LoadSource::class
         ];
     }
-    
+
     public function testAnonIndex() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/source/');
         $this->assertStatusCode(200, $client);
+        $this->assertNoCookies($client);
 
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testUserIndex() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -35,7 +36,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAdminIndex() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -46,16 +47,17 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAnonShow() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/source/1');
         $this->assertStatusCode(200, $client);
+        $this->assertNoCookies($client);
 
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testUserShow() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -67,7 +69,7 @@ class SourceControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testAdminShow() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -86,7 +88,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testUserEdit() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -97,7 +99,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testAdminEdit() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -106,14 +108,14 @@ class SourceControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/source/1/edit');
         $this->assertStatusCode(200, $client);
 
-        
+
         $form = $formCrawler->selectButton('Update')->form([
             'source[name]' => 'Cheese.',
             'source[label]' => 'Cheese',
             'source[description]' => 'It is a cheese',
             'source[date]' => 'April 1972'
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/source/1'));
         $responseCrawler = $client->followRedirect();
@@ -121,7 +123,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Cheese.")')->count());
     }
-    
+
     public function testAnonNew() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/source/new');
@@ -129,7 +131,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testUserNew() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -149,14 +151,14 @@ class SourceControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/source/new');
         $this->assertStatusCode(200, $client);
 
-      
+
         $form = $formCrawler->selectButton('Create')->form([
             'source[name]' => 'Cheese.',
             'source[label]' => 'Cheese',
             'source[description]' => 'It is a cheese',
             'source[date]' => 'April 1972'
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
@@ -164,7 +166,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Cheese.")')->count());
     }
-    
+
     public function testAnonDelete() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/source/1/delete');
@@ -172,7 +174,7 @@ class SourceControllerTest extends BaseTestCase
 
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
-    
+
     public function testUserDelete() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -199,7 +201,7 @@ class SourceControllerTest extends BaseTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertStatusCode(200, $client);
 
-        
+
         $em->clear();
         $postCount = count($em->getRepository(Source::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);

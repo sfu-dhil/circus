@@ -22,6 +22,7 @@ class ClippingControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/clipping/');
         $this->assertStatusCode(200, $client);
+        $this->assertNoCookies($client);
 
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -52,6 +53,7 @@ class ClippingControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/clipping/1');
         $this->assertStatusCode(200, $client);
+        $this->assertNoCookies($client);
 
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());

@@ -15,8 +15,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return [
-            
-        ];
+        return [];
+    }
+
+    /**
+     * @Route("/privacy", name="privacy")
+     * @Template()
+     */
+    public function privacyAction(Request $request) {
+
     }
 }

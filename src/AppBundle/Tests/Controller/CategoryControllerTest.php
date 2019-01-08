@@ -20,6 +20,7 @@ class CategoryControllerTest extends BaseTestCase
     public function testAnonIndex() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/category/');
+        $this->assertNoCookies($client);
         $this->assertStatusCode(200, $client);
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -50,6 +51,7 @@ class CategoryControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/category/1');
         $this->assertStatusCode(200, $client);
+        $this->assertNoCookies($client);
 
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
