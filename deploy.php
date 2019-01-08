@@ -33,6 +33,8 @@ task('dhil:phpunit', function() {
 		writeln('Skipped');
 		return;
 	}
+    $cacheOutput = run('cd {{ release_path }} && ./bin/console cache:clear --env=test', ['timeout' => null]);
+    writeln($cacheOutput);
     $output = run('cd {{ release_path }} && ./vendor/bin/phpunit', ['timeout' => null]);
     writeln($output);
 })->desc('Run phpunit.');
