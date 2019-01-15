@@ -20,6 +20,8 @@
 !/web/images/clippings/.gitkeep
 /nbproject
 /web/docs
-.idea
-etc
-app/config/deploy.yml
+/.idea
+/etc
+/app/config/deploy.yml
+/web/assets
+/web/uploads
