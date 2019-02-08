@@ -127,13 +127,17 @@ fos_ck_editor:
     configs:
         circus_config:
             entities: false
-            toolbar: circus_toolbar
+            stylesSet: "circus_styles"
+            toolbar: "circus_toolbar"
     toolbars:
         configs:
             circus_toolbar:
                 - [ Source, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo ]
                 - [ Link, Unlink, Anchor, -, SpecialChar ]
                 - [ Format, Styles, -, Bold, Italic, Strike, -, RemoveFormat, -, NumberedList, BulletedList, -, Indent, Outdent, -, Blockquote, -, JustifyLeft, JustifyCenter, JustifyRight, JustifyBlock ]
+    styles:
+        circus_styles:
+            - { name: "All Caps", element: "span", attributes: { class: "allcaps" }, styles: {font-variant: "small-caps", font-weight: "normal", letter-spacing: '5px', font-family: 'serif', font-size: '17px' } }
 
 nines_blog:
     default_status: draft
