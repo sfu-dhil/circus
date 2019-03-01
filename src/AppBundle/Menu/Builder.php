@@ -75,15 +75,26 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Clippings',
             'route' => 'clipping_index',
         ));
-        $browse->addChild('categories', array(
-            'label' => 'Categories',
-            'route' => 'category_index',
-        ));
-        $browse->addChild('sources', array(
-            'label' => 'Sources',
-            'route' => 'source_index',
-        ));
-
+        
+        if($this->hasRole('ROLE_USER')) {
+            $divider = $browse->addChild('divider', array(
+                'label' => '',
+            ));
+            $divider->setAttributes(array(
+                'role' => 'separator',
+                'class' => 'divider',
+            ));
+            
+            $browse->addChild('categories', array(
+                'label' => 'Categories',
+                'route' => 'category_index',
+            ));
+            $browse->addChild('sources', array(
+                'label' => 'Sources',
+                'route' => 'source_index',
+            ));
+        }
+        
         return $menu;
     }
 
