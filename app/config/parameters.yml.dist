@@ -34,6 +34,8 @@ parameters:
     nines_feedback.recipient: ~
     nines_feedback.subject: New feedback received
 
+    nines_text.trim_length: 50
+
     # where to store uploaded images
     clipping_img_dir: '%kernel.project_dir%/web/images/clippings'
     clipping_img_prefix: images/clippings/

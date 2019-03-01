@@ -25,3 +25,5 @@
 /app/config/deploy.yml
 /web/assets
 /web/uploads
+jquery.collection.html.twig
+web/js

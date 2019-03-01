@@ -23,24 +23,22 @@
         </div>
     </div>
 
-    <div class="panzoom">
-        <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
-    </div>
-
-    <div class="spacer">&nbsp;</div>
-
     <div>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#transcript" data-toggle="tab">Transcript</a></li>
+            <li class="active"><a href="#image" data-toggle="tab">Image</a></li>
+            <li><a href="#transcript" data-toggle="tab">Transcript</a></li>
             <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
         </ul>
 
-        <div class="spacer">&nbsp;</div>
-
         <div class="tab-content">
 
-            <div class='tab-pane active' id='transcript'>
-                <h2>Transcription</h2>
+            <div class='tab-pane active' id='image'>
+                <div class="panzoom">
+                    <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
+                </div>
+            </div>
+            
+            <div class='tab-pane' id='transcript'>
                 {{ clipping.transcription|raw }}
             </div>
 
@@ -94,6 +92,8 @@
             </div>
         </div>
     </div>
+                                
+    <div class="spacer">&nbsp;</div>
 
 {% endblock %}
 
