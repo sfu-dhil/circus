@@ -35,12 +35,14 @@
             <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
         </ul>
 
+        <div class="spacer">&nbsp;</div>
+
         <div class="tab-content">
 
-            <div class="spacer">&nbsp;</div>
-
-            <h2>Transcription</h2>
-            {{ clipping.transcription|raw }}
+            <div class='tab-pane active' id='transcript'>
+                <h2>Transcription</h2>
+                {{ clipping.transcription|raw }}
+            </div>
 
             <div class="tab-pane" id="metadata">
                 <table class="table table-bordered table-condensed table-hover table-striped">
