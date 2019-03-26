@@ -6,3 +6,7 @@
 	path = src/Nines
 	url = https://github.com/ubermichael/nines-bundles.git
 	branch = master
+[submodule "docs"]
+	path = docs
+	url = https://github.com/sfu-dhil/circus-docs
+	branch = master
