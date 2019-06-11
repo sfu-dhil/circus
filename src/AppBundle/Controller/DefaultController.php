@@ -10,8 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
+     * Show the home page.
+     *
      * @Route("/", name="homepage", methods={"GET"})
      * @Template()
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -19,10 +22,13 @@ class DefaultController extends Controller
     }
 
     /**
+     * Show the privacy page.
+     *
      * @Route("/privacy", name="privacy", methods={"GET"})
      * @Template()
+     * @return array
      */
     public function privacyAction(Request $request) {
-
+        return array();
     }
 }

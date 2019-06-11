@@ -25,6 +25,7 @@ class SourceController extends Controller {
 
      * @Template()
      * @param Request $request
+     * @return array
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -47,6 +48,7 @@ class SourceController extends Controller {
 
      * @Template()
      * @param Request $request
+     * @return array | RedirectResponse
      */
     public function newAction(Request $request) {
         $source = new Source();
@@ -74,8 +76,9 @@ class SourceController extends Controller {
      * @Route("/{id}", name="source_show", methods={"GET"})
 
      * @Template()
-     * @param Source $source
      * @param Request $request
+     * @param Source $source
+     * @return array
      */
     public function showAction(Request $request, Source $source) {
         $em = $this->getDoctrine()->getManager();
@@ -99,6 +102,7 @@ class SourceController extends Controller {
      * @Template()
      * @param Request $request
      * @param Source $source
+     * @return array | RedirectResponse
      */
     public function editAction(Request $request, Source $source) {
         $editForm = $this->createForm(SourceType::class, $source);
@@ -124,6 +128,7 @@ class SourceController extends Controller {
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @param Request $request
      * @param Source $source
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, Source $source) {
         $em = $this->getDoctrine()->getManager();

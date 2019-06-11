@@ -25,6 +25,7 @@ class ClippingController extends Controller {
 
      * @Template()
      * @param Request $request
+     * @return array
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -46,6 +47,7 @@ class ClippingController extends Controller {
 
      * @Template()
      * @param Request $request
+     * @return array
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -72,6 +74,7 @@ class ClippingController extends Controller {
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
      * @param Request $request
+     * @return array | RedirectResponse
      */
     public function newAction(Request $request) {
         $clipping = new Clipping();
@@ -100,6 +103,7 @@ class ClippingController extends Controller {
 
      * @Template()
      * @param Clipping $clipping
+     * @return array
      */
     public function showAction(Clipping $clipping) {
         return array(
@@ -116,6 +120,7 @@ class ClippingController extends Controller {
      * @Template()
      * @param Request $request
      * @param Clipping $clipping
+     * @return array | RedirectResponse
      */
     public function editAction(Request $request, Clipping $clipping) {
         $editForm = $this->createForm(ClippingType::class, $clipping);
@@ -155,6 +160,7 @@ class ClippingController extends Controller {
 
      * @param Request $request
      * @param Clipping $clipping
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, Clipping $clipping) {
         $em = $this->getDoctrine()->getManager();

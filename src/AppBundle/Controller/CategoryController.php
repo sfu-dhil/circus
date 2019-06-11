@@ -6,6 +6,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Clipping;
 use AppBundle\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,9 +23,10 @@ class CategoryController extends Controller {
      * Lists all Category entities.
      *
      * @Route("/", name="category_index", methods={"GET"})
-
+     *
      * @Template()
      * @param Request $request
+     * @return array
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -46,6 +48,7 @@ class CategoryController extends Controller {
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
      * @param Request $request
+     * @return array | RedirectResponse
      */
     public function newAction(Request $request) {
         $category = new Category();
@@ -73,8 +76,9 @@ class CategoryController extends Controller {
      * @Route("/{id}", name="category_show", methods={"GET"})
 
      * @Template()
-     * @param Category $category
      * @param Request $request
+     * @param Category $category
+     * @return array
      */
     public function showAction(Request $request, Category $category) {
         $em = $this->getDoctrine()->getManager();
@@ -97,6 +101,7 @@ class CategoryController extends Controller {
      * @Template()
      * @param Request $request
      * @param Category $category
+     * @return array | RedirectResponse
      */
     public function editAction(Request $request, Category $category) {
         $editForm = $this->createForm(CategoryType::class, $category);
@@ -122,6 +127,7 @@ class CategoryController extends Controller {
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @param Request $request
      * @param Category $category
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, Category $category) {
         $em = $this->getDoctrine()->getManager();
