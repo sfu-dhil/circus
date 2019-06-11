@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Clipping;
 use AppBundle\Form\CategoryType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +21,8 @@ class CategoryController extends Controller {
     /**
      * Lists all Category entities.
      *
-     * @Route("/", name="category_index")
-     * @Method("GET")
+     * @Route("/", name="category_index", methods={"GET"})
+
      * @Template()
      * @param Request $request
      */
@@ -42,16 +42,12 @@ class CategoryController extends Controller {
     /**
      * Creates a new Category entity.
      *
-     * @Route("/new", name="category_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="category_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
      * @param Request $request
      */
     public function newAction(Request $request) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -74,8 +70,8 @@ class CategoryController extends Controller {
     /**
      * Finds and displays a Category entity.
      *
-     * @Route("/{id}", name="category_show")
-     * @Method("GET")
+     * @Route("/{id}", name="category_show", methods={"GET"})
+
      * @Template()
      * @param Category $category
      * @param Request $request
@@ -96,17 +92,13 @@ class CategoryController extends Controller {
     /**
      * Displays a form to edit an existing Category entity.
      *
-     * @Route("/{id}/edit", name="category_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
      * @param Request $request
      * @param Category $category
      */
     public function editAction(Request $request, Category $category) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $editForm = $this->createForm(CategoryType::class, $category);
         $editForm->handleRequest($request);
 
@@ -126,16 +118,12 @@ class CategoryController extends Controller {
     /**
      * Deletes a Category entity.
      *
-     * @Route("/{id}/delete", name="category_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="category_delete", methods={"GET"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
      * @param Request $request
      * @param Category $category
      */
     public function deleteAction(Request $request, Category $category) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);
         $em->flush();

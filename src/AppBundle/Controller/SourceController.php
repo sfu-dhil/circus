@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Clipping;
 use AppBundle\Entity\Source;
 use AppBundle\Form\SourceType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +21,8 @@ class SourceController extends Controller {
     /**
      * Lists all Source entities.
      *
-     * @Route("/", name="source_index")
-     * @Method("GET")
+     * @Route("/", name="source_index", methods={"GET"})
+
      * @Template()
      * @param Request $request
      */
@@ -42,16 +42,13 @@ class SourceController extends Controller {
     /**
      * Creates a new Source entity.
      *
-     * @Route("/new", name="source_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="source_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+
      * @Template()
      * @param Request $request
      */
     public function newAction(Request $request) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $source = new Source();
         $form = $this->createForm(SourceType::class, $source);
         $form->handleRequest($request);
@@ -74,8 +71,8 @@ class SourceController extends Controller {
     /**
      * Finds and displays a Source entity.
      *
-     * @Route("/{id}", name="source_show")
-     * @Method("GET")
+     * @Route("/{id}", name="source_show", methods={"GET"})
+
      * @Template()
      * @param Source $source
      * @param Request $request
@@ -96,17 +93,14 @@ class SourceController extends Controller {
     /**
      * Displays a form to edit an existing Source entity.
      *
-     * @Route("/{id}/edit", name="source_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="source_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+
      * @Template()
      * @param Request $request
      * @param Source $source
      */
     public function editAction(Request $request, Source $source) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $editForm = $this->createForm(SourceType::class, $source);
         $editForm->handleRequest($request);
 
@@ -126,16 +120,12 @@ class SourceController extends Controller {
     /**
      * Deletes a Source entity.
      *
-     * @Route("/{id}/delete", name="source_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="source_delete", methods={"GET"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
      * @param Request $request
      * @param Source $source
      */
     public function deleteAction(Request $request, Source $source) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($source);
         $em->flush();

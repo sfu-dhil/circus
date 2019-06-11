@@ -87,7 +87,7 @@ class ClippingControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/clipping/1/edit');
         $this->assertStatusCode(302, $client);
 
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
     public function testUserEdit() {
@@ -96,9 +96,7 @@ class ClippingControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/clipping/1/edit');
-        $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertStatusCode(403, $client);
     }
 
     public function testAdminEdit() {
@@ -135,7 +133,7 @@ class ClippingControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/clipping/new');
         $this->assertStatusCode(302, $client);
 
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
     public function testUserNew() {
@@ -144,9 +142,7 @@ class ClippingControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/clipping/new');
-        $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertStatusCode(403, $client);
     }
 
     public function testAdminNew() {
@@ -183,7 +179,7 @@ class ClippingControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/clipping/1/delete');
         $this->assertStatusCode(302, $client);
 
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
     public function testUserDelete() {
@@ -192,9 +188,7 @@ class ClippingControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/clipping/1/delete');
-        $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertStatusCode(403, $client);
     }
 
     public function testAdminDelete() {

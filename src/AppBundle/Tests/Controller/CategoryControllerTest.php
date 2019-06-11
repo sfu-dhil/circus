@@ -84,8 +84,7 @@ class CategoryControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/category/1/edit');
         $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
     public function testUserEdit() {
@@ -94,9 +93,7 @@ class CategoryControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/category/1/edit');
-        $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertStatusCode(403, $client);
     }
 
     public function testAdminEdit() {
@@ -127,7 +124,7 @@ class CategoryControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/category/new');
         $this->assertStatusCode(302, $client);
 
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
     public function testUserNew() {
@@ -136,9 +133,7 @@ class CategoryControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/category/new');
-        $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertStatusCode(403, $client);
     }
 
     public function testAdminNew() {
@@ -169,7 +164,7 @@ class CategoryControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/category/1/delete');
         $this->assertStatusCode(302, $client);
 
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
     public function testUserDelete() {
@@ -178,9 +173,7 @@ class CategoryControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/category/1/delete');
-        $this->assertStatusCode(302, $client);
-
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertStatusCode(403, $client);
     }
 
     public function testAdminDelete() {

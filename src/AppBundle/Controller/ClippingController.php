@@ -4,8 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Clipping;
 use AppBundle\Form\ClippingType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,8 +21,8 @@ class ClippingController extends Controller {
     /**
      * Lists all Clipping entities.
      *
-     * @Route("/", name="clipping_index")
-     * @Method("GET")
+     * @Route("/", name="clipping_index", methods={"GET"})
+
      * @Template()
      * @param Request $request
      */
@@ -42,8 +42,8 @@ class ClippingController extends Controller {
     /**
      * Search for Clipping entities.
      *
-     * @Route("/search", name="clipping_search")
-     * @Method("GET")
+     * @Route("/search", name="clipping_search", methods={"GET"})
+
      * @Template()
      * @param Request $request
      */
@@ -68,16 +68,12 @@ class ClippingController extends Controller {
     /**
      * Creates a new Clipping entity.
      *
-     * @Route("/new", name="clipping_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="clipping_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
      * @param Request $request
      */
     public function newAction(Request $request) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $clipping = new Clipping();
         $form = $this->createForm(ClippingType::class, $clipping);
         $form->handleRequest($request);
@@ -100,8 +96,8 @@ class ClippingController extends Controller {
     /**
      * Finds and displays a Clipping entity.
      *
-     * @Route("/{id}", name="clipping_show")
-     * @Method("GET")
+     * @Route("/{id}", name="clipping_show", methods={"GET"})
+
      * @Template()
      * @param Clipping $clipping
      */
@@ -114,17 +110,14 @@ class ClippingController extends Controller {
     /**
      * Displays a form to edit an existing Clipping entity.
      *
-     * @Route("/{id}/edit", name="clipping_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="clipping_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+
      * @Template()
      * @param Request $request
      * @param Clipping $clipping
      */
     public function editAction(Request $request, Clipping $clipping) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $editForm = $this->createForm(ClippingType::class, $clipping);
         $editForm->remove('imageFile');
         $editForm->add('newImageFile', FileType::class, array(
@@ -157,16 +150,13 @@ class ClippingController extends Controller {
     /**
      * Deletes a Clipping entity.
      *
-     * @Route("/{id}/delete", name="clipping_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+
      * @param Request $request
      * @param Clipping $clipping
      */
     public function deleteAction(Request $request, Clipping $clipping) {
-        if (!$this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($clipping);
         $em->flush();
