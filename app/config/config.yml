@@ -48,7 +48,7 @@ twig:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - 'NinesUtilBundle:form:fields.html.twig'
     paths:
-        '%kernel.root_dir%/../src/Nines/UtilBundle/Resources/views': NinesUtilBundle
+        '%kernel.project_dir%/vendor/ubermichael/Nines/UtilBundle/Resources/views': NinesUtilBundle
     globals:
         comment_service: '@Nines\FeedbackBundle\Services\CommentService'
         text_service: '@Nines\UtilBundle\Services\Text'
