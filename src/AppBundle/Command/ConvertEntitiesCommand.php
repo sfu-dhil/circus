@@ -41,10 +41,8 @@ class ConvertEntitiesCommand extends ContainerAwareCommand
     /**
      * Execute the command.
      *
-     * @param InputInterface $input
-     *   Command input, as defined in the configure() method.
-     * @param OutputInterface $output
-     *   Output destination.
+     * @param InputInterface $input Command input, as defined in the configure() method.
+     * @param OutputInterface $output Output destination.
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
