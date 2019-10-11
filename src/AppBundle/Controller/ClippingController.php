@@ -169,7 +169,6 @@ class ClippingController extends Controller {
      * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
-     *
      * @param Request $request
      * @param Clipping $clipping
      *
