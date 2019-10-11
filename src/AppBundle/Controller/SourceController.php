@@ -6,10 +6,10 @@ use AppBundle\Entity\Clipping;
 use AppBundle\Entity\Source;
 use AppBundle\Form\SourceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Source controller.
@@ -17,14 +17,15 @@ use Symfony\Component\HttpFoundation\Request;
  * @Route("/source")
  */
 class SourceController extends Controller {
-
     /**
      * Lists all Source entities.
      *
      * @Route("/", name="source_index", methods={"GET"})
-
+     *
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array
      */
     public function indexAction(Request $request) {
@@ -45,9 +46,11 @@ class SourceController extends Controller {
      *
      * @Route("/new", name="source_new", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-
+     *
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array | RedirectResponse
      */
     public function newAction(Request $request) {
@@ -61,6 +64,7 @@ class SourceController extends Controller {
             $em->flush();
 
             $this->addFlash('success', 'The new source was created.');
+
             return $this->redirectToRoute('source_show', array('id' => $source->getId()));
         }
 
@@ -74,10 +78,12 @@ class SourceController extends Controller {
      * Finds and displays a Source entity.
      *
      * @Route("/{id}", name="source_show", methods={"GET"})
-
+     *
      * @Template()
+     *
      * @param Request $request
      * @param Source $source
+     *
      * @return array
      */
     public function showAction(Request $request, Source $source) {
@@ -86,7 +92,7 @@ class SourceController extends Controller {
         $query = $repo->sourceQuery($source);
         $paginator = $this->get('knp_paginator');
         $clippings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
-        
+
         return array(
             'source' => $source,
             'clippings' => $clippings,
@@ -98,10 +104,12 @@ class SourceController extends Controller {
      *
      * @Route("/{id}/edit", name="source_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-
+     *
      * @Template()
+     *
      * @param Request $request
      * @param Source $source
+     *
      * @return array | RedirectResponse
      */
     public function editAction(Request $request, Source $source) {
@@ -112,6 +120,7 @@ class SourceController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The source has been updated.');
+
             return $this->redirectToRoute('source_show', array('id' => $source->getId()));
         }
 
@@ -126,8 +135,10 @@ class SourceController extends Controller {
      *
      * @Route("/{id}/delete", name="source_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
+     *
      * @param Request $request
      * @param Source $source
+     *
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Source $source) {
@@ -138,5 +149,4 @@ class SourceController extends Controller {
 
         return $this->redirectToRoute('source_index');
     }
-
 }

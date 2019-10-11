@@ -5,11 +5,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Clipping;
 use AppBundle\Form\ClippingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Clipping controller.
@@ -17,14 +17,15 @@ use Symfony\Component\HttpFoundation\Request;
  * @Route("/clipping")
  */
 class ClippingController extends Controller {
-
     /**
      * Lists all Clipping entities.
      *
      * @Route("/", name="clipping_index", methods={"GET"})
-
+     *
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array
      */
     public function indexAction(Request $request) {
@@ -44,9 +45,11 @@ class ClippingController extends Controller {
      * Search for Clipping entities.
      *
      * @Route("/search", name="clipping_search", methods={"GET"})
-
+     *
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array
      */
     public function searchAction(Request $request) {
@@ -73,7 +76,9 @@ class ClippingController extends Controller {
      * @Route("/new", name="clipping_new", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array | RedirectResponse
      */
     public function newAction(Request $request) {
@@ -87,6 +92,7 @@ class ClippingController extends Controller {
             $em->flush();
 
             $this->addFlash('success', 'The new clipping was created.');
+
             return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
         }
 
@@ -100,9 +106,11 @@ class ClippingController extends Controller {
      * Finds and displays a Clipping entity.
      *
      * @Route("/{id}", name="clipping_show", methods={"GET"})
-
+     *
      * @Template()
+     *
      * @param Clipping $clipping
+     *
      * @return array
      */
     public function showAction(Clipping $clipping) {
@@ -116,10 +124,12 @@ class ClippingController extends Controller {
      *
      * @Route("/{id}/edit", name="clipping_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-
+     *
      * @Template()
+     *
      * @param Request $request
      * @param Clipping $clipping
+     *
      * @return array | RedirectResponse
      */
     public function editAction(Request $request, Clipping $clipping) {
@@ -136,14 +146,15 @@ class ClippingController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if(($upload = $editForm->get('newImageFile')->getData())) {
+            if (($upload = $editForm->get('newImageFile')->getData())) {
                 $clipping->setImageFile($upload);
                 $clipping->preUpdate(); // force doctrine to update.
             }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The clipping has been updated.');
-           return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
+
+            return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
         }
 
         return array(
@@ -157,9 +168,11 @@ class ClippingController extends Controller {
      *
      * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-
+     *
+     *
      * @param Request $request
      * @param Clipping $clipping
+     *
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Clipping $clipping) {
@@ -170,5 +183,4 @@ class ClippingController extends Controller {
 
         return $this->redirectToRoute('clipping_index');
     }
-
 }

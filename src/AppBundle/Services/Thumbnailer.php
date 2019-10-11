@@ -13,23 +13,23 @@ use Imagick;
 use ImagickPixel;
 
 /**
- * Description of Thumbnailer
+ * Description of Thumbnailer.
  *
  * @author mjoyce
  */
 class Thumbnailer {
     private $thumbWidth;
-    
+
     private $thumbHeight;
-    
+
     public function setThumbWidth($width) {
         $this->thumbWidth = $width;
     }
-    
+
     public function setThumbHeight($height) {
         $this->thumbHeight = $height;
     }
-    
+
     public function thumbnail(Clipping $clipping) {
         $file = $clipping->getImageFile();
         $thumbname = $file->getBasename('.' . $file->getExtension()) . '_tn.png';
@@ -41,7 +41,7 @@ class Thumbnailer {
 
         $handle = fopen($file->getPath() . '/' . $thumbname, 'wb');
         fwrite($handle, $magick->getimageblob());
-        
+
         return $thumbname;
     }
 }

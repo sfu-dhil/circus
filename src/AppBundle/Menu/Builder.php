@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Class to build some menus for navigation.
  */
 class Builder implements ContainerAwareInterface {
-
     use ContainerAwareTrait;
 
     const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
@@ -31,7 +30,7 @@ class Builder implements ContainerAwareInterface {
      * @var TokenStorageInterface
      */
     private $tokenStorage;
-    
+
     public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage) {
         $this->factory = $factory;
         $this->authChecker = $authChecker;
@@ -39,16 +38,18 @@ class Builder implements ContainerAwareInterface {
     }
 
     private function hasRole($role) {
-        if (!$this->tokenStorage->getToken()) {
+        if ( ! $this->tokenStorage->getToken()) {
             return false;
         }
+
         return $this->authChecker->isGranted($role);
     }
 
     /**
      * Build a menu for blog posts.
-     * 
+     *
      * @param array $options
+     *
      * @return ItemInterface
      */
     public function mainMenu(array $options) {
@@ -56,12 +57,12 @@ class Builder implements ContainerAwareInterface {
         $menu->setChildrenAttributes(array(
             'class' => 'nav navbar-nav',
         ));
-        
+
         $menu->addChild('home', array(
             'label' => 'Home',
             'route' => 'homepage',
         ));
-        
+
         $browse = $menu->addChild('browse', array(
             'uri' => '#',
             'label' => 'Browse ' . self::CARET,
@@ -75,8 +76,8 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Clippings',
             'route' => 'clipping_index',
         ));
-        
-        if($this->hasRole('ROLE_USER')) {
+
+        if ($this->hasRole('ROLE_USER')) {
             $divider = $browse->addChild('divider', array(
                 'label' => '',
             ));
@@ -84,7 +85,7 @@ class Builder implements ContainerAwareInterface {
                 'role' => 'separator',
                 'class' => 'divider',
             ));
-            
+
             $browse->addChild('categories', array(
                 'label' => 'Categories',
                 'route' => 'category_index',
@@ -94,8 +95,7 @@ class Builder implements ContainerAwareInterface {
                 'route' => 'source_index',
             ));
         }
-        
+
         return $menu;
     }
-
 }

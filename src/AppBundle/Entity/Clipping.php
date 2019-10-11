@@ -2,14 +2,13 @@
 
 namespace AppBundle\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Clipping
+ * Clipping.
  *
  * @ORM\Table(name="clipping", indexes={
  *  @ORM\Index(columns="transcription", flags={"fulltext"})
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ClippingRepository")
  */
 class Clipping extends AbstractEntity {
-
     /**
      * @var string
      * @ORM\Column(type="string", length=64, nullable=false)
@@ -74,7 +72,7 @@ class Clipping extends AbstractEntity {
     private $writtenDate;
 
     /**
-     * YYYY-MM-DD
+     * YYYY-MM-DD.
      *
      * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -113,7 +111,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set originalName
+     * Set originalName.
      *
      * @param string $originalName
      *
@@ -126,7 +124,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get originalName
+     * Get originalName.
      *
      * @return string
      */
@@ -135,7 +133,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get the image file
+     * Get the image file.
      *
      * @return File
      */
@@ -150,7 +148,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set imageFilePath
+     * Set imageFilePath.
      *
      * @param string $imageFilePath
      *
@@ -163,7 +161,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get imageFilePath
+     * Get imageFilePath.
      *
      * @return string
      */
@@ -172,9 +170,9 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set imageSize
+     * Set imageSize.
      *
-     * @param integer $imageSize
+     * @param int $imageSize
      *
      * @return Clipping
      */
@@ -185,18 +183,18 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get imageSize
+     * Get imageSize.
      *
-     * @return integer
+     * @return int
      */
     public function getImageSize() {
         return $this->imageSize;
     }
 
     /**
-     * Set imageWidth
+     * Set imageWidth.
      *
-     * @param integer $imageWidth
+     * @param int $imageWidth
      *
      * @return Clipping
      */
@@ -207,18 +205,18 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get imageWidth
+     * Get imageWidth.
      *
-     * @return integer
+     * @return int
      */
     public function getImageWidth() {
         return $this->imageWidth;
     }
 
     /**
-     * Set imageHeight
+     * Set imageHeight.
      *
-     * @param integer $imageHeight
+     * @param int $imageHeight
      *
      * @return Clipping
      */
@@ -229,16 +227,16 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get imageHeight
+     * Get imageHeight.
      *
-     * @return integer
+     * @return int
      */
     public function getImageHeight() {
         return $this->imageHeight;
     }
 
     /**
-     * Set number
+     * Set number.
      *
      * @param string $number
      *
@@ -251,7 +249,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get number
+     * Get number.
      *
      * @return string
      */
@@ -260,7 +258,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set writtenDate
+     * Set writtenDate.
      *
      * @param string $writtenDate
      *
@@ -273,7 +271,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get writtenDate
+     * Get writtenDate.
      *
      * @return string
      */
@@ -282,7 +280,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param string $date
      *
@@ -295,7 +293,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return string
      */
@@ -304,7 +302,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set transcription
+     * Set transcription.
      *
      * @param string $transcription
      *
@@ -317,7 +315,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get transcription
+     * Get transcription.
      *
      * @return string
      */
@@ -326,7 +324,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set annotations
+     * Set annotations.
      *
      * @param string $annotations
      *
@@ -339,7 +337,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get annotations
+     * Get annotations.
      *
      * @return string
      */
@@ -348,7 +346,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param Category $category
      *
@@ -361,7 +359,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get category
+     * Get category.
      *
      * @return Category
      */
@@ -370,7 +368,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Set source
+     * Set source.
      *
      * @param Source $source
      *
@@ -383,7 +381,7 @@ class Clipping extends AbstractEntity {
     }
 
     /**
-     * Get source
+     * Get source.
      *
      * @return Source
      */
@@ -391,28 +389,25 @@ class Clipping extends AbstractEntity {
         return $this->source;
     }
 
-
     /**
-     * Set thumbnailPath
+     * Set thumbnailPath.
      *
      * @param string $thumbnailPath
      *
      * @return Clipping
      */
-    public function setThumbnailPath($thumbnailPath)
-    {
+    public function setThumbnailPath($thumbnailPath) {
         $this->thumbnailPath = $thumbnailPath;
 
         return $this;
     }
 
     /**
-     * Get thumbnailPath
+     * Get thumbnailPath.
      *
      * @return string
      */
-    public function getThumbnailPath()
-    {
+    public function getThumbnailPath() {
         return $this->thumbnailPath;
     }
 }

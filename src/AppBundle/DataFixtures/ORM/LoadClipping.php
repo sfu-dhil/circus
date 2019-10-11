@@ -11,9 +11,8 @@ use Doctrine\Common\Persistence\ObjectManager;
  * LoadClipping form.
  */
 class LoadClipping extends Fixture implements DependentFixtureInterface {
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $em) {
         for ($i = 0; $i < 4; $i++) {
@@ -43,12 +42,11 @@ class LoadClipping extends Fixture implements DependentFixtureInterface {
      * {@inheritdoc}
      */
     public function getDependencies() {
-        // add dependencies here, or remove this 
+        // add dependencies here, or remove this
         // function and "implements DependentFixtureInterface" above
-        return [
+        return array(
             LoadCategory::class,
             LoadSource::class,
-        ];
+        );
     }
-
 }

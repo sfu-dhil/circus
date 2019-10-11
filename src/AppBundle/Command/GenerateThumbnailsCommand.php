@@ -10,10 +10,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GenerateThumbnailsCommand extends ContainerAwareCommand
-{
-    protected function configure()
-    {
+class GenerateThumbnailsCommand extends ContainerAwareCommand {
+    protected function configure() {
         $this
             ->setName('app:generate-thumbnails')
             ->setDescription('...')
@@ -22,16 +20,14 @@ class GenerateThumbnailsCommand extends ContainerAwareCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $thumbnailer = $this->getContainer()->get(Thumbnailer::class);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $repo = $em->getRepository(Clipping::class);
-        foreach($repo->findAll() as $clipping) {
+        foreach ($repo->findAll() as $clipping) {
             $output->writeln($clipping->getOriginalName());
             $clipping->setThumbnailPath($thumbnailer->thumbnail($clipping));
             $em->flush();
         }
     }
-
 }

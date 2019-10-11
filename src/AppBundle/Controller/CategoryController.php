@@ -6,11 +6,11 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Clipping;
 use AppBundle\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Category controller.
@@ -18,14 +18,15 @@ use Symfony\Component\HttpFoundation\Request;
  * @Route("/category")
  */
 class CategoryController extends Controller {
-
     /**
      * Lists all Category entities.
      *
      * @Route("/", name="category_index", methods={"GET"})
      *
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array
      */
     public function indexAction(Request $request) {
@@ -47,7 +48,9 @@ class CategoryController extends Controller {
      * @Route("/new", name="category_new", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
+     *
      * @param Request $request
+     *
      * @return array | RedirectResponse
      */
     public function newAction(Request $request) {
@@ -61,6 +64,7 @@ class CategoryController extends Controller {
             $em->flush();
 
             $this->addFlash('success', 'The new category was created.');
+
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
@@ -74,10 +78,12 @@ class CategoryController extends Controller {
      * Finds and displays a Category entity.
      *
      * @Route("/{id}", name="category_show", methods={"GET"})
-
+     *
      * @Template()
+     *
      * @param Request $request
      * @param Category $category
+     *
      * @return array
      */
     public function showAction(Request $request, Category $category) {
@@ -99,8 +105,10 @@ class CategoryController extends Controller {
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
+     *
      * @param Request $request
      * @param Category $category
+     *
      * @return array | RedirectResponse
      */
     public function editAction(Request $request, Category $category) {
@@ -111,6 +119,7 @@ class CategoryController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The category has been updated.');
+
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
@@ -125,8 +134,10 @@ class CategoryController extends Controller {
      *
      * @Route("/{id}/delete", name="category_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
+     *
      * @param Request $request
      * @param Category $category
+     *
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Category $category) {
@@ -137,5 +148,4 @@ class CategoryController extends Controller {
 
         return $this->redirectToRoute('category_index');
     }
-
 }

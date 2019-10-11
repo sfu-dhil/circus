@@ -6,83 +6,76 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * Source
+ * Source.
  *
  * @ORM\Table(name="source")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SourceRepository")
  */
-class Source extends AbstractTerm
-{
+class Source extends AbstractTerm {
     /**
-     * YYYY-MM-DD
-     * 
+     * YYYY-MM-DD.
+     *
      * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $date;
-    
+
     /**
-     * @var Collection|Clipping[]
+     * @var Clipping[]|Collection
      * @ORM\OneToMany(targetEntity="Clipping", mappedBy="source")
      */
     private $clippings;
-    
 
     /**
-     * Set date
+     * Set date.
      *
      * @param string $date
      *
      * @return Source
      */
-    public function setDate($date)
-    {
+    public function setDate($date) {
         $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return string
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
     }
 
     /**
-     * Add clipping
+     * Add clipping.
      *
      * @param \AppBundle\Entity\Clipping $clipping
      *
      * @return Source
      */
-    public function addClipping(\AppBundle\Entity\Clipping $clipping)
-    {
+    public function addClipping(Clipping $clipping) {
         $this->clippings[] = $clipping;
 
         return $this;
     }
 
     /**
-     * Remove clipping
+     * Remove clipping.
      *
      * @param \AppBundle\Entity\Clipping $clipping
      */
-    public function removeClipping(\AppBundle\Entity\Clipping $clipping)
-    {
+    public function removeClipping(Clipping $clipping) {
         $this->clippings->removeElement($clipping);
     }
 
     /**
-     * Get clippings
+     * Get clippings.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getClippings()
-    {
+    public function getClippings() {
         return $this->clippings;
     }
 }

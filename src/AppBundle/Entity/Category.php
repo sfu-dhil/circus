@@ -6,50 +6,46 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * Category
+ * Category.
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
-class Category extends AbstractTerm
-{    
+class Category extends AbstractTerm {
     /**
-     * @var Collection|Clipping[]
+     * @var Clipping[]|Collection
      * @ORM\OneToMany(targetEntity="Clipping", mappedBy="category")
      */
     private $clippings;
 
     /**
-     * Add clipping
+     * Add clipping.
      *
      * @param \AppBundle\Entity\Clipping $clipping
      *
      * @return Category
      */
-    public function addClipping(\AppBundle\Entity\Clipping $clipping)
-    {
+    public function addClipping(Clipping $clipping) {
         $this->clippings[] = $clipping;
 
         return $this;
     }
 
     /**
-     * Remove clipping
+     * Remove clipping.
      *
      * @param \AppBundle\Entity\Clipping $clipping
      */
-    public function removeClipping(\AppBundle\Entity\Clipping $clipping)
-    {
+    public function removeClipping(Clipping $clipping) {
         $this->clippings->removeElement($clipping);
     }
 
     /**
-     * Get clippings
+     * Get clippings.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getClippings()
-    {
+    public function getClippings() {
         return $this->clippings;
     }
 }

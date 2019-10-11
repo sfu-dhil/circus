@@ -6,11 +6,10 @@ use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
 class DefaultControllerTest extends BaseTestCase {
-
     public function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-        ];
+        );
     }
 
     public function testIndex() {
@@ -27,15 +26,14 @@ class DefaultControllerTest extends BaseTestCase {
         $this->assertStatusCode(200, $client);
         $this->assertCookieCount($client, 1);
 
-        $form = $formCrawler->selectButton('Login')->form([
+        $form = $formCrawler->selectButton('Login')->form(array(
             '_username' => LoadUser::USER['username'],
             '_password' => LoadUser::USER['password'],
-        ]);
+        ));
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $client->followRedirect();
         $this->assertStatusCode(200, $client);
         $this->assertCookieCount($client, 1);
     }
-
 }

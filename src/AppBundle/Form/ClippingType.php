@@ -6,12 +6,10 @@ use AppBundle\Services\FileUploader;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClippingType extends AbstractType {
-
     /**
      * @var FileUploader
      */
@@ -26,13 +24,12 @@ class ClippingType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-
         $builder->add('imageFile', FileType::class, array(
             'label' => 'Clipping Image',
             'required' => true,
             'attr' => array(
                 'help_block' => "Select a file to upload which is less than {$this->fileUploader->getMaxUploadSize(false)} in size.",
-                 'data-maxsize' => $this->fileUploader->getMaxUploadSize(),
+                'data-maxsize' => $this->fileUploader->getMaxUploadSize(),
             ),
         ));
 
@@ -59,14 +56,14 @@ class ClippingType extends AbstractType {
         ));
         $builder->add('category', null, array(
             'attr' => array(
-                'help_block' => 'Categorize the clipping as text, playbill, or manuscript.'
-            )
+                'help_block' => 'Categorize the clipping as text, playbill, or manuscript.',
+            ),
         ));
 
         $builder->add('source', null, array(
             'attr' => array(
-                'help_block' => 'Select the source of the clipping.'
-            )
+                'help_block' => 'Select the source of the clipping.',
+            ),
         ));
 
         $builder->add('transcription', CKEditorType::class, array(
@@ -90,8 +87,7 @@ class ClippingType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Clipping'
+            'data_class' => 'AppBundle\Entity\Clipping',
         ));
     }
-
 }

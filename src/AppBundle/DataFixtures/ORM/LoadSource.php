@@ -10,9 +10,8 @@ use Doctrine\Common\Persistence\ObjectManager;
  * LoadSource form.
  */
 class LoadSource extends Fixture {
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $em) {
         for ($i = 0; $i < 4; $i++) {
@@ -28,5 +27,4 @@ class LoadSource extends Fixture {
 
         $em->flush();
     }
-
 }
