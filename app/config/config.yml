@@ -128,24 +128,6 @@ fos_user:
         form:
             type: Nines\UserBundle\Form\PasswordType
 
-fos_ck_editor:
-    input_sync: true
-    default_config: circus_config
-    configs:
-        circus_config:
-            entities: false
-            stylesSet: "circus_styles"
-            toolbar: "circus_toolbar"
-    toolbars:
-        configs:
-            circus_toolbar:
-                - [ Source, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo ]
-                - [ Link, Unlink, Anchor, -, SpecialChar ]
-                - [ Format, Styles, -, Bold, Italic, Strike, -, RemoveFormat, -, NumberedList, BulletedList, -, Indent, Outdent, -, Blockquote, -, JustifyLeft, JustifyCenter, JustifyRight, JustifyBlock ]
-    styles:
-        circus_styles:
-            - { name: "All Caps", element: "span", attributes: { class: "allcaps" }, styles: {font-variant: "small-caps", font-weight: "normal", letter-spacing: '5px', font-family: 'serif', font-size: '17px' } }
-
 nines_blog:
     default_status: draft
     default_category: none

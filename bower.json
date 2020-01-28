@@ -21,6 +21,7 @@
     "bootstrap": "^3.3.7",
     "typeahead.js": "^0.11.1",
     "jquery.panzoom": "^3.2.2",
-    "jquery-colorbox": "colorbox#^1.6.4"
+    "jquery-colorbox": "colorbox#^1.6.4",
+    "tinymce": "tinymce-dist#^5.0.2"
   }
 }

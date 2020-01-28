@@ -12,9 +12,14 @@ nines_feedback:
 
 nines_dc:
     resource: "@NinesDublinCoreBundle/Controller/"
+    type: annotation
 
 nines_user:
     resource: "@NinesUserBundle/Controller/"
+    type: annotation
+
+nines_editor:
+    resource: "@NinesEditorBundle/Controller/"
     type: annotation
 
 fos_user:

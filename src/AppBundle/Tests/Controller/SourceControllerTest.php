@@ -117,7 +117,7 @@ class SourceControllerTest extends BaseTestCase {
         $responseCrawler = $client->followRedirect();
         $this->assertStatusCode(200, $client);
 
-        $this->assertEquals(1, $responseCrawler->filter('td:contains("Cheese.")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Cheese")')->count());
     }
 
     public function testAnonNew() {
@@ -157,7 +157,7 @@ class SourceControllerTest extends BaseTestCase {
         $responseCrawler = $client->followRedirect();
         $this->assertStatusCode(200, $client);
 
-        $this->assertEquals(1, $responseCrawler->filter('td:contains("Cheese.")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Cheese")')->count());
     }
 
     public function testAnonDelete() {
