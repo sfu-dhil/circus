@@ -6,6 +6,7 @@ use AppBundle\Services\FileUploader;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -66,18 +67,20 @@ class ClippingType extends AbstractType {
             ),
         ));
 
-        $builder->add('transcription', CKEditorType::class, array(
+        $builder->add('transcription', TextareaType::class, array(
             'label' => 'Transcription',
             'required' => false,
             'attr' => array(
                 'help_block' => 'If there is any non-standard spelling, please note this by [sic].',
+                'class' => 'tinymce',
             ),
         ));
-        $builder->add('annotations', CKEditorType::class, array(
+        $builder->add('annotations', TextareaType::class, array(
             'label' => 'Annotations',
             'required' => false,
             'attr' => array(
                 'help_block' => 'Not shown to the public.',
+                'class' => 'tinymce',
             ),
         ));
     }

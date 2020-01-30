@@ -27,3 +27,6 @@
 /web/uploads
 jquery.collection.html.twig
 web/js
+.phpunit.result.cache
+.phpunit.result.cache
+web/images/blog

@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Nines\UtilBundle\Form\TermType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,10 +26,11 @@ class SourceType extends TermType {
                 'help_block' => 'A proper, human-readable label in English.',
             ),
         ));
-        $builder->add('description', CKEditorType::class, array(
+        $builder->add('description', TextareaType::class, array(
             'label' => 'Description',
             'attr' => array(
                 'help_block' => 'A description of the source so that others may find it.',
+                'class' => 'tinymce',
             ),
         ));
         $builder->add('date', null, array(

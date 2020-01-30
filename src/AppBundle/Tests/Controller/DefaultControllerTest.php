@@ -16,7 +16,7 @@ class DefaultControllerTest extends BaseTestCase {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
         $this->assertStatusCode(200, $client);
-        $this->assertContains('Circus', $crawler->text());
+        $this->assertStringContainsString('Circus', $crawler->text());
         $this->assertNoCookies($client);
     }
 

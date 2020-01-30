@@ -20,14 +20,14 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
 
-            new Nines\UserBundle\NinesUserBundle(),
-            new Nines\DublinCoreBundle\NinesDublinCoreBundle(),
-            new Nines\FeedbackBundle\NinesFeedbackBundle(),
             new Nines\BlogBundle\NinesBlogBundle(),
+            new Nines\DublinCoreBundle\NinesDublinCoreBundle(),
+            new Nines\EditorBundle\NinesEditorBundle(),
+            new Nines\FeedbackBundle\NinesFeedbackBundle(),
+            new Nines\UserBundle\NinesUserBundle(),
             new Nines\UtilBundle\NinesUtilBundle(),
         ];
 

@@ -17,9 +17,13 @@
         - var/logs
         - var/sessions
         - var/cache
+        - web/images/clippings
+        - web/images/blog
     writable_dirs:
         - var/logs
         - var/sessions
         - var/cache
+        - web/images/clippings
+        - web/images/blog
     composer_options: 'install --no-progress --optimize-autoloader --no-interaction'
     site_path: /~
