@@ -59,7 +59,7 @@ audio:not([controls]) {
 
 html { /*Base Font*/
 	font-family: 'Times New Roman', 'Georgia', Times, serif;
-    font-family: 'SourceSerifPro-Regular', serif;
+    font-family: 'Source Serif Pro', serif;
 	font-size: 100%;
 	font-size: 16px;
 	-ms-text-size-adjust: 100%;
@@ -69,7 +69,7 @@ html { /*Base Font*/
 
 body { /*Base Font*/
 	font-family: 'Times New Roman', 'Georgia', Times, serif;
-    font-family: 'SourceSerifPro-Regular', serif;
+    font-family: 'Source Serif Pro', serif;
 	font-size: 100%;
 	font-size: 16px;
 	-ms-text-size-adjust: 100%;
@@ -180,8 +180,8 @@ pre {
 
 strong,
 b {
-    font-family: 'SourceSerifPro-Semibold', serif;
-	font-weight: normal;
+    font-family: 'Source Serif Pro', serif;
+	font-weight: bold;
 	font-style: normal;
 	text-decoration: none;
 	font-variant: normal;
@@ -189,7 +189,7 @@ b {
 
 em,
 i {
-    font-family: 'SourceSerifPro-It', serif;
+    font-family: 'Source Serif Pro', serif;
 	font-style: italic;
 	text-decoration: none;
 	font-variant: normal;
@@ -400,14 +400,16 @@ legend {
 	border: 0;
 	padding: 5px;
 	margin: 0 0 0 -7px;
-	font: normal normal 18px/18px 'SourceSerifPro-Semibold', serif;
+	font-weight: bold;
+	font: normal normal 18px/18px 'Source Serif Pro', serif;
 
 }
 
 label {
 	/*background-color: orangered;*/
 	display: block;
-	font: normal normal 18px/18px 'SourceSerifPro-Semibold', serif;
+	font-weight: bold;
+	font: normal normal 18px/18px 'Source Serif Pro', serif;
 	margin: 0 0 5px;
 	padding: 5px;
 }
@@ -515,7 +517,8 @@ th {
 	vertical-align: top;
 	text-align: left;
 	text-decoration: none;
-	font: normal normal 18px/18px 'SourceSerifPro-Semibold', serif;
+	font-weight: bold;
+	font: normal normal 18px/18px 'Source Serif Pro', serif;
 }
 
 /*tr.even,
