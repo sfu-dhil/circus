@@ -15,18 +15,12 @@
             <li class="active"><a href="#transcript" data-toggle="tab">Transcript</a></li>
             <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
         </ul>
-
-
         <div class="tab-content">
-
             <div class="spacer">&nbsp;</div>
-
             <div class="tab-pane active" id="transcript">
                 {{ form_row(form.transcription) }}
                 {{ form_row(form.annotations) }}
             </div>
-
-
             <div class="tab-pane" id="metadata">
                 {{ form_rest(form) }}
             </div>

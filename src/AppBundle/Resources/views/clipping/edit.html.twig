@@ -10,10 +10,10 @@
             <b>Current Image</b>
         </div>
         <div class="col-sm-10">
-    <div class="panzoom">
-        <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
-    </div>
-            {{ clipping.originalName }}        
+            <div class="panzoom">
+                <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}">
+            </div>
+            {{ clipping.originalName }}
         </div>
     </div>
 
@@ -25,21 +25,15 @@
             <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
             <li><a href="#newImage" data-toggle="tab">Replace Image</a></li>
         </ul>
-
-
         <div class="tab-content">
-
             <div class="spacer">&nbsp;</div>
-
             <div class="tab-pane active" id="transcript">
                 {{ form_row(edit_form.transcription) }}
                 {{ form_row(edit_form.annotations) }}
             </div>
-
             <div class="tab-pane" id="newImage">
                 {{ form_row(edit_form.newImageFile) }}
             </div>
-
             <div class="tab-pane" id="metadata">
                 {{ form_rest(edit_form) }}
             </div>
@@ -65,6 +59,7 @@
             overflow: hidden;
             position: relative;
         }
+
         .zoomable {
             border: 1px solid grey;
         }

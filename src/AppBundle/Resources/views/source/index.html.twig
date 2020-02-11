@@ -5,8 +5,7 @@
 {% block pageheader %}
     <h1>Source List</h1>
     <p class="count">
-        Displaying {{ sources|length }} sources of {{ sources.getTotalItemCount }} total.
-    </p>
+        Displaying {{ sources|length }} sources of {{ sources.getTotalItemCount }} total. </p>
 {% endblock %} 
 
 {% block body %}
@@ -15,8 +14,7 @@
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
                 <a href="{{ path('source_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New
-                </a>
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
         </div>
     </div>
