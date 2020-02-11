@@ -30,3 +30,4 @@ web/js
 .phpunit.result.cache
 .phpunit.result.cache
 web/images/blog
+web/yarn

@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -65,13 +66,13 @@ class Builder implements ContainerAwareInterface {
         ]);
 
         $menu->addChild('home', [
-            'label' => 'Home',
+            'label' => 'Welcome',
             'route' => 'homepage',
         ]);
 
         $browse = $menu->addChild('browse', [
             'uri' => '#',
-            'label' => 'Browse ' . self::CARET,
+            'label' => 'Clippings ' . self::CARET,
         ]);
         $browse->setAttribute('dropdown', true);
         $browse->setLinkAttribute('class', 'dropdown-toggle');

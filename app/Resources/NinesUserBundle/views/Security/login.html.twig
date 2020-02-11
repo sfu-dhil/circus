@@ -1,0 +1,72 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{# Login: Reconstructing Early Circus #}
+
+{% block title -%}
+    Login: Reconstructing Early Circus
+{%- endblock %}
+
+{% block classes -%}
+    admin login
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Login: Reconstructing Early Circus</h1>
+{% endblock %} 
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="content">
+        <div class="inner">
+            <div class="error-wrapper">
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <strong>Error:</strong> {{ error.messageKey|trans(error.messageData, 'security') }}<br /> You
+                        may <a href="{{ path('fos_user_resetting_request') }}">reset your password</a>, if needed.
+                    </div>
+                {% endif %}
+            </div>
+            <div class="login-wrapper">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Login to Reconstructing Early Circus</div>
+                    <div class="panel-body">
+                        <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            <div class="form-group">
+                                <label for="username" class="form-label control-label">Email address</label>
+                                <div class="form-row">
+                                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="form-label control-label">Password</label>
+                                <div class="form-row">
+                                    <input type="password" id="password" name="_password" required="required" class="form-control" />
+                                    <div class="help-block">
+                                        <p>You may <a href="{{ path('fos_user_resetting_request') }}">reset your
+                                                password</a> if necessary.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" class="checkbox" id="remember_me" name="_remember_me" value="on" />
+                                        <label class="checkbox-label" for="remember_me">Remember me</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" id="_submit" name="_submit" class="btn btn-default">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock fos_user_content %}
