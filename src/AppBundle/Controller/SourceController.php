@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Clipping;
@@ -24,8 +32,6 @@ class SourceController extends Controller {
      *
      * @Template()
      *
-     * @param Request $request
-     *
      * @return array
      */
     public function indexAction(Request $request) {
@@ -36,9 +42,9 @@ class SourceController extends Controller {
         $paginator = $this->get('knp_paginator');
         $sources = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'sources' => $sources,
-        );
+        ];
     }
 
     /**
@@ -48,8 +54,6 @@ class SourceController extends Controller {
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
      * @Template()
-     *
-     * @param Request $request
      *
      * @return array | RedirectResponse
      */
@@ -65,13 +69,13 @@ class SourceController extends Controller {
 
             $this->addFlash('success', 'The new source was created.');
 
-            return $this->redirectToRoute('source_show', array('id' => $source->getId()));
+            return $this->redirectToRoute('source_show', ['id' => $source->getId()]);
         }
 
-        return array(
+        return [
             'source' => $source,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
@@ -80,9 +84,6 @@ class SourceController extends Controller {
      * @Route("/{id}", name="source_show", methods={"GET"})
      *
      * @Template()
-     *
-     * @param Request $request
-     * @param Source $source
      *
      * @return array
      */
@@ -93,10 +94,10 @@ class SourceController extends Controller {
         $paginator = $this->get('knp_paginator');
         $clippings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'source' => $source,
             'clippings' => $clippings,
-        );
+        ];
     }
 
     /**
@@ -106,9 +107,6 @@ class SourceController extends Controller {
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
      * @Template()
-     *
-     * @param Request $request
-     * @param Source $source
      *
      * @return array | RedirectResponse
      */
@@ -121,13 +119,13 @@ class SourceController extends Controller {
             $em->flush();
             $this->addFlash('success', 'The source has been updated.');
 
-            return $this->redirectToRoute('source_show', array('id' => $source->getId()));
+            return $this->redirectToRoute('source_show', ['id' => $source->getId()]);
         }
 
-        return array(
+        return [
             'source' => $source,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
@@ -135,9 +133,6 @@ class SourceController extends Controller {
      *
      * @Route("/{id}/delete", name="source_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @param Request $request
-     * @param Source $source
      *
      * @return RedirectResponse
      */

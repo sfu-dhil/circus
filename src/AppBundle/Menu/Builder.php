@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
@@ -14,7 +22,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class Builder implements ContainerAwareInterface {
     use ContainerAwareTrait;
 
-    const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
+    public const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
 
     /**
      * @var FactoryInterface
@@ -48,52 +56,50 @@ class Builder implements ContainerAwareInterface {
     /**
      * Build a menu for blog posts.
      *
-     * @param array $options
-     *
      * @return ItemInterface
      */
     public function mainMenu(array $options) {
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttributes(array(
+        $menu->setChildrenAttributes([
             'class' => 'nav navbar-nav',
-        ));
+        ]);
 
-        $menu->addChild('home', array(
+        $menu->addChild('home', [
             'label' => 'Home',
             'route' => 'homepage',
-        ));
+        ]);
 
-        $browse = $menu->addChild('browse', array(
+        $browse = $menu->addChild('browse', [
             'uri' => '#',
             'label' => 'Browse ' . self::CARET,
-        ));
+        ]);
         $browse->setAttribute('dropdown', true);
         $browse->setLinkAttribute('class', 'dropdown-toggle');
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $browse->addChild('clippings', array(
+        $browse->addChild('clippings', [
             'label' => 'Clippings',
             'route' => 'clipping_index',
-        ));
+        ]);
 
         if ($this->hasRole('ROLE_USER')) {
-            $divider = $browse->addChild('divider', array(
+            $divider = $browse->addChild('divider', [
                 'label' => '',
-            ));
-            $divider->setAttributes(array(
+            ]);
+            $divider->setAttributes([
                 'role' => 'separator',
                 'class' => 'divider',
-            ));
+            ]);
 
-            $browse->addChild('categories', array(
+            $browse->addChild('categories', [
                 'label' => 'Categories',
                 'route' => 'category_index',
-            ));
-            $browse->addChild('sources', array(
+            ]);
+            $browse->addChild('sources', [
                 'label' => 'Sources',
                 'route' => 'source_index',
-            ));
+            ]);
         }
 
         return $menu;

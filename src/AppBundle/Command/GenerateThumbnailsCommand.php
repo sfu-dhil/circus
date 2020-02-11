@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Clipping;
@@ -11,7 +19,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class GenerateThumbnailsCommand extends ContainerAwareCommand {
-    protected function configure() {
+    protected function configure() : void {
         $this
             ->setName('app:generate-thumbnails')
             ->setDescription('...')
@@ -20,7 +28,7 @@ class GenerateThumbnailsCommand extends ContainerAwareCommand {
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output) : void {
         $thumbnailer = $this->getContainer()->get(Thumbnailer::class);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $repo = $em->getRepository(Clipping::class);

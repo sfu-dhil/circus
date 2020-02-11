@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Clipping;
@@ -12,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * CircusConvertEntitiesCommand command.
  */
 class ConvertEntitiesCommand extends ContainerAwareCommand {
-    const BATCH_SIZE = 100;
+    public const BATCH_SIZE = 100;
 
     /**
      * @var EntityManagerInterface
@@ -27,7 +35,7 @@ class ConvertEntitiesCommand extends ContainerAwareCommand {
     /**
      * Configure the command.
      */
-    protected function configure() {
+    protected function configure() : void {
         $this
             ->setName('circus:convert:entities')
             ->setDescription('Convert encoded entities to utf8.')
@@ -40,11 +48,11 @@ class ConvertEntitiesCommand extends ContainerAwareCommand {
      * @param InputInterface $input Command input, as defined in the configure() method.
      * @param OutputInterface $output Output destination.
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output) : void {
         $qb = $this->em->createQueryBuilder();
         $qb->select('e')->from(Clipping::class, 'e')->where('e.edition is not null');
         $iterator = $qb->getQuery()->iterate();
-        $matches = array();
+        $matches = [];
         while ($row = $iterator->next()) {
             $title = $row[0];
             if (preg_match('/^(\d+)/', $title, $matches)) {

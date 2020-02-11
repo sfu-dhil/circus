@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -348,8 +356,6 @@ class Clipping extends AbstractEntity {
     /**
      * Set category.
      *
-     * @param Category $category
-     *
      * @return Clipping
      */
     public function setCategory(Category $category) {
@@ -369,8 +375,6 @@ class Clipping extends AbstractEntity {
 
     /**
      * Set source.
-     *
-     * @param Source $source
      *
      * @return Clipping
      */

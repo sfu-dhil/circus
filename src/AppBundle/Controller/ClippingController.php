@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Clipping;
@@ -24,8 +32,6 @@ class ClippingController extends Controller {
      *
      * @Template()
      *
-     * @param Request $request
-     *
      * @return array
      */
     public function indexAction(Request $request) {
@@ -36,9 +42,9 @@ class ClippingController extends Controller {
         $paginator = $this->get('knp_paginator');
         $clippings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'clippings' => $clippings,
-        );
+        ];
     }
 
     /**
@@ -47,8 +53,6 @@ class ClippingController extends Controller {
      * @Route("/search", name="clipping_search", methods={"GET"})
      *
      * @Template()
-     *
-     * @param Request $request
      *
      * @return array
      */
@@ -61,13 +65,13 @@ class ClippingController extends Controller {
             $paginator = $this->get('knp_paginator');
             $clippings = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
-            $clippings = array();
+            $clippings = [];
         }
 
-        return array(
+        return [
             'clippings' => $clippings,
             'q' => $q,
-        );
+        ];
     }
 
     /**
@@ -76,8 +80,6 @@ class ClippingController extends Controller {
      * @Route("/new", name="clipping_new", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
-     *
-     * @param Request $request
      *
      * @return array | RedirectResponse
      */
@@ -93,13 +95,13 @@ class ClippingController extends Controller {
 
             $this->addFlash('success', 'The new clipping was created.');
 
-            return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
+            return $this->redirectToRoute('clipping_show', ['id' => $clipping->getId()]);
         }
 
-        return array(
+        return [
             'clipping' => $clipping,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
@@ -109,14 +111,12 @@ class ClippingController extends Controller {
      *
      * @Template()
      *
-     * @param Clipping $clipping
-     *
      * @return array
      */
     public function showAction(Clipping $clipping) {
-        return array(
+        return [
             'clipping' => $clipping,
-        );
+        ];
     }
 
     /**
@@ -127,22 +127,19 @@ class ClippingController extends Controller {
      *
      * @Template()
      *
-     * @param Request $request
-     * @param Clipping $clipping
-     *
      * @return array | RedirectResponse
      */
     public function editAction(Request $request, Clipping $clipping) {
         $editForm = $this->createForm(ClippingType::class, $clipping);
         $editForm->remove('imageFile');
-        $editForm->add('newImageFile', FileType::class, array(
+        $editForm->add('newImageFile', FileType::class, [
             'label' => 'New Image',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => 'Select a file to replace the current one. Optional.',
-            ),
+            ],
             'mapped' => false,
-        ));
+        ]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -154,13 +151,13 @@ class ClippingController extends Controller {
             $em->flush();
             $this->addFlash('success', 'The clipping has been updated.');
 
-            return $this->redirectToRoute('clipping_show', array('id' => $clipping->getId()));
+            return $this->redirectToRoute('clipping_show', ['id' => $clipping->getId()]);
         }
 
-        return array(
+        return [
             'clipping' => $clipping,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
@@ -168,9 +165,6 @@ class ClippingController extends Controller {
      *
      * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @param Request $request
-     * @param Clipping $clipping
      *
      * @return RedirectResponse
      */
