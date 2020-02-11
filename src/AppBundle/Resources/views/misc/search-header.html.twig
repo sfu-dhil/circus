@@ -1,5 +1,4 @@
 {% if q %}
-    <p class="count">
-        Displaying {{ results|length }} search results of {{ results.getTotalItemCount }} total.
-    </p>
+    <p>Displaying <strong>{{ results|length }}</strong> search results of
+        <strong>{{ results.getTotalItemCount }}</strong> total.</p>
 {% endif %}

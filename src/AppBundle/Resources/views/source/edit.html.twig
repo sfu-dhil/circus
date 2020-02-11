@@ -1,23 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Source Edit{% endblock %}
+{# Source Edit Page #}
+
+{% block title -%}
+    Source Edit
+{%- endblock %}
+
+{% block classes -%}
+    edit source-page
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Edit Source:</h1>
+{% endblock %} 
 
 {% block body %}
-    <h1>Source edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-	<div class="form-group">
-		<div class="col-sm-2"></div>
-		<div class="col-sm-10">
-			<input type="submit" value="Update" class="btn btn-primary" />
-			<a href="{{ path('source_show', { 'id': source.id }) }}" class="btn btn-warning">Cancel</a>
-		</div>
-	</div>
-    {{ form_end(edit_form) }}
+    <div class="content">
+        <div class="inner">
+            <div class="content-full">
+                <div class="inner">
+                    {{ form_start(edit_form) }}
+                    <div class="edit-wrapper">
+                        {{ form_widget(edit_form) }}
+                    </div>
+                    <div class="form-group">
+                        <div class="form-submit">
+                            <div class="button-group">
+                                <input type="submit" value="Update" class="btn btn-primary" />
+                                <a href="{{ path('source_show', { 'id': source.id }) }}" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block javascripts %}
-	{% include 'NinesEditorBundle:editor:widget.html.twig' %}
+    {% include 'NinesEditorBundle:editor:widget.html.twig' %}
 {% endblock %}

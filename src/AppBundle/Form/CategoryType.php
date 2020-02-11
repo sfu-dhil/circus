@@ -1,47 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Form;
 
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends TermType {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('name', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) : void {
+        $builder->add('name', null, [
             'label' => 'Name',
-            'attr' => array(
+            'attr' => [
                 'help_block' => 'Internal use only. Lowercase letters, numbers, and hyphens only please. Should not be changed.',
-            ),
-        ));
-        $builder->add('label', null, array(
+            ],
+        ]);
+        $builder->add('label', null, [
             'label' => 'Label',
-            'attr' => array(
+            'attr' => [
                 'help_block' => 'A proper, human-readable label in English.',
-            ),
-        ));
-        $builder->add('description', TextareaType::class, array(
+            ],
+        ]);
+        $builder->add('description', TextareaType::class, [
             'label' => 'Description',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => 'A description of the category.',
                 'class' => 'tinymce',
-            ),
-        ));
+            ],
+        ]);
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
+    public function configureOptions(OptionsResolver $resolver) : void {
+        $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Category',
-        ));
+        ]);
     }
 }

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{# Blog Style Page Listing #}
+
+{% block title -%}
+    Page Listing
+{%- endblock %}
+
+{% block classes -%}
+    blog-page-listing
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Page Listing</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <div class="inner">
+            <!-- Admin Toolbar -->
+            <div class='btn-toolbar pull-right'>
+                <div class='btn-group'>
+                    {% if is_granted('ROLE_BLOG_ADMIN') %}
+                        <a href="{{ path('page_new') }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus"></span> New </a>
+                        <a href="{{ path('page_sort') }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-sort"></span> Sort </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="listing-count">
+                <p>Displaying <strong>{{ pages|length }}</strong> pages of
+                    <strong>{{ pages.getTotalItemCount }}</strong> total.</p>
+            </div>
+            {% for page in pages %}
+                <div class="panel-wrapper row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title pull-left">
+                                <a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                            </h2>
+                            {% if is_granted('ROLE_BLOG_ADMIN') %}
+                                <h2 class="panel-title pull-right">
+                                    {% if page.public %}Public{% else %}Private{% endif %}
+                                </h2>
+                            {% endif %}
+                        </div>
+                        <div class="panel-body">
+                            {{ page.excerpt|raw }}
+                        </div>
+                        <div class="panel-footer text-right">
+                            <p>Posted {{ page.created|date('Y-m-d H:i:s') }} by {{ page.user.fullname }}.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="navigation bottom-pager">
+                {{ knp_pagination_render(pages) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

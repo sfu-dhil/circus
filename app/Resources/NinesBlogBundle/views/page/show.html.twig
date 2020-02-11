@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{# Blog Style Pages #}
+
+{% block title -%}
+    {{ page.title }}
+{%- endblock %}
+
+{% block classes -%}
+    blog-page
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">{{ page.title }}</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <div class="inner">
+            <!-- Admin Toolbar -->
+            {% if is_granted('ROLE_BLOG_ADMIN') %}
+                <div class="btn-toolbar">
+                    <div class="btn-group pull-right">
+                        <a href="{{ path('page_index') }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-arrow-left"></span> Back </a>
+                        <a href="{{ path('page_edit', { 'id': page.id }) }}" class="btn btn-default">
+                            <span class='glyphicon glyphicon-edit'></span> Edit </a>
+                        <a href="{{ path('page_delete', { 'id': page.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Page?">
+                            <span class='glyphicon glyphicon-remove'></span> Delete </a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="content-full">
+                <div class="inner">
+                    <!-- Excerpt -->
+                    {% if is_granted('ROLE_BLOG_ADMIN') %}
+                        <div class="panel-wrapper">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Excerpt</h2>
+                                </div>
+                                <div class="panel-body">
+                                    {{ page.excerpt|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!-- raw content here -->
+                    <div class="page-content-raw">
+                        {{ page.content | raw }}
+                    </div>
+                    <!-- author-date-info -->
+                    <div class="author-date-info">
+                        <p>Created {{ page.created|date('Y-m-d H:i:s') }} by {{ page.user.fullname }}.</p>
+                    </div>
+                    <!-- comments -->
+                    <div class="blog-comment-wrapper">
+                        {% if page.includeComments %}
+                            {% include 'NinesFeedbackBundle:comment:comment-interface.html.twig' with { 'entity': page } %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div><!-- ENDcontent-full -->
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace AppBundle\EventListener;
@@ -36,7 +38,7 @@ class ClippingListener {
         $this->thumbnailer = $thumbnailer;
     }
 
-    private function uploadFile(Clipping $clipping) {
+    private function uploadFile(Clipping $clipping) : void {
         $file = $clipping->getImageFile();
         if ( ! $file instanceof UploadedFile) {
             return;
@@ -54,29 +56,29 @@ class ClippingListener {
         $clipping->setThumbnailPath($this->thumbnailer->thumbnail($clipping));
     }
 
-    public function setThumbWidth($width) {
+    public function setThumbWidth($width) : void {
         $this->thumbWidth = $width;
     }
 
-    public function setThumbHeight($height) {
+    public function setThumbHeight($height) : void {
         $this->thumbHeight = $height;
     }
 
-    public function prePersist(LifecycleEventArgs $args) {
+    public function prePersist(LifecycleEventArgs $args) : void {
         $entity = $args->getEntity();
         if ($entity instanceof Clipping) {
             $this->uploadFile($entity);
         }
     }
 
-    public function preUpdate(LifecycleEventArgs $args) {
+    public function preUpdate(LifecycleEventArgs $args) : void {
         $entity = $args->getEntity();
         if ($entity instanceof Clipping) {
             $this->uploadFile($entity);
         }
     }
 
-    public function postLoad(LifecycleEventArgs $args) {
+    public function postLoad(LifecycleEventArgs $args) : void {
         $entity = $args->getEntity();
         if ($entity instanceof Clipping) {
             $filename = $entity->getImageFilePath();

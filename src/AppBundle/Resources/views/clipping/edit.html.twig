@@ -1,78 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Clipping Edit{% endblock %}
+{# Clipping Edit Page #}
+
+{% block title -%}
+    Clipping Edit
+{%- endblock %}
+
+{% block classes -%}
+    edit clipping-page
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Edit Clipping: {{ clipping.originalName }}</h1>
+{% endblock %} 
+
 
 {% block body %}
-    <h1>Clipping edit</h1>
-
-    <div>
-        <div class="col-sm-2">
-            <b>Current Image</b>
+    <div class="content">
+        <div class="inner">
+            <div class="content-full">
+                <div class="inner">
+                    {{ form_start(edit_form) }}
+                    <div id="transcript" class="edit-transcription">
+                        {{ form_row(edit_form.transcription) }}
+                    </div>
+                    <div id="annotations" class="edit-annotations">
+                        {{ form_row(edit_form.annotations) }}
+                    </div>
+                    <div class="current-image-wrapper">
+                        <h2 class="current-image-title">Current Image: {{ clipping.originalName }}</h2>
+                        <figure class="caption">
+                            <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}">
+                        </figure>
+                    </div>
+                    <div id="newImage" class="new-image-upload">
+                        {{ form_row(edit_form.newImageFile) }}
+                    </div>
+                    <div id="metadata" class="metadata">
+                        {{ form_rest(edit_form) }}
+                    </div>
+                    <!-- form submit -->
+                    <div class="form-group">
+                        <div class="form-submit">
+                            <div class="button-group">
+                                <input type="submit" value="Update Clipping" class="btn btn-primary" />
+                                <a href="{{ path('clipping_show', { 'id': clipping.id }) }}" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div><!-- end content-left -->
         </div>
-        <div class="col-sm-10">
-    <div class="panzoom">
-        <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" width="{{ clipping.imageWidth }}" height="{{ clipping.imageHeight }}" >
-    </div>
-            {{ clipping.originalName }}        
-        </div>
-    </div>
+    </div><!-- end content -->
 
-    {{ form_start(edit_form) }}
-
-    <div>
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#transcript" data-toggle="tab">Transcript</a></li>
-            <li><a href="#metadata" data-toggle="tab">Metadata</a></li>
-            <li><a href="#newImage" data-toggle="tab">Replace Image</a></li>
-        </ul>
-
-
-        <div class="tab-content">
-
-            <div class="spacer">&nbsp;</div>
-
-            <div class="tab-pane active" id="transcript">
-                {{ form_row(edit_form.transcription) }}
-                {{ form_row(edit_form.annotations) }}
-            </div>
-
-            <div class="tab-pane" id="newImage">
-                {{ form_row(edit_form.newImageFile) }}
-            </div>
-
-            <div class="tab-pane" id="metadata">
-                {{ form_rest(edit_form) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            <input type="submit" value="Update" class="btn btn-primary" />
-            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}" class="btn btn-warning">Cancel</a>
-        </div>
-    </div>
-    {{ form_end(edit_form) }}
-
-{% endblock %}
-
-{% block styles %}
-    <style type="text/css">
-        .parent {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            position: relative;
-        }
-        .zoomable {
-            border: 1px solid grey;
-        }
-    </style>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('bower/jquery.panzoom/dist/jquery.panzoom.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/js/zoomview.js') }}"></script>
     {% include 'NinesEditorBundle:editor:widget.html.twig' %}
 {% endblock %}

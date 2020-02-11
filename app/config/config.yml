@@ -54,9 +54,12 @@ twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - 'NinesUtilBundle:form:fields.html.twig'
+        - "fields.html.twig"
     paths:
         '%kernel.project_dir%/vendor/ubermichael/nines/UtilBundle/Resources/views': NinesUtilBundle
+
     globals:
+        nines_editor_config: bundles/app/js/editor-config.js
         comment_service: '@Nines\FeedbackBundle\Services\CommentService'
         text_service: '@Nines\UtilBundle\Services\Text'
         clipping_img_prefix: "%clipping_img_prefix%"

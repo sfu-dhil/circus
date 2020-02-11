@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace AppBundle\Services;
@@ -25,9 +27,6 @@ class FileUploader {
         $this->imageDir = $imageDir;
     }
 
-    /**
-     * @param UploadedFile $file
-     */
     public function upload(UploadedFile $file) {
         $filename = md5(uniqid()) . '.' . $file->guessExtension();
         $file->move($this->imageDir, $filename);
@@ -59,9 +58,9 @@ class FileUploader {
         if ($asBytes) {
             return $maxBytes;
         }
-        $units = array('b', 'Kb', 'Mb', 'Gb', 'Tb');
+        $units = ['b', 'Kb', 'Mb', 'Gb', 'Tb'];
         $exp = floor(log($maxBytes, 1024));
-        $est = round($maxBytes / pow(1024, $exp), 1);
+        $est = round($maxBytes / 1024 ** $exp, 1);
 
         return $est . $units[$exp];
     }
@@ -71,7 +70,7 @@ class FileUploader {
         $bytes = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {
             // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
-            return round($bytes * pow(1024, stripos('bkmgtpezy', $unit[0])));
+            return round($bytes * 1024 ** stripos('bkmgtpezy', $unit[0]));
         }
 
         return round($bytes);

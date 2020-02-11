@@ -1,27 +1,34 @@
-<div class="clearfix"></div>
+<!-- CLIPPING Detail on LISTING -->
+{# Clipping Listing Detail Items #}
 
 {% for clipping in clippings %}
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="thumbnail">
+    <li class="row clipping-list-item">
+        <div class="detail-image">
+            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
+                <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}">
+            </a>
+        </div>
+        <div class="clipping-detail">
+            <h2 class="detail-title">
                 <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
-                    <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}">
+                    {{ clipping.originalName }}
                 </a>
+            </h2>
+            <h3 class="detail-date">
+                {% if clipping.date %} Date: {{ clipping.date }}
+                {% else %} <i>no date is available</i>{% endif %}
+            </h3>
+            <div class="detail-text">
+                {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
+                    <ol class="search-listing-text">
+                        {% for result in text_service.searchHighlight(clipping.transcription, query) %}
+                            <li class="search-listing-text-item">{{ result|raw }}</li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    {{ text_service.trim(clipping.transcription, 60)|raw }}
+                {% endif %}
             </div>
         </div>
-        <div class="col-sm-9">
-            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
-                {{ clipping.originalName }}
-            </a> {% if clipping.date %} - {{ clipping.date }} {% else %} - <i>no date</i>{% endif %}<br/>
-            {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
-                <ul>
-                {% for result in text_service.searchHighlight(clipping.transcription, query) %}
-                    <li>{{ result|raw }}</li>
-                {% endfor %}
-                </ul>
-            {% else %}
-                {{ text_service.trim(clipping.transcription, 60)|raw }}
-            {% endif %}
-        </div>
-    </div>
+    </li>
 {% endfor %}

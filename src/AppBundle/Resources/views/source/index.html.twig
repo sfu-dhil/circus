@@ -1,31 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}sources{% endblock %}
+{# Sources Listing Page #}
+
+{% block title -%}
+    Available Sources
+{%- endblock %}
+
+{% block classes -%}
+    basic-page source-list
+{%- endblock %}
 
 {% block pageheader %}
-    <h1>Source List</h1>
-    <p class="count">
-        Displaying {{ sources|length }} sources of {{ sources.getTotalItemCount }} total.
-    </p>
+    <h1 class="page-title">Available Sources</h1>
 {% endblock %} 
 
 {% block body %}
-
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('source_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New
-                </a>
-            {% endif %}
+    <div class="content">
+        <div class="inner">
+            <!-- Admin Toolbar -->
+            <div class='btn-toolbar pull-right'>
+                <div class='btn-group'>
+                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                        <a href="{{ path('source_new') }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus"></span> New </a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- List Count -->
+            <div class="listing-count">
+                <p>Displaying <strong>{{ sources|length }}</strong> sources of
+                    <strong>{{ sources.getTotalItemCount }}</strong> total.</p>
+            </div>
+            <!-- Category List -->
+            <div class="sources-list-wrapper">
+                {% embed 'NinesUtilBundle:term:partial/index.html.twig' with {'terms': sources, 'path': 'source_show' } %}
+                {% endembed %}
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(sources) }}
+            </div>
         </div>
-    </div>
-
-    {% embed 'NinesUtilBundle:term:partial/index.html.twig' with {'terms': sources, 'path': 'source_show' } %}
-    {% endembed %}
-
-    <div class="navigation">
-        {{ knp_pagination_render(sources) }}
     </div>
 
 {% endblock %}

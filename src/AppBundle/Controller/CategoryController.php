@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
@@ -25,8 +33,6 @@ class CategoryController extends Controller {
      *
      * @Template()
      *
-     * @param Request $request
-     *
      * @return array
      */
     public function indexAction(Request $request) {
@@ -37,9 +43,9 @@ class CategoryController extends Controller {
         $paginator = $this->get('knp_paginator');
         $categories = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'categories' => $categories,
-        );
+        ];
     }
 
     /**
@@ -48,8 +54,6 @@ class CategoryController extends Controller {
      * @Route("/new", name="category_new", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
-     *
-     * @param Request $request
      *
      * @return array | RedirectResponse
      */
@@ -65,13 +69,13 @@ class CategoryController extends Controller {
 
             $this->addFlash('success', 'The new category was created.');
 
-            return $this->redirectToRoute('category_show', array('id' => $category->getId()));
+            return $this->redirectToRoute('category_show', ['id' => $category->getId()]);
         }
 
-        return array(
+        return [
             'category' => $category,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
@@ -80,9 +84,6 @@ class CategoryController extends Controller {
      * @Route("/{id}", name="category_show", methods={"GET"})
      *
      * @Template()
-     *
-     * @param Request $request
-     * @param Category $category
      *
      * @return array
      */
@@ -93,10 +94,10 @@ class CategoryController extends Controller {
         $paginator = $this->get('knp_paginator');
         $clippings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'category' => $category,
             'clippings' => $clippings,
-        );
+        ];
     }
 
     /**
@@ -105,9 +106,6 @@ class CategoryController extends Controller {
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template()
-     *
-     * @param Request $request
-     * @param Category $category
      *
      * @return array | RedirectResponse
      */
@@ -120,13 +118,13 @@ class CategoryController extends Controller {
             $em->flush();
             $this->addFlash('success', 'The category has been updated.');
 
-            return $this->redirectToRoute('category_show', array('id' => $category->getId()));
+            return $this->redirectToRoute('category_show', ['id' => $category->getId()]);
         }
 
-        return array(
+        return [
             'category' => $category,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
@@ -134,9 +132,6 @@ class CategoryController extends Controller {
      *
      * @Route("/{id}/delete", name="category_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @param Request $request
-     * @param Category $category
      *
      * @return RedirectResponse
      */

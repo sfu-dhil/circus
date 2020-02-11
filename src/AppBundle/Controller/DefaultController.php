@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -14,12 +22,10 @@ class DefaultController extends Controller {
      * @Route("/", name="homepage", methods={"GET"})
      * @Template()
      *
-     * @param Request $request
-     *
      * @return array
      */
     public function indexAction(Request $request) {
-        return array();
+        return [];
     }
 
     /**
@@ -28,11 +34,9 @@ class DefaultController extends Controller {
      * @Route("/privacy", name="privacy", methods={"GET"})
      * @Template()
      *
-     * @param Request $request
-     *
      * @return array
      */
     public function privacyAction(Request $request) {
-        return array();
+        return [];
     }
 }

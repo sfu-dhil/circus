@@ -1,33 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}clippings{% endblock %}
+{# Clipping Listing Page #}
+
+{% block title -%}
+    Clipping List
+{%- endblock %}
+
+{% block classes -%}
+    basic-page clipping-list
+{%- endblock %}
 
 {% block pageheader %}
-    <h1>Clipping List</h1>
-    <p class="count">
-        Displaying {{ clippings|length }} clippings of {{ clippings.getTotalItemCount }} total.
-    </p>
-{% endblock %}
+    <h1 class="page-title">Clipping List</h1>
+{% endblock %} 
 
 {% block body %}
-
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('clipping_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New
-                </a>
-            {% endif %}
-            <a href="{{ path('clipping_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
+    <div class="content">
+        <div class="inner">
+            <!-- Admin Toolbar -->
+            <div class='btn-toolbar pull-right'>
+                <div class='btn-group'>
+                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                        <a href="{{ path('clipping_new') }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus"></span> New Item </a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- List Count -->
+            <div class="listing-count">
+                <p>Displaying <strong>{{ clippings|length }}</strong> clippings of
+                    <strong>{{ clippings.getTotalItemCount }}</strong> total.</p>
+            </div>
+            <!-- Listing -->
+            <div class="clipping-list-wrapper">
+                <ul class="clipping-list">
+                    {% include 'AppBundle:clipping:partial/list.html.twig' %}
+                </ul>
+            </div>
+            <!-- Pager -->
+            <div class="navigation bottom-pager">
+                {{ knp_pagination_render(clippings) }}
+            </div>
         </div>
-    </div>
-
-    {% include 'AppBundle:clipping:partial/list.html.twig' %}
-
-    <div class="navigation">
-        {{ knp_pagination_render(clippings) }}
     </div>
 
 {% endblock %}

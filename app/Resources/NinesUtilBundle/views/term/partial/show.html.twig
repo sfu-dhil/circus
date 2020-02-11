@@ -1,0 +1,27 @@
+{# Terms Table #}
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th class="term-name">Name</th>
+            <td>{{ term.name }}</td>
+        </tr>
+        <tr>
+            <th class="term-label">Label</th>
+            <td>{{ term.label }}</td>
+        </tr>
+        <tr>
+            <th class="term-description">Description</th>
+            <td>{{ term.description|raw }}</td>
+        </tr>
+        {% block callback %}
+        {% endblock %}
+        <tr>
+            <th class="term-created">Created</th>
+            <td>{% if term.created %}{{ term.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th class="term-updated">Updated</th>
+            <td>{% if term.updated %}{{ term.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+    </tbody>
+</table>
