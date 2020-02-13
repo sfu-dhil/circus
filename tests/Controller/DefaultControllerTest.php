@@ -23,21 +23,7 @@ class DefaultControllerTest extends ControllerBaseCase {
     public function testIndex() : void {
         $crawler = $this->client->request('GET', '/');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertStringContainsString('Circus', $crawler->text());
+        $this->assertStringContainsString('Circus', $crawler->text(null, true));
 
-    }
-
-    public function testLogin() : void {
-        $formCrawler = $this->client->request('GET', '/login');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
-        $form = $formCrawler->selectButton('Login')->form([
-            '_username' => UserFixtures::USER['username'],
-            '_password' => UserFixtures::USER['password'],
-        ]);
-        $this->client->submit($form);
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-        $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }

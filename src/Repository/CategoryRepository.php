@@ -20,7 +20,6 @@ use Doctrine\Persistence\ManagerRegistry;
  * repository methods below.
  */
 class CategoryRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository {
-
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Category::class);
     }

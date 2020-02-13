@@ -30,8 +30,9 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/clipping")
  */
-class ClippingController extends AbstractController  implements PaginatorAwareInterface {
+class ClippingController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
+
     /**
      * Lists all Clipping entities.
      *

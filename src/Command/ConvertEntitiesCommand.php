@@ -12,14 +12,14 @@ namespace App\Command;
 
 use App\Entity\Clipping;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * CircusConvertEntitiesCommand command.
  */
-class ConvertEntitiesCommand extends ContainerAwareCommand {
+class ConvertEntitiesCommand extends Command {
     public const BATCH_SIZE = 100;
 
     /**

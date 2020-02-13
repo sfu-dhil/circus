@@ -23,7 +23,6 @@ use Doctrine\Persistence\ManagerRegistry;
  * repository methods below.
  */
 class ClippingRepository extends ServiceEntityRepository {
-
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Clipping::class);
     }

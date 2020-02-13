@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
@@ -11,7 +17,6 @@ use Doctrine\Migrations\AbstractMigration;
  * Auto-generated Migration: Please modify to your needs!
  */
 final class Version20200212213026 extends AbstractMigration {
-
     public function getDescription() : string {
         return 'FOS User to Nines User';
     }
@@ -24,7 +29,8 @@ final class Version20200212213026 extends AbstractMigration {
         $this->addSql('DROP INDEX UNIQ_5BA994A1A0D96FBF ON nines_user');
         $this->addSql('DROP INDEX UNIQ_5BA994A1C05FB297 ON nines_user');
 
-        $this->addSql(<<<'ENDSQL'
+        $this->addSql(
+            <<<'ENDSQL'
 ALTER TABLE nines_user
 DROP username_canonical,
 DROP email_canonical,

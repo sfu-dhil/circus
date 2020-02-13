@@ -40,9 +40,10 @@ class FileUploader {
     public function upload(UploadedFile $file) {
         $original = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safe = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $original);
-        $filename = $safe.'-'.uniqid().'.'.$file->guessExtension();
+        $filename = $safe . '-' . uniqid() . '.' . $file->guessExtension();
 
         $file->move($this->imageDir, $filename);
+
         return $filename;
     }
 
@@ -68,9 +69,9 @@ class FileUploader {
         return $thumbname;
     }
 
-    public function processClipping(Clipping $clipping) {
+    public function processClipping(Clipping $clipping) : void {
         $uploadedFile = $clipping->getImageFile();
-        if( ! $uploadedFile instanceof UploadedFile) {
+        if ( ! $uploadedFile instanceof UploadedFile) {
             return;
         }
         $clipping->setOriginalName($uploadedFile->getClientOriginalName());
@@ -117,5 +118,4 @@ class FileUploader {
 
         return round($bytes);
     }
-
 }

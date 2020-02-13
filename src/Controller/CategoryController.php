@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Clipping;
 use App\Form\CategoryType;
 use App\Repository\ClippingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/category")
  */
-class CategoryController extends AbstractController  implements PaginatorAwareInterface {
+class CategoryController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
