@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{# New Category #}
+
+{% block title -%}
+    New Category
+{%- endblock %}
+
+{% block classes -%}
+    edit category-new
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Add a New Category</h1>
+{% endblock %} 
+
+{% block body %}
+    <div class="content">
+        <div class="inner">
+            <div class="content-full">
+                <div class="inner">
+                    {{ form_start(form) }}
+                    <div class="new-category-wrapper">
+                        {{ form_widget(form) }}
+                    </div>
+                    <div class="form-group">
+                        <div class="form-submit">
+                            <div class="button-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <a href="{{ path('category_index') }}" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include '@NinesEditor/editor/widget.html.twig' %}
+{% endblock %}

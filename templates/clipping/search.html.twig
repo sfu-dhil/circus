@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{# Clipping Search and Search ListingPage #}
+
+{% block title -%}
+    Clippings Search
+{%- endblock %}
+
+{% block classes -%}
+    basic-page clipping-search-list
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Clippings Search</h1>
+{% endblock %} 
+
+{% block body %}
+    <div class="content">
+        <div class="inner">
+            <div class="search-form-header">
+                {% include 'misc/search-form.html.twig' with {'search_path': 'clipping_search'} %}
+            </div>
+            <div class="listing-count">
+                <p>{% include 'misc/search-header.html.twig' with {'results': clippings} %}</p>
+            </div>
+            <div class="clipping-list-wrapper">
+                <ul class="clipping-list">
+                    {% if q %}
+                        {% include 'clipping/partial/list.html.twig' with {'query': q} %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="navigation bottom-pager">
+                {% include 'misc/search-footer.html.twig' with {'results': clippings} %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

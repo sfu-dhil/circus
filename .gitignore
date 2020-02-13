@@ -1,33 +1,31 @@
-/.web-server-pid
-/app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
 /vendor/
-/web/bundles/
-/web/bower
-/web/images/clippings/*
-!/web/images/clippings/.gitkeep
-/nbproject
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+# Temporary while doing the upgrade.
+/old
+
+# documentation
+/docs/src/build
 /web/docs
+
+# PHPStorm config.
 /.idea
-/etc
-/app/config/deploy.yml
-/web/assets
-/web/uploads
-jquery.collection.html.twig
-web/js
-.phpunit.result.cache
-.phpunit.result.cache
-web/images/blog
-web/yarn
+.yarn-integrity
+public/yarn
+config/deploy.yml
+*.sql
+public/images/clippings

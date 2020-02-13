@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{# New Source #}
+
+{% block title -%}
+    New Source
+{%- endblock %}
+
+{% block classes -%}
+    edit source-new
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Add a New Source</h1>
+{% endblock %} 
+
+{% block body %}
+    <div class="content">
+        <div class="inner">
+            <div class="content-full">
+                <div class="inner">
+                    {{ form_start(form) }}
+                    <div class="new-source-wrapper">
+                        {{ form_widget(form) }}
+                    </div>
+                    <div class="form-group">
+                        <div class="form-submit">
+                            <div class="button-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <a href="{{ path('source_index') }}" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {% include '@NinesEditor/editor/widget.html.twig' %}
+{% endblock %}
