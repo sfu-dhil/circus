@@ -86,10 +86,12 @@
                                 <li class="menu-item">{{ knp_menu_render('main') }}</li>
                                 <li class="menu-item">{{ knp_menu_render('pages') }}</li>
                                 <li class="menu-item"><a href="{{ path('privacy') }}">Privacy</a></li>
-                                <li class="menu-item"><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a>
-                                </li>
+                                <li class="menu-item"><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a></li>
                                 <li class="menu-item"><a href="https://github.com/sfu-dhil/circus">GitHub</a></li>
-                                <li class="menu-item last"><a href="{{ path('user') }}">Login</a></li>
+                                <li class="menu-item"><a href="{{ path('user') }}">Login</a></li>
+                                <li class="menu-item last">
+                                    <a href="{{ path('clipping_search') }}"><span class="glyphicon glyphicon-search"></span>
+                                        Search</a></li>
                             </ul>
                         </nav><!--END NAV FOOTER -->
                     </div>
