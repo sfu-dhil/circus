@@ -134,7 +134,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @return array | RedirectResponse
      */
-    public function editAction(Request $request, Clipping $clipping, EntityManagerInterface $em) {
+    public function editAction(Request $request, Clipping $clipping, EntityManagerInterface $em, FileUploader $uploader) {
         $editForm = $this->createForm(ClippingType::class, $clipping);
         $editForm->remove('imageFile');
         $editForm->add('newImageFile', FileType::class, [
@@ -150,7 +150,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             if (($upload = $editForm->get('newImageFile')->getData())) {
                 $clipping->setImageFile($upload);
-                $clipping->preUpdate(); // force doctrine to update.
+                $uploader->processClipping($clipping);
             }
             $em->flush();
             $this->addFlash('success', 'The clipping has been updated.');
