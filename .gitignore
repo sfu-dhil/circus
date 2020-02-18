@@ -30,3 +30,4 @@ config/deploy.yml
 *.sql
 public/images/clippings
 config/deploy.yaml
+public/docs
