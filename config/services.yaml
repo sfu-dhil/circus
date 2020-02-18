@@ -16,7 +16,7 @@ parameters:
     dhil.piwik_siteid: 38
     dhil.piwik_domain: dhil.lib.sfu.ca/circus
 
-    clipping_img_dir: images/clippings
+    clipping_img_dir: public/images/clippings
     clipping_img_prefix: images/clippings/
     clipping_thumb_width: 320
     clipping_thumb_height: 240
