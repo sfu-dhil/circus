@@ -41,6 +41,11 @@
                                 <!--REGULAR -->
                                 {{ knp_menu_render('main') }}
                                 {{ knp_menu_render('nines_blog_pages') }}
+                                <ul class="nav navbar-nav pull-right">
+                                    <li class="menu-item">
+                                        <a href="{{ path('clipping_search') }}"><span class="glyphicon glyphicon-search"></span>
+                                            Search</a></li>
+                                </ul>
                             </div>
                         </nav><!--END NAV -->
                     </div>
@@ -83,14 +88,10 @@
                                 <li class="menu-item"><a href="{{ path('privacy') }}">Privacy</a></li>
                                 <li class="menu-item"><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a></li>
                                 <li class="menu-item"><a href="https://github.com/sfu-dhil/circus">GitHub</a></li>
-<<<<<<< HEAD:app/Resources/views/base.html.twig
-                                <li class="menu-item"><a href="{{ path('user') }}">Login</a></li>
+                                <li class="menu-item last">{{ knp_menu_render('nines_user_nav') }}</li>
                                 <li class="menu-item last">
                                     <a href="{{ path('clipping_search') }}"><span class="glyphicon glyphicon-search"></span>
                                         Search</a></li>
-=======
-                                <li class="menu-item last">{{ knp_menu_render('nines_user_nav') }}</li>
->>>>>>> upgrade working.:templates/base.html.twig
                             </ul>
                         </nav><!--END NAV FOOTER -->
                     </div>
