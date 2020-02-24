@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{# New Clipping #}
+
+{% block title -%}
+    New Clipping
+{%- endblock %}
+
+{% block classes -%}
+    edit clipping-new
+{%- endblock %}
+
+{% block pageheader %}
+    <h1 class="page-title">Add a New Clipping</h1>
+{% endblock %} 
+
+{% block body %}
+    <div class="content">
+        <div class="inner">
+            <div class="content-full">
+                <div class="inner">
+                    {{ form_start(form) }}
+                    <!-- image upload -->
+                    <div class="image-upload-wrapper">
+                        {{ form_row(form.imageFile) }}
+                    </div>
+                    <!-- text data -->
+                    <div id="transcript" class="edit-transcription">
+                        {{ form_row(form.transcription) }}
+                    </div>
+                    <div id="annotations" class="edit-annotations">
+                        {{ form_row(form.annotations) }}
+                    </div>
+                    <div id="metadata" class="metadata">
+                        <h1 class="group-title">Metadata:</h1>
+                        {{ form_rest(form) }}
+                    </div>
+                    <!-- form submit -->
+                    <div class="form-group">
+                        <div class="form-submit">
+                            <div class="button-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <a href="{{ path('clipping_index') }}" class="btn btn-warning">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include '@NinesEditor/editor/widget.html.twig' %}
+{% endblock %}
