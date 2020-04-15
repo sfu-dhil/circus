@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ul class="gallery">
+    {% for clipping in clippings %}
+        <li class="card">
+            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
+                <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
+                alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/>
+            </a>
+            <div class="card-content">
+                <h2 class="detail-title">
+                    <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
+                    {{ clipping.number }} (Vol. )
+                    </a>
+                </h2>
+                <p>{{ text_service.trim(clipping.transcription, 60)|raw }}</p>
+            </div>
+        </li>
+    {% endfor %}
+    <li class="empty"/>
+    <li class="empty"/>
+    <li class="empty"/>
+</ul>

@@ -1,0 +1,114 @@
+/**
+ * Namespaces 
+ * 
+ **/
+
+@use 'sass:map';
+
+/**
+ * Imports 
+ * 
+ **/
+@import "_variables.scss";
+@import "_typography.scss";
+@import "_mobile.scss";
+
+body{
+    line-height: 1.6;
+    font-size: 16px;
+    background-color: $circus-tan;
+    font-family: "Lora", serif;
+}
+
+@for $i from 1 to 6 {
+  h#{$i} {
+    font-size: map.get($typescale, $i);
+    font-family: "Playfair Display";
+  }
+}
+
+/*
+ *  Main
+ *  */
+
+main{
+    min-height:80vh;
+    margin-bottom:10rem;
+}
+
+
+/*
+ *  Gallery 
+ * */
+
+
+.gallery{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    padding-left:0;
+    .card{
+        background: $circus-grey;
+    }
+    .card, .empty{
+        display:flex;
+        flex-direction:column;
+        flex:1 0 21%;
+        margin:2rem;
+        margin-left:0;
+        min-width:20rem;
+        & > a{
+            display:block;
+        }
+        img{
+            display:block;
+            max-width:100%;
+            height:auto;
+        }
+    }
+}
+
+/*
+ *  Clipping Page 
+ * */
+ 
+ .clipping{
+     display:flex;
+     flex-wrap:no-wrap;
+     justify-content:space-between;
+     .transcription{
+         max-width:50rem;
+         margin-top: map.get($typescale, 2);
+         margin-right: map.get($typescale, 4);
+     }
+     
+     .metadata {
+        flex: 0 1 30rem;
+         .metadata-content{
+             background: $circus-grey;
+             padding:map.get($typescale, 4);
+         }
+         
+     }
+ }
+ 
+
+/*
+ *  Footer
+ *  */
+ 
+footer{
+
+ /* REMOVE THIS ONCE CONTENT ADDED */
+    height: 30vh;
+    &::before{
+        content:"";
+        display:block;
+        width:65%;
+        height:.2rem;
+        background:$circus-orange;
+        margin: .5rem auto;
+    }
+}
+
+

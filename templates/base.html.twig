@@ -1,117 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="{% block id %}index{% endblock %}">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="google" content="notranslate" />
         <title>{% block title %}Welcome!{% endblock %} | Reconstructing Early Circus</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
-        <link rel="stylesheet" href="{{ asset('yarn/@openfonts/bevan_all/index.css') }}">
-        <link rel="stylesheet" href="{{ asset('yarn/@openfonts/domine_latin-ext/index.css') }}">
-        <link rel="stylesheet" href="{{ asset('yarn/source-serif-pro/source-serif-pro.css') }}">
-
-        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}">
-
-        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('yarn/@openfonts/bevan_all/index.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('yarn/@openfonts/domine_latin-ext/index.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('yarn/source-serif-pro/source-serif-pro.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/circus.css') }}"/>
         <script src="{{ asset('yarn/jquery/dist/jquery.min.js') }}"></script>
+            
         {% block styles %}
         {% endblock %}
     </head>
     <body class="{% block classes %}base{% endblock %}">
-        <div id="page-wrapper">
-            <div id="header-wrapper">
-                <div class="header">
-                    <div class="branding">
-                        <h1 class="site-title">Reconstructing Early Circus</h1>
+        <header>
+            <div class="horses"></div>
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <!--HAMBURGER -->
+                        <button type="button"
+                            class="navbar-toggle collapsed" 
+                            data-toggle="collapse" data-target="#navbar" 
+                            aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle Navigation</span> <span class="icon-bar"></span>
+                            <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
                     </div>
-                    <div class="nav-wrapper">
-                        <nav class="navbar navbar-default">
-                            <div class="navbar-header">
-                                <!--HAMBURGER -->
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                    <span class="sr-only">Toggle Navigation</span> <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                                </button>
-                            </div>
-                            <div id="navbar" class="collapse navbar-collapse">
-                                <!--REGULAR -->
-                                {{ knp_menu_render('main') }}
-                                {{ knp_menu_render('nines_blog_pages') }}
-                                <ul class="nav navbar-nav pull-right">
-                                    <li class="menu-item">
-                                        <a href="{{ path('clipping_search') }}"><span class="glyphicon glyphicon-search"></span>
-                                          Search</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav><!--END NAV -->
-                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <!--REGULAR -->
+                        {{ knp_menu_render('main') }}
+                        {{ knp_menu_render('nines_blog_pages') }}
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="menu-item">
+                                <a href="{{ path('clipping_search') }}">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    Search</a>
+                            </li>
+                        </ul>
+                    </div> 
                 </div>
-            </div><!--END header-wrapper -->
-            <div id="page">
-                <div id="page-header-wrapper">
-                    {% if block('pageheader') is defined %}
-                        <div class="page-header highlight">
-                            {{ block('pageheader') }}
-                        </div>
-                    {% endif %}
-
-                    {% for type, messages in app.session.flashbag.all() %}
-                        {% for message in messages %}
-                            <div class="alert-wrapper">
-                                <div class="alert alert-{{ type }}">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    {{ message }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                </div><!--END page-header-wrapper -->
-                <div id="main">
-                    {% block body %}
-                    {% endblock %}
-                </div><!--END main -->
-            </div><!--END page -->
-            <div id="footer-wrapper">
-                <footer class="footer">
-                    <div class="footer-col-left">
-                        <h2 class="site-title">Reconstructing Early Circus</h2>
-                        <nav class="nav-footer"><!--NAV FOOTER -->
-                            <ul class="menu">
-                                <li class="menu-item">{{ knp_menu_render('main') }}</li>
-                                <li class="menu-item">{{ knp_menu_render('nines_blog_pages') }}</li>
-                                <li class="menu-item"><a href="{{ path('privacy') }}">Privacy</a></li>
-                                <li class="menu-item"><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a></li>
-                                <li class="menu-item"><a href="https://github.com/sfu-dhil/circus">GitHub</a></li>
-                                <li class="menu-item last">{{ knp_menu_render('nines_user_nav') }}</li>
-                                <li class="menu-item last">
-                                    <a href="{{ path('clipping_search') }}"><span class="glyphicon glyphicon-search"></span>
-                                      Search</a>
-                                </li>
-                            </ul>
-                        </nav><!--END NAV FOOTER -->
-                    </div>
-                    <div class="footer-col-right">
-                        <nav class="nav-footer">
-                            <ul class="menu external-links">
-                                <li class="menu-item dhil">
-                                    <a href="https://www.lib.sfu.ca/help/publish/dh/dhil" target="_blank"><img src="{{ asset('images/dhil-home-page-logo.jpg') }}" /></a>
-                                </li>
-                                <li class="menu-item" sfu>
-                                    <a href="https://www.sfu.ca/" target="_blank"><img src="{{ asset('images/SFU_block_colour_rgb.png') }}" /></a>
-                                </li>
-                            </ul>
-                        </nav><!--END NAV FOOTER -->
-                    </div>
-                </footer>
-            </div><!--END footer-wrapper -->
-        </div><!--END page-wrapper -->
+                
+            </nav>
+        </header>
+        <main class="container">
+            {% block admin %}
+            
+            {% endblock %}
+            
+            {% block pageheader %}
+            
+            {% endblock %}
+            
+            {% block body %}
+                
+            {% endblock %}
+            
+        </main>
+ 
+        <footer class="footer">
+            <div class="container">
+                <!--<div id="footer-menu">
+                    <ul>
+                        <li class="menu-item">{{ knp_menu_render('main') }}</li>
+                        <li class="menu-item">{{ knp_menu_render('nines_blog_pages') }}</li>
+                        <li class="menu-item"><a href="{{ path('privacy') }}">Privacy</a></li>
+                        <li class="menu-item"><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a></li>
+                        <li class="menu-item"><a href="https://github.com/sfu-dhil/circus">GitHub</a></li>
+                        <li class="menu-item last">{{ knp_menu_render('nines_user_nav') }}</li>
+                    </ul>
+                </div>
+                <div id="footer-imgs">
+                    <ul>
+                        <li>
+                            <a href="https://www.lib.sfu.ca/help/publish/dh/dhil" target="_blank">
+                                <img src="{{ asset('images/dhil-home-page-logo.jpg') }}" />
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="https://www.sfu.ca/" target="_blank">
+                                <img src="{{ asset('images/SFU_block_colour_rgb.png') }}" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+        </footer>
+        
+        
+        
+        <!--Messages, but not sure what these are-->
+        
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                 <div class="alert-wrapper">
+                    <div class="alert alert-{{ type }}">
+                        <button type="button" class="close"
+                                data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                      {{ message }}
+                     </div>
+                </div>
+             {% endfor %}
+        {% endfor %}
+        
+        
         <!-- Scripts -->
         <script src="{{ asset('yarn/bootstrap3/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/form.js') }}"></script>
@@ -122,6 +123,7 @@
                 {maxWidth: '90%'},
             );
         </script>
+        
         {% block javascripts %}
         {% endblock %}
 

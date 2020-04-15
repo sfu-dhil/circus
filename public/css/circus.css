@@ -1,0 +1,117 @@
+/**
+ * Namespaces 
+ * 
+ **/
+/**
+ * Imports 
+ * 
+ **/
+/* We'll just Google get the fonts for now */
+@import url("https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lora:400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
+body {
+  line-height: 1.6;
+  font-size: 16px;
+  background-color: #FFF7EB;
+  font-family: "Lora", serif;
+}
+
+h1 {
+  font-size: 3.052rem;
+  font-family: "Playfair Display";
+}
+
+h2 {
+  font-size: 2.441rem;
+  font-family: "Playfair Display";
+}
+
+h3 {
+  font-size: 1.953rem;
+  font-family: "Playfair Display";
+}
+
+h4 {
+  font-size: 1.563rem;
+  font-family: "Playfair Display";
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-family: "Playfair Display";
+}
+
+/*
+ *  Main
+ *  */
+main {
+  min-height: 80vh;
+  margin-bottom: 10rem;
+}
+
+/*
+ *  Gallery 
+ * */
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+.gallery .card {
+  background: #F2F2F2;
+}
+.gallery .card, .gallery .empty {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 21%;
+  margin: 2rem;
+  margin-left: 0;
+  min-width: 20rem;
+}
+.gallery .card > a, .gallery .empty > a {
+  display: block;
+}
+.gallery .card img, .gallery .empty img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+ *  Clipping Page 
+ * */
+.clipping {
+  display: flex;
+  flex-wrap: no-wrap;
+  justify-content: space-between;
+}
+.clipping .transcription {
+  max-width: 50rem;
+  margin-top: 2.441rem;
+  margin-right: 1.563rem;
+}
+.clipping .metadata {
+  flex: 0 1 30rem;
+}
+.clipping .metadata .metadata-content {
+  background: #F2F2F2;
+  padding: 1.563rem;
+}
+
+/*
+ *  Footer
+ *  */
+footer {
+  /* REMOVE THIS ONCE CONTENT ADDED */
+  height: 30vh;
+}
+footer::before {
+  content: "";
+  display: block;
+  width: 65%;
+  height: 0.2rem;
+  background: #C03F2A;
+  margin: 0.5rem auto;
+}
+
+/*# sourceMappingURL=circus.css.map */

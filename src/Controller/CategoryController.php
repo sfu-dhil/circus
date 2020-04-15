@@ -46,7 +46,7 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
         $qb->select('e')->from(Category::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
-        $categories = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $categories = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'categories' => $categories,
@@ -93,7 +93,7 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      */
     public function showAction(Request $request, Category $category, ClippingRepository $repo) {
         $query = $repo->categoryQuery($category);
-        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'category' => $category,

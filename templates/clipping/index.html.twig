@@ -2,8 +2,8 @@
 
 {# Clipping Listing Page #}
 
-{% block title -%}
-    Clipping List
+{% block title %}
+    All items
 {%- endblock %}
 
 {% block classes -%}
@@ -11,37 +11,46 @@
 {%- endblock %}
 
 {% block pageheader %}
-    <h1 class="page-title">Clipping List</h1>
+    <h1>All Items</h1>
 {% endblock %} 
 
-{% block body %}
-    <div class="content">
-        <div class="inner">
-            <!-- Admin Toolbar -->
-            <div class='btn-toolbar pull-right'>
-                <div class='btn-group'>
-                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                        <a href="{{ path('clipping_new') }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus"></span> New Item </a>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- List Count -->
-            <div class="listing-count">
-                <p>Displaying <strong>{{ clippings|length }}</strong> clippings of
-                    <strong>{{ clippings.getTotalItemCount }}</strong> total.</p>
-            </div>
-            <!-- Listing -->
-            <div class="clipping-list-wrapper">
-                <ul class="clipping-list">
-                    {% include 'clipping/partial/list.html.twig' %}
-                </ul>
-            </div>
-            <!-- Pager -->
-            <div class="navigation bottom-pager">
-                {{ knp_pagination_render(clippings) }}
+{% block admin %}
+    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <div class='btn-toolbar'>
+            <div class='btn-group'>
+                <a href="{{ path('clipping_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New Item
+                </a>
             </div>
         </div>
-    </div>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block body %}
+<!-- Admin Toolbar -->
+
+
+<article>
+    
+    {% include 'clipping/partial/gallery.html.twig' %}
+    
+</article>
+
+
+<!-- Pager -->
+<div class="navigation bottom-pager">
+    {{ knp_pagination_render(clippings) }}
+</div>
+
+        
+            <!-- List Count -->
+            {# <div class="listing-count">
+                <p>Displaying <strong>{{ clippings|length }}</strong> clippings of
+                    <strong>{{ clippings.getTotalItemCount }}</strong> total.</p>
+            </div> #}
+            
+           
 
 {% endblock %}
