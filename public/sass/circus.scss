@@ -12,20 +12,18 @@
 @import "_variables.scss";
 @import "_typography.scss";
 @import "_mobile.scss";
+@import "_imagezoom.scss";
+
 
 body{
     line-height: 1.6;
     font-size: 16px;
     background-color: $circus-tan;
     font-family: "Lora", serif;
+    color: $circus-black;
 }
 
-@for $i from 1 to 6 {
-  h#{$i} {
-    font-size: map.get($typescale, $i);
-    font-family: "Playfair Display";
-  }
-}
+
 
 /*
  *  Main
@@ -36,6 +34,26 @@ main{
     margin-bottom:10rem;
 }
 
+/* 
+ * Article content
+ */
+
+article{
+    
+    a:not(.imgContainer):not(.btn){
+        border-bottom: 0.3rem solid rgba($circus-orange, 0.5);
+        line-height: 1.7;
+        padding-bottom: 0.3rem;
+        transition: border-bottom-color 0.2s ease-in-out;
+        text-decoration:none;
+        color:inherit;
+        &:hover{
+            border-bottom-color: $circus-orange;
+            text-decoration:none;
+            color:inherit;
+        }
+    }
+}
 
 /*
  *  Gallery 
@@ -49,22 +67,55 @@ main{
     padding-left:0;
     .card{
         background: $circus-grey;
-    }
-    .card, .empty{
-        display:flex;
-        flex-direction:column;
-        flex:1 0 21%;
-        margin:2rem;
-        margin-left:0;
-        min-width:20rem;
-        & > a{
-            display:block;
+        transition:box-shadow 0.2s ease-in-out;
+        cursor:pointer;
+        &:hover{
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+                        0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            .date, p{
+                opacity:1;
+            }
+        }
+        h2{
+            margin-bottom: map.get($typescale, 4);
+        }
+        .date, p{
+            opacity: 0.8;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .date{
+            margin-bottom: map.get($typescale, 3); 
+        }
+        p{
+            font-size: map.get($typescale, 4) * 0.95;
+            font-style:italic; 
         }
         img{
             display:block;
             max-width:100%;
             height:auto;
         }
+         /* &:before{
+            content: "";
+            display:block;
+            position:absolute;
+            bottom:0;
+            right:0;
+            border-width: 2.5rem 2.5rem 0  0;
+            height:1px;
+            border-style:solid;
+            border-color: darken($circus-grey,18%) $circus-tan $circus-tan $circus-tan;
+        } */
+    }
+    .card, .empty{
+        display:flex;
+        flex-direction:column;
+        flex:1 0 21%;
+        margin:2rem;
+        padding: map.get($typescale, 8);
+        padding-bottom: map.get($typescale, 1);
+        margin-left:0;
+        min-width:20rem;
     }
 }
 
@@ -77,21 +128,99 @@ main{
      flex-wrap:no-wrap;
      justify-content:space-between;
      .transcription{
-         max-width:50rem;
          margin-top: map.get($typescale, 2);
-         margin-right: map.get($typescale, 4);
+         margin-right: 10%;
      }
      
      .metadata {
+
         flex: 0 1 30rem;
+        &.no-transcription{
+          flex: 1 1 100%;  
+          .metadata-content{
+              flex-direction:row;
+              a{
+                  margin-right:2rem;
+              }
+          }
+        }
          .metadata-content{
-             background: $circus-grey;
-             padding:map.get($typescale, 4);
+            position:sticky;
+            top:1rem;
+            background: $circus-grey;
+            padding:map.get($typescale, 4);
+            display:flex;
+            flex-direction:column;
+            
+         }
+         .metadata-body{
+             display:flex;
+             flex-wrap:wrap;
+             font-family: "Lato", sans-serif;
+             font-size: 0.9em;
+             & > div{
+                 margin: map.get($typescale, 8);
+                 flex: 1 1 30%;
+             }
+             h4{
+                 margin-bottom: map.get($typescale, 8);
+                 font-weight:200;
+                 font-family: inherit;
+                 font-size:inherit;
+             }
+
          }
          
      }
  }
  
+/*
+ * Headings
+ * 
+ * This little formula iterates through all of the heading levels
+ * and associates it with the typography scale
+ */ 
+ @for $i from 1 to 6 {
+  h#{$i} {
+    font-size: map.get($typescale, $i);
+    font-family: "Playfair Display";
+    margin-bottom:map.get($typescale, $i);
+  }
+}
+
+/* 
+ * Header
+ * 
+ */
+
+.horses{
+    height:10vh;
+    background: url('../images/circus-header.png');
+    background-size:contain;
+    background-repeat:repeat-x;
+}
+
+.navbar{
+    background:$circus-black;
+    #navbar{
+        color:white;
+    }
+    a{
+        color:inherit;
+        text-shadow:none;
+    }
+}
+
+
+ 
+
+/*
+ *  Blog pages
+ *  */
+ 
+ .user .text-right{
+     display:none;
+ }
 
 /*
  *  Footer
@@ -109,6 +238,32 @@ footer{
         background:$circus-orange;
         margin: .5rem auto;
     }
+}
+
+/*
+ *  Search
+ *  */
+
+.search-results{
+    list-style-type:none;
+    margin-left:0;
+    padding-left:0;
+    li{
+        background: #f9f9f9;
+        font-size: map.get($typescale, 4) * 0.9;
+        margin:0;
+        padding:.25rem;
+    }
+    
+    
+    li + li{
+        margin-top: map.get($typescale, 8);
+    }
+    
+}
+
+mark{
+    background: rgba($circus-orange, 0.4);
 }
 
 

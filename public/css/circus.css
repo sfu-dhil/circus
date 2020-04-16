@@ -8,36 +8,127 @@
  **/
 /* We'll just Google get the fonts for now */
 @import url("https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lora:400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap");
+@media (max-width: 768px) {
+  .clipping {
+    flex-direction: column-reverse;
+  }
+
+  #facsCloser {
+    left: 0;
+  }
+}
+/* CSS Library for imagezoom, with some styling support from
+ * 
+ *  */
+/* Loader circle (one element!) comes from
+ * 
+ * https://projects.lukehaas.me/css-loaders/
+ * 
+ * with many thanks.
+ *  */
+#facsViewerContainer {
+  display: none;
+}
+#facsViewerContainer.open {
+  display: flex;
+  background: black;
+  color: white;
+  margin: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  position: fixed;
+  padding-right: 2rem;
+  align-self: center;
+  z-index: 9000;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+#facsViewerContainer.open #facs_closer {
+  font-size: 4rem;
+  color: white;
+  justify-self: flex-end;
+  left: -3.5rem;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+#facsViewerContainer.open #facs_closer:hover {
+  color: #C03F2A;
+  transition: color 0.2 ease-in-out;
+}
+#facsViewerContainer.loaded #facs_loader {
+  display: none;
+}
+
+#facs_loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#facs_loader .loader,
+#facs_loader .loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+#facs_loader .loader {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+
+.facs-overlay #header_overlay {
+  background: black;
+  opacity: 0.7;
+  width: 100vw;
+  height: 101vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  filter: blur(2px);
+  z-index: 8000;
+}
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 body {
   line-height: 1.6;
   font-size: 16px;
   background-color: #FFF7EB;
   font-family: "Lora", serif;
-}
-
-h1 {
-  font-size: 3.052rem;
-  font-family: "Playfair Display";
-}
-
-h2 {
-  font-size: 2.441rem;
-  font-family: "Playfair Display";
-}
-
-h3 {
-  font-size: 1.953rem;
-  font-family: "Playfair Display";
-}
-
-h4 {
-  font-size: 1.563rem;
-  font-family: "Playfair Display";
-}
-
-h5 {
-  font-size: 1.25rem;
-  font-family: "Playfair Display";
+  color: #080705;
 }
 
 /*
@@ -46,6 +137,23 @@ h5 {
 main {
   min-height: 80vh;
   margin-bottom: 10rem;
+}
+
+/* 
+ * Article content
+ */
+article a:not(.imgContainer):not(.btn) {
+  border-bottom: 0.3rem solid rgba(192, 63, 42, 0.5);
+  line-height: 1.7;
+  padding-bottom: 0.3rem;
+  transition: border-bottom-color 0.2s ease-in-out;
+  text-decoration: none;
+  color: inherit;
+}
+article a:not(.imgContainer):not(.btn):hover {
+  border-bottom-color: #C03F2A;
+  text-decoration: none;
+  color: inherit;
 }
 
 /*
@@ -59,22 +167,54 @@ main {
 }
 .gallery .card {
   background: #F2F2F2;
+  transition: box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  /* &:before{
+      content: "";
+      display:block;
+      position:absolute;
+      bottom:0;
+      right:0;
+      border-width: 2.5rem 2.5rem 0  0;
+      height:1px;
+      border-style:solid;
+      border-color: darken($circus-grey,18%) $circus-tan $circus-tan $circus-tan;
+  } */
+}
+.gallery .card:hover {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.gallery .card:hover .date, .gallery .card:hover p {
+  opacity: 1;
+}
+.gallery .card h2 {
+  margin-bottom: 1.563rem;
+}
+.gallery .card .date, .gallery .card p {
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
+.gallery .card .date {
+  margin-bottom: 1.953rem;
+}
+.gallery .card p {
+  font-size: 1.48485rem;
+  font-style: italic;
+}
+.gallery .card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 .gallery .card, .gallery .empty {
   display: flex;
   flex-direction: column;
   flex: 1 0 21%;
   margin: 2rem;
+  padding: 0.64rem;
+  padding-bottom: 3.052rem;
   margin-left: 0;
   min-width: 20rem;
-}
-.gallery .card > a, .gallery .empty > a {
-  display: block;
-}
-.gallery .card img, .gallery .empty img {
-  display: block;
-  max-width: 100%;
-  height: auto;
 }
 
 /*
@@ -86,16 +226,109 @@ main {
   justify-content: space-between;
 }
 .clipping .transcription {
-  max-width: 50rem;
   margin-top: 2.441rem;
-  margin-right: 1.563rem;
+  margin-right: 10%;
 }
 .clipping .metadata {
   flex: 0 1 30rem;
 }
+.clipping .metadata.no-transcription {
+  flex: 1 1 100%;
+}
+.clipping .metadata.no-transcription .metadata-content {
+  flex-direction: row;
+}
+.clipping .metadata.no-transcription .metadata-content a {
+  margin-right: 2rem;
+}
 .clipping .metadata .metadata-content {
+  position: sticky;
+  top: 1rem;
   background: #F2F2F2;
   padding: 1.563rem;
+  display: flex;
+  flex-direction: column;
+}
+.clipping .metadata .metadata-body {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Lato", sans-serif;
+  font-size: 0.9em;
+}
+.clipping .metadata .metadata-body > div {
+  margin: 0.64rem;
+  flex: 1 1 30%;
+}
+.clipping .metadata .metadata-body h4 {
+  margin-bottom: 0.64rem;
+  font-weight: 200;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/*
+ * Headings
+ * 
+ * This little formula iterates through all of the heading levels
+ * and associates it with the typography scale
+ */
+h1 {
+  font-size: 3.052rem;
+  font-family: "Playfair Display";
+  margin-bottom: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+  font-family: "Playfair Display";
+  margin-bottom: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+  font-family: "Playfair Display";
+  margin-bottom: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+  font-family: "Playfair Display";
+  margin-bottom: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-family: "Playfair Display";
+  margin-bottom: 1.25rem;
+}
+
+/* 
+ * Header
+ * 
+ */
+.horses {
+  height: 10vh;
+  background: url("../images/circus-header.png");
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+
+.navbar {
+  background: #080705;
+}
+.navbar #navbar {
+  color: white;
+}
+.navbar a {
+  color: inherit;
+  text-shadow: none;
+}
+
+/*
+ *  Blog pages
+ *  */
+.user .text-right {
+  display: none;
 }
 
 /*
@@ -112,6 +345,28 @@ footer::before {
   height: 0.2rem;
   background: #C03F2A;
   margin: 0.5rem auto;
+}
+
+/*
+ *  Search
+ *  */
+.search-results {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+.search-results li {
+  background: #f9f9f9;
+  font-size: 1.4067rem;
+  margin: 0;
+  padding: 0.25rem;
+}
+.search-results li + li {
+  margin-top: 0.64rem;
+}
+
+mark {
+  background: rgba(192, 63, 42, 0.4);
 }
 
 /*# sourceMappingURL=circus.css.map */

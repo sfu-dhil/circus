@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ul class="gallery">
     {% for clipping in clippings %}
-        <li class="card">
-            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
+        <li class="card" data-path="{{ path('clipping_show', { 'id': clipping.id }) }}">
+            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}" class="imgContainer">
                 <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
                 alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/>
             </a>
             <div class="card-content">
-                <h2 class="detail-title">
-                    <a href="{{ path('clipping_show', { 'id': clipping.id }) }}">
-                    {{ clipping.number }} (Vol. )
-                    </a>
-                </h2>
-                <p>{{ text_service.trim(clipping.transcription, 60)|raw }}</p>
+                <h2 class="detail-title">{{ clipping.number }} (<a href="{{ path('source_show', {'id': clipping.source.id}) }}">Vol. {{ clipping.source.id }}</a>)</h2>
+     
+                {% if clipping.date is null %}
+                    <div class="date unset">Undated</div>
+                {% else %}
+                    <div class="date">{{ clipping.date }}</div>
+                {% endif %}
+                {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
+                <ol class="search-results">
+                    {% for result in text_service.searchHighlight(clipping.transcription, query) %}
+                        <li>...{{ result|raw }}...</li>
+                    {% endfor %}
+                </ol>
+                {% elseif clipping.transcription is null or clipping.transcription is empty %}
+                    <p class="unset">No transcription available</p>
+                {% else %}
+                    <p>{{ text_service.trim(clipping.transcription, 20)|raw }}</p>
+                {% endif %}
             </div>
         </li>
     {% endfor %}

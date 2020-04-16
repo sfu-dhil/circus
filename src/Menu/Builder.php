@@ -72,16 +72,34 @@ class Builder implements ContainerAwareInterface {
 
         $browse = $menu->addChild('browse', [
             'uri' => '#',
-            'label' => 'Clippings ' . self::CARET,
+            'label' => 'Archive ' . self::CARET,
         ]);
         $browse->setAttribute('dropdown', true);
         $browse->setLinkAttribute('class', 'dropdown-toggle');
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $browse->addChild('clippings', [
-            'label' => 'Clippings',
-            'route' => 'clipping_index',
+        $browse->addChild('astley1', [
+            'label' => "Astley's Volume 1",
+            'route' => 'source_show',
+            'routeParameters' => ['id' => 1]
+        ]);
+        
+        $browse->addChild('astley2', [
+            'label' => "Astley's Volume 2",
+            'route' => 'source_show',
+            'routeParameters' => ['id' => 2]
+        ]);
+        
+        $browse->addChild('astley3', [
+            'label' => "Astley's Volume 3",
+            'route' => 'source_show',
+            'routeParameters' => ['id' => 3]
+        ]);
+        
+        $browse->addChild('all', [
+            'label' => "View all",
+            'route' => 'clipping_index'
         ]);
 
         if ($this->hasRole('ROLE_USER')) {

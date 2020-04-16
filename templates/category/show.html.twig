@@ -2,16 +2,10 @@
 
 {# Category Detail Page #}
 
-{% block title %}
-    Category Detail
-{% endblock %}
-
-{% block classes -%}
-    basic-page category-detail
-{%- endblock %}
+{% block title %} {{ category.label }}{% endblock %}
 
 {% block pageheader %}
-    <h1 class="page-title">Category Detail:</h1>
+    <h1 class="page-title">{{ category.label }}</h1>
 {% endblock %} 
 
 {% block admin %}
@@ -32,10 +26,12 @@
 {% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_CONTENT_ADMIN') %}
     <aside class="category-detail-wrapper">
         {% embed "@NinesUtil/term/partial/show.html.twig" with {'term': category} %}
         {% endembed %}
     </aside>
+    {% endif %}
     <article>
         {% if clippings|length > 0 %}
             {% include 'clipping/partial/gallery.html.twig' %}

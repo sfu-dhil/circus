@@ -3,7 +3,7 @@
 {# Source Detail Page #}
 
 {% block title %}
-    Source Detail
+    {{ source.label }}
 {% endblock %}
 
 {% block classes -%}
@@ -11,7 +11,7 @@
 {%- endblock %}
 
 {% block pageheader %}
-    <h1 class="page-title">Source</h1>
+    <h1>{{ source.label }}</h1>
 {% endblock %} 
 
 {% block admin %}
@@ -32,6 +32,7 @@
 {% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_CONTENT_ADMIN') %}
 <aside class="category-detail-wrapper">
     {% embed "@NinesUtil/term/partial/show.html.twig" with { 'term': source } %}
         {% block callback %}
@@ -42,7 +43,7 @@
         {% endblock %}
     {% endembed %}
 </aside>
-
+{% endif %}
 <article>
     {% if clippings|length > 0 %}
         {% include 'clipping/partial/gallery.html.twig' %}

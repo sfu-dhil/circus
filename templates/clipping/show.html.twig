@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block pageheader %}
-    <h1 class="page-title">Clipping Detail: {{ clipping.originalName }}</h1>
+    <h1>{{ clipping.number }} (Vol. {{ clipping.source.id }})</h1>
 {% endblock %}
 
 {% block admin %}
     {% if is_granted('ROLE_CONTENT_ADMIN') %}
-        <div class="btn-toolbar">
+        <div class="btn-toolbar pull-right">
             <div class="btn-group">
                 <a href="{{ path('clipping_edit', { 'id': clipping.id }) }}"
                     class="btn btn-default">
@@ -25,72 +25,94 @@
 {% endblock %}
 
 {% block body %}
-
     <article class="clipping">
-        <section class="transcription">
-            <h3 class="sr-only">Transcription</h3>
-            <div class="transcription-content">
-                {{ clipping.transcription|raw }}
-            </div>
-        </section>
-        <section class="metadata">
+        {% if clipping.transcription is not empty  %}
+            <section class="transcription">
+                <h3 class="sr-only">Transcription</h3>
+                <div class="transcription-content">
+                    {{ clipping.transcription|raw }}
+                </div>
+            </section>
+        {% endif %}
+        
+        <section class="metadata{% if clipping.transcription is empty %} no-transcription{% endif %}">
             <div class="metadata-content">
-                <a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}">
+                <a class="zoomable imgContainer" href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}">
                     <img 
                         src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
                         alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/> 
                 </a>
                 <div class="metadata-body">
+                   <div>
+                       <h4>Clipping Number</h4>
+                       <div>{{ clipping.number }}</div>
+                   </div>
+                    <div>
+                        <h4>Written Date:</h4>
+                        
+                        
+                        {% if clipping.writtenDate matches '([nN]\.?[dD]|No [dD]ate\.?)' %}
+                            <div class="unset">Not dated</div>
+                        {% else %}
+                            <div>{{ clipping.writtenDate }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h4>Date:</h4>
+                        {% if clipping.date is null %}
+                            <div class="unset">Not dated</div>
+                        {% else %}
+                        <div>{{ clipping.date }}</div>
+                        {% endif %}
+                    </div>
        
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th class="col-01">Image Number:</th>
-                                <td class="col-02">{{ clipping.originalName }}</td>
-                            </tr>
-                            {% if is_granted('ROLE_USER') %}
-                            
-                            {% endif %}
-                            <tr>
-                                <th>Written Date:</th>
-                                <td>{{ clipping.writtenDate }}</td>
-                            </tr>
-                            <tr>
-                                <th>Date:</th>
-                                <td>{{ clipping.date }}</td>
-                            </tr>
-                            <tr>
-                                <th>Created:</th>
-                                <td>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            </tr>
-                            <tr>
-                                <th>Updated:</th>
-                                <td>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            </tr>
-                            <tr>
-                                <th>Category:</th>
-                                <td>
-                                    <a href="{{ path('category_show', { 'id': clipping.category.id}) }}">
-                                        {{ clipping.category }}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Source:</th>
-                                <td>
-                                    <a href="{{ path('source_show', { 'id': clipping.source.id}) }}">
-                                        {{ clipping.source }}
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div>
+                        <h4>Category:</h4>
+                        <div>
+                            <a href="{{ path('category_show', { 'id': clipping.category.id}) }}">
+                                {{ clipping.category }}
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Source:</h4>
+                        <div>
+                            <a href="{{ path('source_show', { 'id': clipping.source.id}) }}">
+                                {{ clipping.source }}
+                            </a>
+                        </div>
+                    </div>
+                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                    <div>
+                        <h4>Image Number:</h4>
+                        <div><a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">{{ clipping.originalName }}</a></div>
+                    </div>
+                    <div>
+                        <h4>Created:</h4>
+                        <div>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</div>
+                    </div>
+                    <div>
+                        <h4>Updated:</h4>
+                        <div>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</div>
+                    </div>
+                    {% endif %}
                 </div>
             
             </div>
         </section>
-    </article>            
+    </article>
+    <div id="facsViewerContainer">
+            <span id="facs_closer" class="facsCloser">&times;</span>
+            
+            <div id="facs_loader">
+                <div class="loader">Loading</div>
+            </div>
+            <canvas id="viewer"/>
+        
+        
+    </div>        
 {% endblock %}
 
 {% block javascripts %}
+<script src="{{ asset('js/imagezoom.js') }}"></script>
 {% endblock %}

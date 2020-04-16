@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" id="{% block id %}index{% endblock %}">
+
+{% if is_granted('ROLE_CONTENT_ADMIN') %}
+    {% set user = 'admin' %}
+{% else %}
+    {% set user = 'user' %}
+{% endif %}
+
+<html lang="en" id="{% block id %}index{% endblock %}" 
+    class="{{ user }}">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -22,7 +30,7 @@
     <body class="{% block classes %}base{% endblock %}">
         <header>
             <div class="horses"></div>
-            <nav class="navbar navbar-default">
+            <nav class="navbar">
                 <div class="container">
                     <div class="navbar-header">
                         <!--HAMBURGER -->
@@ -38,6 +46,7 @@
                         <!--REGULAR -->
                         {{ knp_menu_render('main') }}
                         {{ knp_menu_render('nines_blog_pages') }}
+                        {{ knp_menu_render('nines_user_nav') }}
                         <ul class="nav navbar-nav pull-right">
                             <li class="menu-item">
                                 <a href="{{ path('clipping_search') }}">
@@ -49,8 +58,24 @@
                 </div>
                 
             </nav>
+            <a id="header_overlay" class="facsCloser"></a>
         </header>
         <main class="container">
+            {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+            <div class="alert-wrapper">
+                <div class="alert alert-{{ type }}">
+                    <button type="button" class="close"
+                        data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+            
+            
             {% block admin %}
             
             {% endblock %}
@@ -98,25 +123,14 @@
         
         <!--Messages, but not sure what these are-->
         
-        {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-                 <div class="alert-wrapper">
-                    <div class="alert alert-{{ type }}">
-                        <button type="button" class="close"
-                                data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                      {{ message }}
-                     </div>
-                </div>
-             {% endfor %}
-        {% endfor %}
+     
         
         
         <!-- Scripts -->
         <script src="{{ asset('yarn/bootstrap3/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/form.js') }}"></script>
         <script src="{{ asset('yarn/jquery-colorbox/jquery.colorbox.js') }}"></script>
+        <script src="{{ asset('js/circus.js') }}"></script>
         <script>
             jQuery('a.detail-image').colorbox(
                 //{maxWidth:'90%', maxHeight:'95%'}
