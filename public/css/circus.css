@@ -269,7 +269,65 @@ body {
   font-weight: normal;
 }
 .index article {
-  font-size: 1.563rem;
+  display: flex;
+  justify-content: space-between;
+}
+.index article section {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.index article section:first-child {
+  flex-basis: calc(50% - 6rem);
+  margin-right: 3rem;
+  line-height: 1.8;
+  font-size: 1.7193rem;
+}
+.index article section.nav-blocks {
+  flex-basis: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 1rem;
+  align-content: baseline;
+}
+.index article section.nav-blocks > div {
+  height: 30rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: grayscale(70%);
+  transition: filter 0.2s ease-in-out;
+}
+.index article section.nav-blocks > div:hover {
+  filter: grayscale(0%);
+}
+.index article section.nav-blocks > div:first-child {
+  width: 100%;
+  background-image: url("../images/microcosm.jpg");
+  margin-bottom: 1rem;
+}
+.index article section.nav-blocks > div:nth-child(2) {
+  width: 45%;
+  margin-right: 1rem;
+  background-image: url("../images/amphitheatre.jpg");
+}
+.index article section.nav-blocks > div:nth-child(3) {
+  width: 45%;
+  background-image: url("../images/astley_riding_school.jpg");
+}
+.index article section.nav-blocks > div > a {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  border-bottom: none;
+}
+.index article section.nav-blocks > div > a h2 {
+  width: 100%;
+  padding: 1.563rem;
+  color: white;
+  text-align: center;
+  background: rgba(8, 7, 5, 0.8);
 }
 
 /*
@@ -334,6 +392,12 @@ article a:not(.imgContainer):not(.btn):hover {
 }
 .gallery .card:hover > a.imgContainer {
   border-color: transparent;
+  border-bottom: none;
+}
+.gallery .card .clip-link {
+  border-bottom: none;
+}
+.gallery .card .clip-link:hover {
   border-bottom: none;
 }
 .gallery .card > a.imgContainer {
@@ -472,12 +536,14 @@ h5 {
   background-size: contain;
   background-repeat: repeat-x;
   transform: translateX(0);
-  width: 300vw;
+  width: 200vw;
+  overflow-x: hidden;
   /* Shhh...it's a secret */
 }
 .horses.egg {
-  transform: translateX(-100vw);
-  transition: transform 8s linear;
+  pointer-events: none;
+  transform: translateX(-40vw);
+  transition: transform 4s linear;
 }
 
 /* 
@@ -599,6 +665,22 @@ mark {
   background: rgba(192, 63, 42, 0.4);
 }
 
+@media (max-width: 995px) {
+  .index article {
+    flex-direction: column;
+  }
+  .index article section:first-child {
+    margin-right: 0;
+  }
+  .index article section.nav-blocks {
+    margin-top: 4rem;
+    flex: 1 1 30% !important;
+  }
+  .index article section.nav-blocks > div {
+    width: auto !important;
+    margin: 1.25rem;
+  }
+}
 @media (max-width: 767px) {
   .index .subtitle {
     margin-top: 3rem;

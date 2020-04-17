@@ -1,3 +1,24 @@
+@media (max-width: 995px){
+    
+    .index{
+        article{
+            flex-direction:column;
+            section:first-child{
+                margin-right:0;
+            }
+            section.nav-blocks{
+                margin-top:4rem;
+                flex: 1 1 30%!important;
+                > div{
+                    width:auto!important;
+                    margin: map.get($typescale, 5);
+                }
+            }
+        }
+    }
+}
+
+
 @media (max-width: 767px){
 
     .index{
@@ -19,6 +40,8 @@
         height:auto;
       }
     }
+    
+
     .clipping{
         flex-direction:column-reverse;
         a.imgContainer{

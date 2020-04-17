@@ -67,14 +67,73 @@ body{
          max-width:80vw;
          padding: map.get($typescale, 8) map.get($typescale, 4);
          font-weight:normal;
-     }
-     
-     
-     
+     } 
  }
-    article{
-         font-size: map.get($typescale, 4);
-     }
+   article{
+         
+         display:flex;
+        justify-content:space-between;
+         section{
+             flex-grow:1;
+             flex-shrink:1;
+      
+             &:first-child{
+                 flex-basis:calc(50% - 6rem);
+                 margin-right:3rem;
+                 line-height:1.8;
+                 font-size: map.get($typescale, 4) * 1.1;
+             }
+             &.nav-blocks{
+                 flex-basis:30%;
+                 display:flex;
+                 flex-wrap:wrap;
+                 margin-left:1rem;
+                 align-content:baseline;
+                  & > div {
+                     height:30rem;
+                     flex-grow:1;
+                     flex-shrink:1;
+                     background-size:cover;
+                     background-repeat:no-repeat;
+                     background-position:center;
+                     filter: grayscale(70%);
+                     transition: filter 0.2s ease-in-out;
+                     &:hover{
+                       filter: grayscale(0%);
+                     }
+                     &:first-child{
+                         width:100%;
+                         background-image: url('../images/microcosm.jpg');
+                         margin-bottom:1rem;
+                     }
+                     &:nth-child(2){
+                         width:45%;
+                         margin-right:1rem;
+                         background-image: url('../images/amphitheatre.jpg');
+                     }
+                     &:nth-child(3){
+                         width:45%;
+                         background-image: url('../images/astley_riding_school.jpg');
+                     }
+                     & > a{
+                         display:flex;
+                         align-items:flex-end;
+                         height:100%;
+                         border-bottom:none;
+                         h2{
+                            width:100%;
+                            padding: map.get($typescale, 4);
+                            color:white;
+                            text-align:center;
+                            background: rgba($circus-black, 0.8);
+                           }
+                     }
+                 }
+                 
+                
+             }
+         }
+   }
  }
  
 
@@ -132,6 +191,12 @@ article{
             }
             & > a.imgContainer{
                 border-color:transparent;
+                border-bottom:none;
+            }
+        }
+        .clip-link{
+            border-bottom:none;
+            &:hover{
                 border-bottom:none;
             }
         }
@@ -276,11 +341,14 @@ article{
     background-size:contain;
     background-repeat:repeat-x;
     transform:translateX(0);
-    width:300vw;
+    width:200vw;
+    overflow-x:hidden;
     /* Shhh...it's a secret */
     &.egg{
-        transform: translateX(-100vw);
-           transition: transform 8s linear;
+        pointer-events:none;
+        
+        transform: translateX(-40vw);
+        transition: transform 4s linear;
     }
 }
 

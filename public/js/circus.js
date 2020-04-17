@@ -31,17 +31,14 @@ burgers.forEach(function(burg){
 /* ssshhh this is a secret */
 
 const horses = document.querySelectorAll('.horses')[0];
+let clicks = 0;
 horses.addEventListener('click', function(){
-    let clicks = this.getAttribute('data-clicks');
-    let count = clicks == null ? 0 : (clicks * 1) + 1;
-    if (count == 4){
+    clicks++;
+    if ((clicks % 5) == 0){
         horses.classList.add('egg');
-        this.setAttribute('data-clicks', 0);
         this.addEventListener('transitionend', function(){
             this.classList.remove('egg');
         });
-    } else {
-        this.setAttribute('data-clicks', count);
     }
   });
     
