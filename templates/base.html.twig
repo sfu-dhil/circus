@@ -97,17 +97,39 @@
  
         <footer class="footer">
             <div class="container">
-                <!--<div id="footer-menu">
+                <div class="footer-menu">
+                    
+                    {# We construct our own menu here
+                    since the knp menu rendering is too wedded
+                    to the default bootstrap assumptions that it's
+                    in the nav bar only #}
+                    
                     <ul>
-                        <li class="menu-item">{{ knp_menu_render('main') }}</li>
-                        <li class="menu-item">{{ knp_menu_render('nines_blog_pages') }}</li>
-                        <li class="menu-item"><a href="{{ path('privacy') }}">Privacy</a></li>
-                        <li class="menu-item"><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a></li>
-                        <li class="menu-item"><a href="https://github.com/sfu-dhil/circus">GitHub</a></li>
-                        <li class="menu-item last">{{ knp_menu_render('nines_user_nav') }}</li>
+                        <li><a href="{{ path('homepage') }}">Welcome</a></li>
+                        <li><a href="{{ path('nines_blog_page_show', { 'id': 1 }) }}">About</a></li>
+                        <li><a href="{{ path('clipping_index') }}">Archive</a></li>
+                        <li><a href="{{ path('clipping_search') }}">Search</a></li>
+                        <li><a href="{{ asset('docs/sphinx/index.html') }}">Documentation</a></li>
+                        <li><a href="{{ path('privacy') }}">Privacy</a></li>
+                        <li><a href="https://github.com/sfu-dhil/circus">Github</a></li>
                     </ul>
+                    
+                    
+                    <!--{{ knp_menu_render('main') }}
+                    {{ knp_menu_render('nines_blog_pages') }}
+                    <ul class="navbar-nav nav">
+                        <li>
+                            <a href="{{ path('privacy') }}">Privacy</a>
+                            
+                        </li>
+                        <li class="menu-item">
+                           </li>
+                        <li class="menu-item"><a href="">GitHub</a></li>
+                    </ul>
+                    {{ knp_menu_render('nines_user_nav') }}-->
+                    
                 </div>
-                <div id="footer-imgs">
+                <div class="footer-imgs">
                     <ul>
                         <li>
                             <a href="https://www.lib.sfu.ca/help/publish/dh/dhil" target="_blank">
@@ -120,17 +142,10 @@
                             </a>
                         </li>
                     </ul>
-                </div>-->
+                </div>
             </div>
         </footer>
-        
-        
-        
-        <!--Messages, but not sure what these are-->
-        
-     
-        
-        
+
         <!-- Scripts -->
         <script src="{{ asset('yarn/bootstrap3/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/form.js') }}"></script>
