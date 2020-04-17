@@ -60,6 +60,10 @@ class Builder implements ContainerAwareInterface {
      * @return ItemInterface
      */
     public function mainMenu(array $options) {
+    
+        /* NOTE: Any changes made to main menu
+        will not be reflected in the footer menu */
+        
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes([
             'class' => 'nav navbar-nav',
@@ -78,7 +82,7 @@ class Builder implements ContainerAwareInterface {
         $browse->setLinkAttribute('class', 'dropdown-toggle');
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
-
+        
         $browse->addChild('astley1', [
             'label' => "Astley's Volume 1",
             'route' => 'source_show',
