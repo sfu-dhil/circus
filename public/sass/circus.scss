@@ -14,15 +14,69 @@
 @import "_imagezoom.scss";
 @import '../yarn/hamburgers/_sass/hamburgers/hamburgers.scss';
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
 body{
     line-height: 1.675;
     font-size: 16px;
     background-color: $circus-tan;
     font-family: "Lora", serif;
     color: $circus-black;
+    overflow-x:hidden;
 }
 
 
+/*
+ * 
+ * Index page
+ */
+ .index{
+     .navbar{
+         margin-bottom:0;
+     }
+   .hero{
+     background:url('../images/circus-hero.jpeg');
+     width:100vw;
+     height:70vh;
+     background-attachment:fixed;
+     background-size:cover;
+     background-position:center;
+     margin-bottom:map.get($typescale, 1);
+     display:flex;
+     flex-direction:column;
+     align-items:center;
+     justify-content:center;
+     .title, .subtitle{
+         background: rgba($circus-black, 0.75);
+        
+     }
+     .title{
+          margin-top:-1rem;
+          padding:map.get($typescale, 1)  map.get($typescale, 1);
+          margin-bottom: map.get($typescale, 2);
+          img{
+              max-width:80vw;
+          }
+     }
+     .subtitle{
+         color:white;
+         max-width:80vw;
+         padding: map.get($typescale, 8) map.get($typescale, 4);
+         font-weight:normal;
+     }
+     
+     
+     
+ }
+    article{
+         font-size: map.get($typescale, 4);
+     }
+ }
+ 
 
 /*
  *  Main
@@ -73,15 +127,27 @@ article{
             /* Box shadow taken from tailwind shadow component */
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
                         0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            .date:not(.unset), p{
+            p{
                 opacity:1;
             }
+            & > a.imgContainer{
+                border-color:transparent;
+                border-bottom:none;
+            }
+        }
+        & > a.imgContainer{
+            border: 1px dashed #BFBFBF;
+            transition: border-color 0.2s ease-in-out;
+            border-bottom:none;
+        }
+        .card-content{
+            padding: map.get($typescale, 8);
         }
         h2{
             margin-bottom: map.get($typescale, 4);
         }
-        .date, p{
-            opacity: 0.8;
+        p{
+            opacity: 0.6;
             transition: opacity 0.2s ease-in-out;
         }
         .date.unset{
@@ -121,10 +187,11 @@ article{
         flex-direction:column;
         flex:1 0 21%;
         margin:2rem;
-        padding: map.get($typescale, 8);
+        
         padding-bottom: map.get($typescale, 1);
         margin-left:0;
         min-width:20rem;
+        
     }
 }
 
@@ -208,6 +275,13 @@ article{
     background: url('../images/circus-header.png');
     background-size:contain;
     background-repeat:repeat-x;
+    transform:translateX(0);
+    width:300vw;
+    /* Shhh...it's a secret */
+    &.egg{
+        transform: translateX(-100vw);
+           transition: transform 8s linear;
+    }
 }
 
 /* 
@@ -222,8 +296,20 @@ article{
 .navbar{
     background:$circus-black;
     border-radius:0;
+    font-size: map.get($typescale, 3);
+    .navbar-brand{
+        padding-right:1.5rem;
+        margin-right: 1rem;
+        border-right: 2px dashed $circus-tan;
+        height:115%;
+        img {
+            width:13rem;
+        }
+    }
+    
     .dropdown-menu{
         background: $circus-black;
+        font-size: map.get($typescale, 3);
         & > li > a{
             transition: background 0.2s ease;
             &:focus, &:hover{
@@ -264,7 +350,10 @@ article{
     }
     a.dropdown-toggle{
         &::after{
-        content: "▾";
+        content: "\e080";
+        font-size:1rem;
+        font-weight:200;
+        font-family: "Glyphicons Halflings";
         margin-left: .5rem;
         margin-right:.5rem;
         display:inline-block;
@@ -272,7 +361,7 @@ article{
         transition: transform 0.2s ease-in-out;
        }
        &[aria-expanded='true']::after{
-           transform:rotate(-90deg);
+           transform:rotate(90deg);
        }
     }
 }
@@ -331,6 +420,7 @@ footer{
 mark{
     background: rgba($circus-orange, 0.4);
 }
+
 
 
 @import "_mobile.scss";

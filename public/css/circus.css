@@ -217,12 +217,59 @@
   transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   line-height: 1.675;
   font-size: 16px;
   background-color: #FFF7EB;
   font-family: "Lora", serif;
   color: #080705;
+  overflow-x: hidden;
+}
+
+/*
+ * 
+ * Index page
+ */
+.index .navbar {
+  margin-bottom: 0;
+}
+.index .hero {
+  background: url("../images/circus-hero.jpeg");
+  width: 100vw;
+  height: 70vh;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 3.052rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.index .hero .title, .index .hero .subtitle {
+  background: rgba(8, 7, 5, 0.75);
+}
+.index .hero .title {
+  margin-top: -1rem;
+  padding: 3.052rem 3.052rem;
+  margin-bottom: 2.441rem;
+}
+.index .hero .title img {
+  max-width: 80vw;
+}
+.index .hero .subtitle {
+  color: white;
+  max-width: 80vw;
+  padding: 0.64rem 1.563rem;
+  font-weight: normal;
+}
+.index article {
+  font-size: 1.563rem;
 }
 
 /*
@@ -282,14 +329,26 @@ article a:not(.imgContainer):not(.btn):hover {
   /* Box shadow taken from tailwind shadow component */
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
-.gallery .card:hover .date:not(.unset), .gallery .card:hover p {
+.gallery .card:hover p {
   opacity: 1;
+}
+.gallery .card:hover > a.imgContainer {
+  border-color: transparent;
+  border-bottom: none;
+}
+.gallery .card > a.imgContainer {
+  border: 1px dashed #BFBFBF;
+  transition: border-color 0.2s ease-in-out;
+  border-bottom: none;
+}
+.gallery .card .card-content {
+  padding: 0.64rem;
 }
 .gallery .card h2 {
   margin-bottom: 1.563rem;
 }
-.gallery .card .date, .gallery .card p {
-  opacity: 0.8;
+.gallery .card p {
+  opacity: 0.6;
   transition: opacity 0.2s ease-in-out;
 }
 .gallery .card .date.unset {
@@ -312,7 +371,6 @@ article a:not(.imgContainer):not(.btn):hover {
   flex-direction: column;
   flex: 1 0 21%;
   margin: 2rem;
-  padding: 0.64rem;
   padding-bottom: 3.052rem;
   margin-left: 0;
   min-width: 20rem;
@@ -413,6 +471,13 @@ h5 {
   background: url("../images/circus-header.png");
   background-size: contain;
   background-repeat: repeat-x;
+  transform: translateX(0);
+  width: 300vw;
+  /* Shhh...it's a secret */
+}
+.horses.egg {
+  transform: translateX(-100vw);
+  transition: transform 8s linear;
 }
 
 /* 
@@ -426,9 +491,20 @@ h5 {
 .navbar {
   background: #080705;
   border-radius: 0;
+  font-size: 1.953rem;
+}
+.navbar .navbar-brand {
+  padding-right: 1.5rem;
+  margin-right: 1rem;
+  border-right: 2px dashed #FFF7EB;
+  height: 115%;
+}
+.navbar .navbar-brand img {
+  width: 13rem;
 }
 .navbar .dropdown-menu {
   background: #080705;
+  font-size: 1.953rem;
 }
 .navbar .dropdown-menu > li > a {
   transition: background 0.2s ease;
@@ -464,7 +540,10 @@ h5 {
   color: white;
 }
 .navbar a.dropdown-toggle::after {
-  content: "▾";
+  content: "";
+  font-size: 1rem;
+  font-weight: 200;
+  font-family: "Glyphicons Halflings";
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   display: inline-block;
@@ -472,7 +551,7 @@ h5 {
   transition: transform 0.2s ease-in-out;
 }
 .navbar a.dropdown-toggle[aria-expanded=true]::after {
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
 }
 
 /*
@@ -521,6 +600,15 @@ mark {
 }
 
 @media (max-width: 767px) {
+  .index .subtitle {
+    margin-top: 3rem;
+  }
+  .index .subtitle h2 {
+    text-align: center;
+    line-height: 1.6;
+    padding: 0;
+  }
+
   article img {
     width: 100%;
     max-width: 320px;

@@ -31,8 +31,12 @@
         <header>
             <div class="horses"></div>
             <nav class="navbar">
+                <a class="navbar-brand" href="{{ path('homepage') }}">
+                    <img alt="Reconstructing Early Circus" src="{{ asset ('images/logo.svg') }}"/>
+                </a>
                 <div class="container">
                     <div class="navbar-header">
+                        
                         <!--HAMBURGER -->
                         <button class="hamburger navbar-toggle collapsed hamburger--spin"
                             type="button" data-toggle="collapse" data-target="#navbar" 
@@ -43,7 +47,6 @@
                         </button>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
-                        <!--REGULAR -->
                         {{ knp_menu_render('main') }}
                         {{ knp_menu_render('nines_blog_pages') }}
                         {{ knp_menu_render('nines_user_nav') }}
@@ -58,6 +61,10 @@
             </nav>
             <a id="header_overlay" class="facsCloser"></a>
         </header>
+        
+        {# Special styles for index hero #}
+        {% block hero %} {% endblock %}
+        
         <main class="container">
             {% for type, messages in app.session.flashbag.all() %}
             {% for message in messages %}
