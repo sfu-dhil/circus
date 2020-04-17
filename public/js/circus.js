@@ -18,3 +18,12 @@ cardLinks.forEach(function(link){
         event.stopPropogation();
     })
 });
+
+
+const burgers = document.querySelectorAll('.hamburger');
+burgers.forEach(function(burg){
+    burg.addEventListener('click', function(){
+        burg.classList.toggle('is-active');
+        })
+    });
+

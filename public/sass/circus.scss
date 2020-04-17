@@ -11,12 +11,11 @@
  **/
 @import "_variables.scss";
 @import "_typography.scss";
-@import "_mobile.scss";
 @import "_imagezoom.scss";
-
+@import '../yarn/hamburgers/_sass/hamburgers/hamburgers.scss';
 
 body{
-    line-height: 1.6;
+    line-height: 1.675;
     font-size: 16px;
     background-color: $circus-tan;
     font-family: "Lora", serif;
@@ -53,6 +52,7 @@ article{
             color:inherit;
         }
     }
+    
 }
 
 /*
@@ -70,9 +70,10 @@ article{
         transition:box-shadow 0.2s ease-in-out;
         cursor:pointer;
         &:hover{
+            /* Box shadow taken from tailwind shadow component */
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
                         0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            .date, p{
+            .date:not(.unset), p{
                 opacity:1;
             }
         }
@@ -83,11 +84,14 @@ article{
             opacity: 0.8;
             transition: opacity 0.2s ease-in-out;
         }
+        .date.unset{
+            opacity: 0.5;
+        }
         .date{
             margin-bottom: map.get($typescale, 3); 
         }
         p{
-            font-size: map.get($typescale, 4) * 0.95;
+            font-size: map.get($typescale, 4) * 0.90;
             font-style:italic; 
         }
         img{
@@ -95,6 +99,11 @@ article{
             max-width:100%;
             height:auto;
         }
+        
+        /* Page fold thing, which interacts badly
+         * with box shadow so not sure whether or not
+         * we should keep it. */
+         
          /* &:before{
             content: "";
             display:block;
@@ -145,6 +154,7 @@ article{
           }
         }
          .metadata-content{
+            position: -webkit-sticky;
             position:sticky;
             top:1rem;
             background: $circus-grey;
@@ -200,14 +210,70 @@ article{
     background-repeat:repeat-x;
 }
 
+/* 
+ * 
+ * Header navbar
+ * 
+ * Most of the follow consists of 
+ * bootstrap overrides, grr.
+ * 
+ */
+
 .navbar{
     background:$circus-black;
-    #navbar{
+    border-radius:0;
+    .dropdown-menu{
+        background: $circus-black;
+        & > li > a{
+            transition: background 0.2s ease;
+            &:focus, &:hover{
+               background: rgba($circus-orange, 0.8);
+            }
+        }
+    }
+    *{
         color:white;
     }
     a{
         color:inherit;
         text-shadow:none;
+    }
+    
+    .hamburger{
+        display:none;
+    }
+    
+    .nav .open > a{
+       background: inherit;
+       &:hover, &:focus{
+           background:inherit;
+       }
+    }
+    
+    .nav > li > a{
+        border-bottom: .2rem solid transparent;
+         transition: border-bottom-color 0.2s ease;
+       &:hover, &:focus{
+            background-color: inherit;
+            border-bottom-color: $circus-orange;
+        }
+    }
+    .dropdown-menu > li > a{
+        color:white;
+
+    }
+    a.dropdown-toggle{
+        &::after{
+        content: "▾";
+        margin-left: .5rem;
+        margin-right:.5rem;
+        display:inline-block;
+        transform: rotate(0deg);
+        transition: transform 0.2s ease-in-out;
+       }
+       &[aria-expanded='true']::after{
+           transform:rotate(-90deg);
+       }
     }
 }
 
@@ -267,3 +333,4 @@ mark{
 }
 
 
+@import "_mobile.scss";

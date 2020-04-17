@@ -72,7 +72,7 @@ class Builder implements ContainerAwareInterface {
 
         $browse = $menu->addChild('browse', [
             'uri' => '#',
-            'label' => 'Archive ' . self::CARET,
+            'label' => 'Archive'
         ]);
         $browse->setAttribute('dropdown', true);
         $browse->setLinkAttribute('class', 'dropdown-toggle');

@@ -17,3 +17,19 @@ $typescale: (
   8: 0.64rem,
   9: 0.512rem,
 );
+
+
+/*
+ * 
+ * Hamburger menu mods
+ *  */
+ 
+ /* Only include spin */
+$hamburger-types: ('spin');
+
+$hamburger-layer-width         : 30px;
+$hamburger-layer-height        : 3px;
+$hamburger-layer-spacing       : 4.5px;
+
+/* Override color */
+$hamburger-layer-color: white;

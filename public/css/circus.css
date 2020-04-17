@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * Namespaces 
  * 
@@ -6,18 +7,15 @@
  * Imports 
  * 
  **/
+/*
+ * 
+ * Hamburger menu mods
+ *  */
+/* Only include spin */
+/* Override color */
 /* We'll just Google get the fonts for now */
 @import url("https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lora:400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap");
-@media (max-width: 768px) {
-  .clipping {
-    flex-direction: column-reverse;
-  }
-
-  #facsCloser {
-    left: 0;
-  }
-}
 /* CSS Library for imagezoom, with some styling support from
  * 
  *  */
@@ -123,8 +121,104 @@
     transform: rotate(360deg);
   }
 }
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+.hamburger {
+  padding: 15px 15px;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+}
+.hamburger:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after {
+  background-color: white;
+}
+
+.hamburger-box {
+  width: 30px;
+  height: 18px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -1.5px;
+}
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hamburger-inner::before, .hamburger-inner::after {
+  content: "";
+  display: block;
+}
+.hamburger-inner::before {
+  top: -7.5px;
+}
+.hamburger-inner::after {
+  bottom: -7.5px;
+}
+
+/*
+ * Spin
+ */
+.hamburger--spin .hamburger-inner {
+  transition-duration: 0.22s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--spin .hamburger-inner::before {
+  transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+}
+.hamburger--spin .hamburger-inner::after {
+  transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--spin.is-active .hamburger-inner {
+  transform: rotate(225deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.hamburger--spin.is-active .hamburger-inner::before {
+  top: 0;
+  opacity: 0;
+  transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+}
+.hamburger--spin.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+  transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
 body {
-  line-height: 1.6;
+  line-height: 1.675;
   font-size: 16px;
   background-color: #FFF7EB;
   font-family: "Lora", serif;
@@ -169,6 +263,9 @@ article a:not(.imgContainer):not(.btn):hover {
   background: #F2F2F2;
   transition: box-shadow 0.2s ease-in-out;
   cursor: pointer;
+  /* Page fold thing, which interacts badly
+   * with box shadow so not sure whether or not
+   * we should keep it. */
   /* &:before{
       content: "";
       display:block;
@@ -182,9 +279,10 @@ article a:not(.imgContainer):not(.btn):hover {
   } */
 }
 .gallery .card:hover {
+  /* Box shadow taken from tailwind shadow component */
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
-.gallery .card:hover .date, .gallery .card:hover p {
+.gallery .card:hover .date:not(.unset), .gallery .card:hover p {
   opacity: 1;
 }
 .gallery .card h2 {
@@ -194,11 +292,14 @@ article a:not(.imgContainer):not(.btn):hover {
   opacity: 0.8;
   transition: opacity 0.2s ease-in-out;
 }
+.gallery .card .date.unset {
+  opacity: 0.5;
+}
 .gallery .card .date {
   margin-bottom: 1.953rem;
 }
 .gallery .card p {
-  font-size: 1.48485rem;
+  font-size: 1.4067rem;
   font-style: italic;
 }
 .gallery .card img {
@@ -242,6 +343,7 @@ article a:not(.imgContainer):not(.btn):hover {
   margin-right: 2rem;
 }
 .clipping .metadata .metadata-content {
+  position: -webkit-sticky;
   position: sticky;
   top: 1rem;
   background: #F2F2F2;
@@ -313,15 +415,64 @@ h5 {
   background-repeat: repeat-x;
 }
 
+/* 
+ * 
+ * Header navbar
+ * 
+ * Most of the follow consists of 
+ * bootstrap overrides, grr.
+ * 
+ */
 .navbar {
   background: #080705;
+  border-radius: 0;
 }
-.navbar #navbar {
+.navbar .dropdown-menu {
+  background: #080705;
+}
+.navbar .dropdown-menu > li > a {
+  transition: background 0.2s ease;
+}
+.navbar .dropdown-menu > li > a:focus, .navbar .dropdown-menu > li > a:hover {
+  background: rgba(192, 63, 42, 0.8);
+}
+.navbar * {
   color: white;
 }
 .navbar a {
   color: inherit;
   text-shadow: none;
+}
+.navbar .hamburger {
+  display: none;
+}
+.navbar .nav .open > a {
+  background: inherit;
+}
+.navbar .nav .open > a:hover, .navbar .nav .open > a:focus {
+  background: inherit;
+}
+.navbar .nav > li > a {
+  border-bottom: 0.2rem solid transparent;
+  transition: border-bottom-color 0.2s ease;
+}
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+  background-color: inherit;
+  border-bottom-color: #C03F2A;
+}
+.navbar .dropdown-menu > li > a {
+  color: white;
+}
+.navbar a.dropdown-toggle::after {
+  content: "▾";
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in-out;
+}
+.navbar a.dropdown-toggle[aria-expanded=true]::after {
+  transform: rotate(-90deg);
 }
 
 /*
@@ -367,6 +518,38 @@ footer::before {
 
 mark {
   background: rgba(192, 63, 42, 0.4);
+}
+
+@media (max-width: 767px) {
+  article img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .clipping {
+    flex-direction: column-reverse;
+  }
+  .clipping a.imgContainer {
+    text-align: center;
+    margin-bottom: 0.64rem;
+  }
+  .clipping .metadata .metadata-body > div {
+    flex: 1 1 45%;
+  }
+  .clipping .transcription {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #facsCloser {
+    left: 0;
+  }
+
+  .navbar .hamburger {
+    display: block;
+  }
 }
 
 /*# sourceMappingURL=circus.css.map */

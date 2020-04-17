@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ul class="gallery">
     {% for clipping in clippings %}
+    
+    
         <li class="card" data-path="{{ path('clipping_show', { 'id': clipping.id }) }}">
             <a href="{{ path('clipping_show', { 'id': clipping.id }) }}" class="imgContainer">
                 <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
@@ -12,7 +14,10 @@
                 {% if clipping.date is null %}
                     <div class="date unset">Undated</div>
                 {% else %}
-                    <div class="date">{{ clipping.date }}</div>
+                    <div class="date">
+                        {% set dateStr = clipping.date | date('F d, Y') %}
+                        {{ dateStr | replace({', 0000': ', [?]', '00,': ''}) }}
+                    </div>
                 {% endif %}
                 {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
                 <ol class="search-results">
