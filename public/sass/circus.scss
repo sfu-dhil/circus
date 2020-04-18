@@ -19,6 +19,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body{
+   
+}
 
 body{
     line-height: 1.675;
@@ -26,7 +29,6 @@ body{
     background-color: $circus-tan;
     font-family: "Lora", serif;
     color: $circus-black;
-    overflow-x:hidden;
 }
 
 
