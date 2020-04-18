@@ -35,7 +35,7 @@
         
         <section class="metadata{% if clipping.transcription is empty %} no-transcription{% endif %}">
             <div class="metadata-content">
-                <a class="zoomable imgContainer" href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}">
+                <a class="zoomable imgContainer" href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank" rel="noopener noreferrer">
                     <img 
                         src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
                         alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/> 

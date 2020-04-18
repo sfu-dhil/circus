@@ -15,8 +15,14 @@ var init = 0;
  function init(){
     document.querySelectorAll('a.zoomable').forEach(function(i){
         i.addEventListener('click',function(e){
-            e.preventDefault();
-            drawFacs(i);
+            
+            if (window.innerWidth > 767){
+                  e.preventDefault();
+                  drawFacs(i);
+            } else {
+                return;
+            }
+          
         });
     });
     document.querySelectorAll('.facsCloser').forEach(function(closer){
@@ -26,8 +32,6 @@ var init = 0;
         });
     });
     var canvas = document.getElementsByTagName('canvas')[0];
-    canvas.setAttribute('data-width', canWidth);
-    canvas.setAttribute('data-height', canHeight);
  }
  
 function closeViewer(){
