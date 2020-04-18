@@ -483,6 +483,9 @@ article a:not(.imgContainer):not(.btn):hover {
   text-align: center;
   padding: 1.953rem 0;
 }
+.cat-gallery li a:not(.imgContainer) > div .desc {
+  font-size: 1.25rem;
+}
 
 /*
  *  Clipping Page 
@@ -674,6 +677,10 @@ h5 {
 /*
  *  Search
  *  */
+.search-form .form-group {
+  margin: 0;
+}
+
 .search-results {
   list-style-type: none;
   margin-left: 0;
@@ -736,9 +743,11 @@ footer .footer-imgs ul {
   display: flex;
   flex-direction: row;
   text-align: right;
+  flex-wrap: wrap;
 }
 footer .footer-imgs ul li {
   margin-right: 1rem;
+  margin-top: 1rem;
 }
 footer .footer-imgs img {
   max-height: 8rem;
