@@ -797,6 +797,9 @@ footer .footer-imgs img:hover {
     text-align: center;
     margin-bottom: 0.64rem;
   }
+  .clipping .metadata.no-transcription .metadata-content {
+    flex-direction: column;
+  }
   .clipping .metadata .metadata-body > div {
     flex: 1 1 45%;
   }
