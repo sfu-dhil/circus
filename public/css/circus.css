@@ -584,12 +584,12 @@ h5 {
   background-size: contain;
   background-repeat: repeat-x;
   transform: translateX(0);
-  width: 200vw;
   overflow-x: hidden;
   /* Shhh...it's a secret */
 }
 .horses.egg {
   pointer-events: none;
+  width: 200vw;
   transform: translateX(-40vw);
   transition: transform 4s linear;
 }
