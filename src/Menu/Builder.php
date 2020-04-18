@@ -101,6 +101,11 @@ class Builder implements ContainerAwareInterface {
             'routeParameters' => ['id' => 3]
         ]);
         
+        $browse->addChild('categories', [
+            'label' => 'Categories',
+            'route' => 'category_index'
+        ]);
+        
         $browse->addChild('all', [
             'label' => "View all",
             'route' => 'clipping_index'

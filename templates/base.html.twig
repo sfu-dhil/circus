@@ -24,8 +24,11 @@
         <link rel="stylesheet" href="{{ asset('css/circus.css') }}"/>
         <script src="{{ asset('yarn/jquery/dist/jquery.min.js') }}"></script>
             
-        {% block styles %}
-        {% endblock %}
+       
+        <style>
+             {% block styles %} {% endblock %}
+        </style>
+       
     </head>
     <body class="{% block classes %}base{% endblock %}">
         <header>

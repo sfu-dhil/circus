@@ -14,32 +14,55 @@
     <h1 class="page-title">Available Categories</h1>
 {% endblock %} 
 
-{% block body %}
-    <div class="content">
-        <div class="inner">
-            <!-- Admin Toolbar -->
-            <div class='btn-toolbar pull-right'>
-                <div class='btn-group'>
-                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                        <a href="{{ path('category_new') }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus"></span> New </a>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- List Count -->
-            <div class="listing-count">
-                <p>Displaying <strong>{{ categories|length }}</strong> categories of
-                    <strong>{{ categories.getTotalItemCount }}</strong> total.</p>
-            </div>
-            <!-- Category List -->
-            <div class="category-list-wrapper">
-                {% embed '@NinesUtil/term/partial/index.html.twig' with {'terms': categories, 'path': 'category_show' } %}
-                {% endembed %}
-            </div>
-            <div class="navigation">
-                {{ knp_pagination_render(categories) }}
-            </div>
-        </div>
+
+{% block styles %}
+
+    {% for category in categories %}
+    {% set count = category.clippings | length %}
+    {% set random = random(count - 1) %}
+    
+    #cat-{{ category.id}}{
+    background-image: url('{{ asset(clipping_img_prefix ~ category.clippings[random].thumbnailPath) }}');
+    }  
+
+    
+    
+{% endfor %}
+{% endblock %}
+{% block admin %}
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <a href="{{ path('category_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        {% endif %}
     </div>
+</div>
+{% endblock %}
+
+{% block body %}
+    <article>
+        
+        <ul class="cat-gallery">
+            {% for category in categories %}
+            <li id="cat-{{ category.id }}">
+                    <a href="{{ path('category_show', {'id': category.id}) }}">
+                        <div class="content">
+                            <h3>{{ category.label }}</h3>
+                            <div class="desc">{{ category.description|raw }}</div>
+                        </div>
+                    </a>
+               
+                </li>
+            {% endfor %}
+            {% if (categories|length) % 2 == 1 %}
+            <li class="cat-empty"/>
+            {% endif %}
+        </ul>
+    </article>
+<!--<div class="navigation">
+    {{ knp_pagination_render(categories) }}
+</div>
+-->
 
 {% endblock %}

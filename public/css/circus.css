@@ -440,6 +440,50 @@ article a:not(.imgContainer):not(.btn):hover {
   min-width: 20rem;
 }
 
+/* 
+ * 
+ * Cat gallery
+ */
+.cat-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cat-gallery li {
+  display: block;
+  height: 17rem;
+  flex: 1 1 45%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 2rem;
+  color: white;
+  background-size: 100%;
+  transition: background-size 0.2s ease-in-out;
+}
+.cat-gallery li:hover {
+  background-size: 105%;
+}
+.cat-gallery li a:not(.imgContainer) {
+  border: none;
+  background: rgba(242, 242, 242, 0.4);
+  color: white;
+  display: block;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-gallery li a:not(.imgContainer):hover {
+  border: none;
+}
+.cat-gallery li a:not(.imgContainer) > div {
+  background: rgba(8, 7, 5, 0.6);
+  display: block;
+  width: 80%;
+  text-align: center;
+  padding: 1.953rem 0;
+}
+
 /*
  *  Clipping Page 
  * */

@@ -260,6 +260,54 @@ article{
     }
 }
 
+/* 
+ * 
+ * Cat gallery
+ */
+ 
+ .cat-gallery{
+     display:flex;
+     flex-wrap:wrap;
+     li{
+         display:block;
+         height:17rem;
+         flex:1 1 45%;
+         background-position: center center;
+         background-repeat:no-repeat;
+         margin:2rem;
+         color:white;
+         background-size:100%;
+         transition:background-size 0.2s ease-in-out;
+         &:hover{
+               background-size:105%;
+         }
+         a:not(.imgContainer){
+             border:none;
+             background:rgba($circus-grey, 0.4);
+             color:white;
+             display:block;
+             height:100%;
+             width:100%;
+           
+             display:flex;
+             align-items:center;
+             justify-content:center;
+            &:hover{
+                border:none;
+              
+            }
+            & > div{
+                background: rgba($circus-black, 0.6);
+                display:block;
+                width:80%;
+                text-align:center;
+                padding: map.get($typescale, 3) 0;
+                
+            }
+         }
+     }
+ }
+ 
 /*
  *  Clipping Page 
  * */
