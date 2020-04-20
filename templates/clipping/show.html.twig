@@ -33,7 +33,9 @@
                     <h2 class="detail-image-title">{{ clipping.originalName }}</h2>
                     <div class="image-wrapper">
                         <figure class="caption">
-                            <a class="detail-image" href="{{ asset(clipping.imageFilePath) }}"><img src="{{ asset(clipping.imageFilePath) }}" alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"></a>
+                            <a class="detail-image" href="{{ asset(clipping.imageFilePath) }}">
+                                <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}">
+                            </a>
                         </figure>
                     </div>
                 </div>
