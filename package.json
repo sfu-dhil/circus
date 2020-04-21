@@ -21,6 +21,9 @@
     "source-serif-pro": "^3.1.0",
     "symfony-collection": "^2.1.30",
     "tinymce": "^5.1.6",
-    "typeahead.js": "^0.11.1"
+    "typeahead.js": "^0.11.1",
+    "typeface-lato": "^0.0.75",
+    "typeface-lora": "^0.0.72",
+    "typeface-playfair-display": "^1.1.4"
   }
 }

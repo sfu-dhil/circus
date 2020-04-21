@@ -13,9 +13,14 @@
  *  */
 /* Only include spin */
 /* Override color */
-/* We'll just Google get the fonts for now */
-@import url("https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC|Lora:400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap");
+/* Uses the packages from yarn */
+/* Note: We use @import here in combination with the .css 
+ * extension for these. This forces SCSS to interpret 
+ * the import as a CSS import and NOT an SCSS, which means paths
+ * all stay properly formatted.  */
+@import "../yarn/typeface-lora/index.css";
+@import "../yarn/typeface-playfair-display/index.css";
+@import "../yarn/typeface-lato/index.css";
 /* CSS Library for imagezoom, with some styling support from
  * 
  *  */
@@ -128,7 +133,7 @@
   margin: 0;
   font-size: 1.3125rem;
   font-family: "Lato";
-  font-weight: 200;
+  font-weight: 400;
   color: #050505;
   background: #FFFEFE;
   margin-bottom: 4.578rem;
@@ -258,12 +263,20 @@
   transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
+/* 
+ * 
+ * Root
+ */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
+/* 
+ * 
+ * Body
+ */
 body {
   line-height: 1.675;
   font-size: 16px;
@@ -483,7 +496,9 @@ article a:not(.imgContainer):not(.btn):hover {
 
 /* 
  * 
- * Cat gallery
+ * Category gallery
+ * 
+ * This corresponds to the category/sources _show pages.
  */
 .cat-gallery {
   display: flex;
@@ -498,7 +513,9 @@ article a:not(.imgContainer):not(.btn):hover {
   color: white;
   background-size: 100%;
   transition: background-size 0.2s ease-in-out;
-  /* Various background images */
+  /* Various background images; these are more-or-less arbitrary chosen;
+   * there are ways to make these randomized in twig, but the images are too
+   * variable in terms of quality to make random selections worthwhile */
   /* Categories */
   /* Sources */
 }
@@ -522,6 +539,9 @@ article a:not(.imgContainer):not(.btn):hover {
 }
 .cat-gallery li.source3 {
   background-image: url("../images/clippings/5d4191fdc072f0dc31b371dcd232e852_tn.png");
+}
+.cat-gallery li h2 {
+  padding: 1.25rem;
 }
 .cat-gallery li:hover {
   background-size: 105%;
@@ -597,7 +617,7 @@ article a:not(.imgContainer):not(.btn):hover {
 }
 .clipping .metadata .metadata-body h4 {
   margin-bottom: 0.64rem;
-  font-weight: 200;
+  font-weight: 300;
   font-family: inherit;
   font-size: inherit;
 }
@@ -742,7 +762,7 @@ h5 {
   /* But logged in users can see it;
    * this is a bit of a hack */
 }
-.nines img {
+.nines main img {
   max-width: 60%;
   height: auto;
   /* Since we have no clue where these images
@@ -873,6 +893,10 @@ footer .footer-imgs img:hover {
   filter: grayscale(100%);
 }
 
+/* 
+ * Final import, which is the mobile stylesheet
+ * to ensure proper inheritance and precedence
+ */
 @media (max-width: 995px) {
   .breadcrumb li {
     display: none;
@@ -946,7 +970,7 @@ footer .footer-imgs img:hover {
     display: block;
   }
 
-  .nines img {
+  .nines main img {
     max-width: 80%;
   }
 }
