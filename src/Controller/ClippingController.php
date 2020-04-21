@@ -47,7 +47,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         $qb->select('e')->from(Clipping::class, 'e')->orderBy('e.date', 'ASC');
         $query = $qb->getQuery();
 
-        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 28);
+        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'clippings' => $clippings,
