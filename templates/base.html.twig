@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 
-{% if is_granted('ROLE_CONTENT_ADMIN') %}
-    {% set user = 'admin' %}
-{% else %}
-    {% set user = 'user' %}
-{% endif %}
 
-<html lang="en" id="{% block id %}index{% endblock %}" 
-    class="{{ user }}">
+{% set isNines = app.request.pathInfo matches '/blog/' %}
+
+<html lang="en" id="{% block id %}index{% endblock %}">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -40,7 +36,7 @@
         </style>
        
     </head>
-    <body class="{% block classes %}base{% endblock %}">
+    <body class="{% block classes %}base{% endblock %}{% if isNines %} nines {% endif %}">
         <header>
             <div class="horses"></div>
             <nav class="navbar">
@@ -104,7 +100,7 @@
             
             {# Check if we're in a nines page #}
   
-             {% if breadpath is not defined and app.request.pathInfo matches '/blog/' %}
+             {% if breadpath is not defined and isNines %}
                  
                  {% set breadpath =
                     { 

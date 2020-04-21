@@ -736,8 +736,26 @@ h5 {
 /*
  *  Blog pages
  *  */
-.user .text-right {
+.nines {
+  /* Make images responsive */
+  /* Hide the metadata for most users */
+  /* But logged in users can see it;
+   * this is a bit of a hack */
+}
+.nines img {
+  max-width: 60%;
+  margin: 0 auto;
+  height: auto;
+  text-align: center;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+}
+.nines div.text-right:last-child {
   display: none;
+}
+.nines .btn-toolbar ~ div.text-right:last-child {
+  display: block;
 }
 
 /*
@@ -909,6 +927,10 @@ footer .footer-imgs img:hover {
 
   .navbar .hamburger {
     display: block;
+  }
+
+  .nines img {
+    max-width: 80%;
   }
 }
 

@@ -536,8 +536,36 @@ article{
  *  Blog pages
  *  */
  
- .user .text-right{
-     display:none;
+ .nines{
+     
+     /* Make images responsive */
+     img{
+         max-width:60%;
+         margin:0 auto;
+         height:auto;
+         text-align:center;
+         position:relative;
+         transform: translateX(-50%);
+         left: 50%;
+     }
+     
+     /* Hide the metadata for most users */
+     div.text-right{
+         &:last-child{
+             display:none;
+         }
+     }
+     
+     /* But logged in users can see it;
+      * this is a bit of a hack */
+     
+     .btn-toolbar ~ div.text-right{
+         &:last-child{
+             display:block;
+         }
+     }
+     
+     
  }
 
 
