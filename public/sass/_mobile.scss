@@ -1,5 +1,15 @@
 @media (max-width: 995px){
     
+    .breadcrumb{
+       li{
+            display:none;
+            &:nth-last-child(-n+3){
+                 display:inline-block;
+            }
+        }
+        
+    }
+    
     .index{
         article{
             flex-direction:column;
@@ -21,6 +31,15 @@
 
 @media (max-width: 767px){
 
+    .breadcrumb{
+        li:nth-last-child(3){
+            display:none;
+        }
+        li:nth-last-child(-n+2) {
+            display:inline-block;
+        }
+    }
+
     .index{
         .subtitle{
             margin-top:3rem; 
@@ -40,6 +59,8 @@
         height:auto;
       }
     }
+    
+    
     
 
     .clipping{

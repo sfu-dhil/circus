@@ -874,6 +874,13 @@ footer .footer-imgs img:hover {
 }
 
 @media (max-width: 995px) {
+  .breadcrumb li {
+    display: none;
+  }
+  .breadcrumb li:nth-last-child(-n+3) {
+    display: inline-block;
+  }
+
   .index article {
     flex-direction: column;
   }
@@ -890,6 +897,13 @@ footer .footer-imgs img:hover {
   }
 }
 @media (max-width: 767px) {
+  .breadcrumb li:nth-last-child(3) {
+    display: none;
+  }
+  .breadcrumb li:nth-last-child(-n+2) {
+    display: inline-block;
+  }
+
   .index .subtitle {
     margin-top: 3rem;
   }
