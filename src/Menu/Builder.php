@@ -142,7 +142,7 @@ class Builder implements ContainerAwareInterface {
     }
 
     /**
-     * Build a menu for blog posts.
+     * Build a menu the footer.
      *
      * @return ItemInterface
      */
@@ -166,7 +166,7 @@ class Builder implements ContainerAwareInterface {
         ]);
 
         $menu->addChild('clipping_search', [
-            'label' => 'Archive',
+            'label' => 'Search',
             'route' => 'clipping_search'
         ]);
 
