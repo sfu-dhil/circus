@@ -744,8 +744,11 @@ h5 {
 }
 .nines img {
   max-width: 60%;
-  margin: 0 auto;
   height: auto;
+  /* Since we have no clue where these images
+   * might be in the DOM, we use every centering approach
+   * and hope that one sticks */
+  margin: 0 auto;
   text-align: center;
   position: relative;
   transform: translateX(-50%);
