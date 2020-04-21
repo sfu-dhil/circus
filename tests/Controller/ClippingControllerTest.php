@@ -113,7 +113,7 @@ class ClippingControllerTest extends ControllerBaseCase {
         $responseCrawler = $this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $this->assertSame(1, $responseCrawler->filter('td:contains("April 1972")')->count());
+        $this->assertSame(4, $responseCrawler->filter('div:contains("April 1972")')->count());
     }
 
     public function testAnonNew() : void {
@@ -152,7 +152,7 @@ class ClippingControllerTest extends ControllerBaseCase {
         $responseCrawler = $this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $this->assertSame(1, $responseCrawler->filter('td:contains("April 1972")')->count());
+        $this->assertSame(4, $responseCrawler->filter('div:contains("April 1972")')->count());
     }
 
     public function testAnonDelete() : void {
