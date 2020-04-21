@@ -3,29 +3,20 @@
 {# Sources Listing Page #}
 
 {% block title -%}
-    Available Sources
-{%- endblock %}
-
-{% block classes -%}
-    basic-page source-list
+    Sources
 {%- endblock %}
 
 
-{% block styles %}
-
-{% for source in sources %}
-{% set count = source.clippings | length %}
-{% set random = random(count - 1) %}
-
-#cat-{{ source.id}}{
-    background-image: url('{{ asset(clipping_img_prefix ~ source.clippings[random].thumbnailPath) }}');
-}  
-
-{% endfor %}
-{% endblock %}
+{% set breadpath = 
+{ 0:
+    {
+    'title': 'Sources'
+    }
+}
+%}
 
 {% block pageheader %}
-    <h1 class="page-title">Available Sources</h1>
+    <h1>Sources</h1>
 {% endblock %} 
 
 {% block admin %}
@@ -44,7 +35,7 @@
 <article>
     <ul class="cat-gallery">
         {% for source in sources %}
-        <li id="cat-{{ source.id }}">
+        <li class="source{{source.id}}">
             <a href="{{ path('source_show', {'id': source.id}) }}">
                 <div class="content">
                     <h2>{{ source.label }}</h2>

@@ -2,33 +2,23 @@
 
 {# Category Listing Page #}
 
-{% block title -%}
-    Available Categories
-{%- endblock %}
+{% set breadpath = 
+{ 0:
+{
+'title': 'Categories'
+}
+}
+%}
 
-{% block classes -%}
-    basic-page category-list
+{% block title -%}
+    Categories
 {%- endblock %}
 
 {% block pageheader %}
-    <h1 class="page-title">Available Categories</h1>
+    <h1>Categories</h1>
 {% endblock %} 
 
 
-{% block styles %}
-
-    {% for category in categories %}
-    {% set count = category.clippings | length %}
-    {% set random = random(count - 1) %}
-    
-    #cat-{{ category.id}}{
-    background-image: url('{{ asset(clipping_img_prefix ~ category.clippings[random].thumbnailPath) }}');
-    }  
-
-    
-    
-{% endfor %}
-{% endblock %}
 {% block admin %}
 <div class='btn-toolbar pull-right'>
     <div class='btn-group'>
@@ -45,7 +35,7 @@
         
         <ul class="cat-gallery">
             {% for category in categories %}
-            <li id="cat-{{ category.id }}">
+            <li class="cat{{ category.id }}">
                     <a href="{{ path('category_show', {'id': category.id}) }}">
                         <div class="content">
                             <h2>{{ category.label }}</h2>

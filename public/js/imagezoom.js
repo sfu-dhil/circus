@@ -15,14 +15,12 @@ var init = 0;
  function init(){
     document.querySelectorAll('a.zoomable').forEach(function(i){
         i.addEventListener('click',function(e){
-            
             if (window.innerWidth > 767){
                   e.preventDefault();
                   drawFacs(i);
             } else {
                 return;
             }
-          
         });
     });
     document.querySelectorAll('.facsCloser').forEach(function(closer){

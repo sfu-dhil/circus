@@ -1,9 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ clipping.number }} (Vol. {{ clipping.source.id }}){% endblock %}
+{% set title = clipping.number ~ " (Vol. " ~ clipping.source.id  ~ ")" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% set fromCat = app.request.server.get('HTTP_REFERER') matches '/\\/category\\//' %}
+
+{% set breadpath = 
+    { 0:
+        { 'path': path('source_index'),
+           'title': 'Sources'
+         },
+      1: {
+            'path': path('source_show', {'id' : clipping.source.id }),
+            'title': clipping.source
+         },   
+      2: { 
+            'title': title
+        }
+    }
+%}
+
+{% if fromCat %}
+
+    {% set breadpath =
+    
+        { 0:
+            { 'path': path('category_index'),
+              'title': 'Categories'
+            },
+          1: {
+               'path': path('category_show', {'id': clipping.category.id}),
+               'title': clipping.category
+             },   
+          2: { 
+                'title': title
+             }   
+        }
+    %}
+
+{% endif %}
 
 {% block pageheader %}
-    <h1>{{ clipping.number }} (Vol. {{ clipping.source.id }})</h1>
+    <h1>{{ title }}</h1>
 {% endblock %}
 
 {% block admin %}
@@ -24,6 +62,7 @@
 
 {% block body %}
     <article class="clipping">
+        
         {% if clipping.transcription is not empty  %}
             <section class="transcription">
                 <h3 class="sr-only">Transcription</h3>

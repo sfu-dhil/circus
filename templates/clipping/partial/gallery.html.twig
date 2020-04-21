@@ -9,7 +9,7 @@
                 alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/>
             </a>
             <div class="card-content">
-                <h2 class="detail-title"><a class="clip-link" href="{{ path('clipping_show', {'id': clipping.id }) }}">{{ clipping.number }}</a> (<a href="{{ path('source_show', {'id': clipping.source.id}) }}">Vol. {{ clipping.source.id }}</a>)</h2>
+                <h2 class="detail-title"><a class="clip-link" href="{{ path('clipping_show', {'id': clipping.id }) }}">{{ clipping.number }}</a> (Vol. {{ clipping.source.id }})</h2>
      
                 {% if clipping.date is null %}
                     <div class="date unset">Undated</div>

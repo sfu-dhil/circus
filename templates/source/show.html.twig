@@ -2,6 +2,17 @@
 
 {# Source Detail Page #}
 
+{% set breadpath = 
+{ 0:
+{ 'path': path('source_index'),
+'title': 'Sources'
+},
+1: { 
+'title': source.label
+}
+}
+%}
+
 {% block title %}
     {{ source.label }}
 {% endblock %}

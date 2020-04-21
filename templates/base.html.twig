@@ -66,26 +66,51 @@
         </header>
         
         {# Special styles for index hero #}
+        
         {% block hero %} {% endblock %}
         
         <main class="container">
+           
             {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-            <div class="alert-wrapper">
-                <div class="alert alert-{{ type }}">
-                    <button type="button" class="close"
-                        data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ message }}
-                </div>
-            </div>
-            {% endfor %}
+                {% for message in messages %}
+                    <div class="alert-wrapper">
+                        <div class="alert alert-{{ type }}">
+                            <button type="button" class="close"
+                                data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                           </button>
+                           {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
             {% endfor %}
             
             
             {% block admin %}
             
+            {% endblock %}
+            
+            {% block breadcrumb %}
+            
+            {# Check if we're in a nines page #}
+  
+             {% if breadpath is not defined and app.request.pathInfo matches '/blog/' %}
+                 
+                 {% set breadpath =
+                    { 
+                        0: {
+                            'title': page.title
+                        }
+                    }
+                    
+                  %}
+                  
+              {% endif %}
+              
+              {# Now include the breadcrumb bit #}
+              
+              {% include 'misc/breadcrumb.html.twig' %}
+
             {% endblock %}
             
             {% block pageheader %}

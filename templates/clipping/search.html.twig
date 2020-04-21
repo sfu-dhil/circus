@@ -2,13 +2,18 @@
 
 {# Clipping Search and Search ListingPage #}
 
-{% block title -%}
+{% set breadpath = 
+{ 0:
+{
+'title': 'Search'
+}
+}
+%}
+
+{% block title %}
     Clippings Search
 {%- endblock %}
 
-{% block classes -%}
-    basic-page clipping-search-list
-{%- endblock %}
 
 {% block pageheader %}
     <h1 class="page-title">Clippings Search</h1>

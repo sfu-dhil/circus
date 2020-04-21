@@ -2,7 +2,19 @@
 
 {# Category Detail Page #}
 
-{% block title %} {{ category.label }}{% endblock %}
+{% set breadpath = 
+{ 0:
+    {
+        'title': 'Categories',
+        'path': path('category_index')
+    },
+    1: {
+    'title': category.label
+    }
+}
+%}
+
+{% block title %} {{ category.label }} {% endblock %}
 
 {% block pageheader %}
     <h1 class="page-title">{{ category.label }}</h1>
