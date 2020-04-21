@@ -31,6 +31,7 @@
 
 @media (max-width: 767px){
 
+
     .breadcrumb{
         li:nth-last-child(3){
             display:none;
@@ -49,6 +50,10 @@
     }
 
     .index{
+    /* Necessary for safari */
+    .hero{
+        background-attachment: scroll;
+    }
         .subtitle{
             margin-top:3rem; 
             h2{

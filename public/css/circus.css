@@ -939,6 +939,12 @@ footer .footer-imgs img:hover {
     text-overflow: ellipsis;
   }
 
+  .index {
+    /* Necessary for safari */
+  }
+  .index .hero {
+    background-attachment: scroll;
+  }
   .index .subtitle {
     margin-top: 3rem;
   }
