@@ -20,26 +20,28 @@
          padding: 0 map.get($typescale, 3);
          color: rgba($circus-black, 0.8);
      }
-      & > a{
+      & > *{
         display:inline-block;
-        transform: skew(20deg);
+
         color:inherit;
         height:100%;
         width:100%;
         margin:0;
         padding: map.get($typescale, 8) map.get($typescale, 3);
-        &:hover, &:focus{
+      }
+     & > a{
+        transform: skew(20deg);
+         &:hover, &:focus{
             text-decoration:none;
             color: $circus-orange;
             
         }
+     }  
      }
     
    
-    
-    
-    }
   
+  /* Bootstrap override */
 
   li+li:before{
     content:unset;

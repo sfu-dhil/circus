@@ -138,6 +138,7 @@
   background: #FFFEFE;
   margin-bottom: 4.578rem;
   border-radius: 0;
+  /* Bootstrap override */
 }
 .breadcrumb li {
   margin: 0;
@@ -150,14 +151,16 @@
   padding: 0 1.953rem;
   color: rgba(5, 5, 5, 0.8);
 }
-.breadcrumb li > a {
+.breadcrumb li > * {
   display: inline-block;
-  transform: skew(20deg);
   color: inherit;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0.64rem 1.953rem;
+}
+.breadcrumb li > a {
+  transform: skew(20deg);
 }
 .breadcrumb li > a:hover, .breadcrumb li > a:focus {
   text-decoration: none;
@@ -925,7 +928,15 @@ footer .footer-imgs img:hover {
     display: none;
   }
   .breadcrumb li:nth-last-child(-n+2) {
+    margin: 0;
+    padding: 0 1.953rem;
     display: inline-block;
+  }
+  .breadcrumb li:nth-last-child(-n+2) > * {
+    max-width: 15ch;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .index .subtitle {

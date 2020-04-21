@@ -36,7 +36,15 @@
             display:none;
         }
         li:nth-last-child(-n+2) {
+            margin: 0;
+            padding: 0 1.953rem;
             display:inline-block;
+            & > *{
+                max-width:15ch; 
+                overflow-x: hidden; 
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
         }
     }
 
