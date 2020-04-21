@@ -45,7 +45,7 @@ class SourceController extends AbstractController implements PaginatorAwareInter
         $qb->select('e')->from(Source::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
-        $sources = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $sources = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'sources' => $sources,
@@ -95,7 +95,7 @@ class SourceController extends AbstractController implements PaginatorAwareInter
         $repo = $em->getRepository(Clipping::class);
         $query = $repo->sourceQuery($source);
 
-        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'source' => $source,

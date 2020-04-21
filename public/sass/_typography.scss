@@ -1,0 +1,12 @@
+
+/* Uses the packages from yarn */
+
+/* Note: We use @import here in combination with the .css 
+ * extension for these. This forces SCSS to interpret 
+ * the import as a CSS import and NOT an SCSS, which means paths
+ * all stay properly formatted.  */
+ 
+@import "../yarn/typeface-lora/index.css";
+@import "../yarn/typeface-playfair-display/index.css";
+@import "../yarn/typeface-lato/index.css";
+

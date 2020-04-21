@@ -1,0 +1,52 @@
+.breadcrumb{
+  position:relative;
+  padding:0;
+  width:max-content;
+  margin:0;
+  font-size:map.get($typescale, 5) * 1.05;
+  font-family: "Lato";
+  font-weight: 400;
+  color: $circus-black;
+  background:#FFFEFE;
+  margin-bottom: map.get($typescale, 1) * 1.5;
+  border-radius:0;
+  li{
+     margin:0;
+     &:not(.active){
+       border-right:2px solid $circus-tan;
+       transform: skew(-20deg);   
+     }
+     &.active{
+         padding: 0 map.get($typescale, 3);
+         color: rgba($circus-black, 0.8);
+     }
+      & > *{
+        display:inline-block;
+
+        color:inherit;
+        height:100%;
+        width:100%;
+        margin:0;
+        padding: map.get($typescale, 8) map.get($typescale, 3);
+      }
+     & > a{
+        transform: skew(20deg);
+         &:hover, &:focus{
+            text-decoration:none;
+            color: $circus-orange;
+            
+        }
+     }  
+     }
+    
+   
+  
+  /* Bootstrap override */
+
+  li+li:before{
+    content:unset;
+  }
+  
+
+  
+}

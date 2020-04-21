@@ -3,43 +3,51 @@
 {# Sources Listing Page #}
 
 {% block title -%}
-    Available Sources
+    Sources
 {%- endblock %}
 
-{% block classes -%}
-    basic-page source-list
-{%- endblock %}
+
+{% set breadpath = 
+{ 0:
+    {
+    'title': 'Sources'
+    }
+}
+%}
 
 {% block pageheader %}
-    <h1 class="page-title">Available Sources</h1>
+    <h1>Sources</h1>
 {% endblock %} 
 
-{% block body %}
-    <div class="content">
-        <div class="inner">
-            <!-- Admin Toolbar -->
-            <div class='btn-toolbar pull-right'>
-                <div class='btn-group'>
-                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                        <a href="{{ path('source_new') }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus"></span> New </a>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- List Count -->
-            <div class="listing-count">
-                <p>Displaying <strong>{{ sources|length }}</strong> sources of
-                    <strong>{{ sources.getTotalItemCount }}</strong> total.</p>
-            </div>
-            <!-- Category List -->
-            <div class="sources-list-wrapper">
-                {% embed '@NinesUtil/term/partial/index.html.twig' with {'terms': sources, 'path': 'source_show' } %}
-                {% endembed %}
-            </div>
-            <div class="navigation">
-                {{ knp_pagination_render(sources) }}
-            </div>
-        </div>
+{% block admin %}
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <a href="{{ path('source_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        {% endif %}
     </div>
+</div>
+{% endblock %}
 
+
+{% block body %}
+<article>
+    <ul class="cat-gallery">
+        {% for source in sources %}
+        <li class="source{{source.id}}">
+            <a href="{{ path('source_show', {'id': source.id}) }}">
+                <div class="content">
+                    <h2>{{ source.label }}</h2>
+                    <div class="desc">{{ source.description|raw }}</div>
+                </div>
+            </a>
+            
+        </li>
+        {% endfor %}
+        {% if (sources|length) % 2 == 1 %}
+        <li class="cat-empty"/>
+        {% endif %}
+    </ul>
+</article>
 {% endblock %}

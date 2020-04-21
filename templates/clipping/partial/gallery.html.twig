@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ul class="gallery">
+    {% for clipping in clippings %}
+    
+    
+        <li class="card" data-path="{{ path('clipping_show', { 'id': clipping.id }) }}">
+            <a href="{{ path('clipping_show', { 'id': clipping.id }) }}" class="imgContainer">
+                <img src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
+                alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/>
+            </a>
+            <div class="card-content">
+                <h2 class="detail-title"><a class="clip-link" href="{{ path('clipping_show', {'id': clipping.id }) }}">{{ clipping.number }}</a> (Vol. {{ clipping.source.id }})</h2>
+     
+                {% if clipping.date is null %}
+                    <div class="date unset">Undated</div>
+                {% else %}
+                    <div class="date">
+                        {% set dateStr = clipping.date | date('F d, Y') %}
+                        {{ dateStr | replace({', 0000': ', [?]', '00,': ''}) }}
+                    </div>
+                {% endif %}
+                {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
+                <ol class="search-results">
+                    {% for result in text_service.searchHighlight(clipping.transcription, query) %}
+                        <li>...{{ result|raw }}...</li>
+                    {% endfor %}
+                </ol>
+                {% elseif clipping.transcription is null or clipping.transcription is empty %}
+                    <p class="unset">No transcription available</p>
+                {% else %}
+                    <p>{{ text_service.trim(clipping.transcription, 20)|raw }}</p>
+                {% endif %}
+            </div>
+        </li>
+    {% endfor %}
+    <li class="empty"/>
+    <li class="empty"/>
+    <li class="empty"/>
+</ul>

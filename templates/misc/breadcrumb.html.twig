@@ -1,0 +1,16 @@
+{% if breadpath is defined %}
+<ol class="breadcrumb">
+    <li><a href="{{ path('homepage') }}">Home</a></li>
+    {% for step in breadpath %}
+        {% if loop.last %}
+        <li class="active"><span>{{ step.title }}</span></li>
+         {% else %}
+            <li>
+                <a href="{{ step.path }}">{{ step.title }}</a>
+            </li>
+         {% endif %}
+    {% endfor %}
+</ol>
+{% endif %}
+
+

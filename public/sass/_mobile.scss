@@ -1,0 +1,122 @@
+@media (max-width: 995px){
+    
+    .breadcrumb{
+       li{
+            display:none;
+            &:nth-last-child(-n+3){
+                 display:inline-block;
+            }
+        }
+        
+    }
+    
+    .index{
+        article{
+            flex-direction:column;
+            section:first-child{
+                margin-right:0;
+            }
+            section.nav-blocks{
+                margin-top:4rem;
+                flex: 1 1 30%!important;
+                > div{
+                    width:auto!important;
+                    margin: map.get($typescale, 5);
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 767px){
+
+
+    .breadcrumb{
+        li:nth-last-child(3){
+            display:none;
+        }
+        li:nth-last-child(-n+2) {
+            margin: 0;
+            padding: 0 1.953rem;
+            display:inline-block;
+            & > *{
+                max-width:15ch; 
+                overflow-x: hidden; 
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    .index{
+    /* Necessary for safari */
+    .hero{
+        background-attachment: scroll;
+    }
+        .subtitle{
+            margin-top:3rem; 
+            h2{
+                text-align:center;
+                line-height: 1.6;
+                padding: 0;
+            }
+        } 
+    }
+    
+    
+    article{
+      img{
+        width:100%;
+        max-width:320px;
+        height:auto;
+      }
+    }
+    
+    
+    
+
+    .clipping{
+        flex-direction:column-reverse;
+        a.imgContainer{
+            text-align:center;
+            margin-bottom: map.get($typescale, 8);
+        }
+        .metadata.no-transcription{
+            .metadata-content{
+                flex-direction: column;
+            }
+        }
+        .metadata {
+          .metadata-body {
+            & > div{
+                flex: 1 1 45%;
+            }
+          }
+        }
+        .transcription{
+            max-width:90%;
+            margin-left: auto;
+            margin-right:auto;
+        }
+        
+      
+    }
+    
+    #facsCloser{
+        left: 0;
+    }
+    
+    .navbar{
+     .hamburger{
+        display:block;
+     }  
+    }
+    
+    .nines{
+        main img{
+            max-width:80%;
+        }
+    }
+    
+}

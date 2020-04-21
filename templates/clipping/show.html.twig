@@ -1,109 +1,155 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    Clipping Detail: {{ clipping.originalName }}
-{% endblock %}
+{% set title = clipping.number ~ " (Vol. " ~ clipping.source.id  ~ ")" %}
+{% block title %}{{ title }}{% endblock %}
 
-{% block classes %}
-    basic-page clipping-detail
-{% endblock %}
+{% set fromCat = app.request.server.get('HTTP_REFERER') matches '/\\/category\\//' %}
+
+{% set breadpath = 
+    { 0:
+        { 'path': path('source_index'),
+           'title': 'Sources'
+         },
+      1: {
+            'path': path('source_show', {'id' : clipping.source.id }),
+            'title': clipping.source
+         },   
+      2: { 
+            'title': title
+        }
+    }
+%}
+
+{% if fromCat %}
+
+    {% set breadpath =
+    
+        { 0:
+            { 'path': path('category_index'),
+              'title': 'Categories'
+            },
+          1: {
+               'path': path('category_show', {'id': clipping.category.id}),
+               'title': clipping.category
+             },   
+          2: { 
+                'title': title
+             }   
+        }
+    %}
+
+{% endif %}
 
 {% block pageheader %}
-    <h1 class="page-title">Clipping Detail: {{ clipping.originalName }}</h1>
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block admin %}
+    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                <a href="{{ path('clipping_edit', { 'id': clipping.id }) }}"
+                    class="btn btn-default">
+                    <span class='glyphicon glyphicon-edit'></span> Edit Item </a>
+                <a href="{{ path('clipping_delete', { 'id': clipping.id }) }}" class="btn btn-default" 
+                    data-confirm="Are you sure you want to delete this Clipping?">
+                <span class='glyphicon glyphicon-remove'></span> Delete Item </a>
+        
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
-    <div class="content">
-        <div class="inner">
-            <!-- Admin Toolbar -->
-            <div class="btn-toolbar pull-right">
-                <div class="btn-group">
-                    <a href="{{ path('clipping_index') }}" class="btn btn-default">
-                        <span class="glyphicon glyphicon-arrow-left"></span> Back to Listing </a>
+    <article class="clipping">
+        
+        {% if clipping.transcription is not empty  %}
+            <section class="transcription">
+                <h3 class="sr-only">Transcription</h3>
+                <div class="transcription-content">
+                    {{ clipping.transcription|raw }}
+                </div>
+            </section>
+        {% endif %}
+        
+        <section class="metadata{% if clipping.transcription is empty %} no-transcription{% endif %}">
+            <div class="metadata-content">
+                <a class="zoomable imgContainer" href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank" rel="noopener noreferrer">
+                    <img 
+                        src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
+                        alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/> 
+                </a>
+                <div class="metadata-body">
+                   <div>
+                       <h4>Clipping Number</h4>
+                       <div>{{ clipping.number }}</div>
+                   </div>
+                    <div>
+                        <h4>Written Date</h4>
+                        
+                        
+                        {% if clipping.writtenDate matches '([nN]\.?[dD]|No [dD]ate\.?)' %}
+                            <div class="unset">Not dated</div>
+                        {% else %}
+                            <div>{{ clipping.writtenDate }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h4>Date</h4>
+                        {% if clipping.date is null %}
+                            <div class="unset">Not dated</div>
+                        {% else %}
+                        <div>{{ clipping.date }}</div>
+                        {% endif %}
+                    </div>
+       
+                    <div>
+                        <h4>Category</h4>
+                        <div>
+                            <a href="{{ path('category_show', { 'id': clipping.category.id}) }}">
+                                {{ clipping.category }}
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Source</h4>
+                        <div>
+                            <a href="{{ path('source_show', { 'id': clipping.source.id}) }}">
+                                {{ clipping.source }}
+                            </a>
+                        </div>
+                    </div>
                     {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                        <a href="{{ path('clipping_edit', { 'id': clipping.id }) }}" class="btn btn-default">
-                            <span class='glyphicon glyphicon-edit'></span> Edit Item </a>
-                        <a href="{{ path('clipping_delete', { 'id': clipping.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Clipping?">
-                            <span class='glyphicon glyphicon-remove'></span> Delete Item </a>
+                    <div>
+                        <h4>Image Number</h4>
+                        <div><a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">{{ clipping.originalName }}</a></div>
+                    </div>
+                    <div>
+                        <h4>Created</h4>
+                        <div>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</div>
+                    </div>
+                    <div>
+                        <h4>Updated</h4>
+                        <div>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</div>
+                    </div>
                     {% endif %}
                 </div>
+            
             </div>
-            <div class="content-left">
-                <div class="inner">
-                    <h2 class="detail-image-title">{{ clipping.originalName }}</h2>
-                    <div class="image-wrapper">
-                        <figure class="caption">
-                            <a class="detail-image" href="{{ asset(clipping.imageFilePath) }}">
-                                <img src="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}">
-                            </a>
-                        </figure>
-                    </div>
-                </div>
+        </section>
+    </article>
+    <div id="facsViewerContainer">
+            <span id="facs_closer" class="facsCloser">&times;</span>
+            
+            <div id="facs_loader">
+                <div class="loader">Loading</div>
             </div>
-            <div class="content-right">
-                <div class="inner">
-                    <h2 class="detail-transcription-title">Transcription</h2>
-                    <div class="detail-transcription">
-                        {{ clipping.transcription|raw }}
-                    </div>
-                </div>
-            </div>
-            <div class="content-bottom">
-                <div class="inner">
-                    <h2 class="detail-metadata-title">Metadata</h2>
-                    <div class="detail-metadata">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th class="col-01">Image Number:</th>
-                                    <td class="col-02">{{ clipping.originalName }}</td>
-                                </tr>
-                                {% if is_granted('ROLE_USER') %}
-                                    <tr>
-                                        <th>Number:</th>
-                                        <td>{{ clipping.number }}</td>
-                                    </tr>
-                                {% endif %}
-                                <tr>
-                                    <th>Written Date:</th>
-                                    <td>{{ clipping.writtenDate }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Date:</th>
-                                    <td>{{ clipping.date }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Created:</th>
-                                    <td>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                </tr>
-                                <tr>
-                                    <th>Updated:</th>
-                                    <td>{% if clipping.updated %}{{ clipping.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                </tr>
-                                <tr>
-                                    <th>Category:</th>
-                                    <td>
-                                        <a href="{{ path('category_show', { 'id': clipping.category.id}) }}">
-                                            {{ clipping.category }}
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Source:</th>
-                                    <td>
-                                        <a href="{{ path('source_show', { 'id': clipping.source.id}) }}">
-                                            {{ clipping.source }}
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            <canvas id="viewer"/>
+        
+        
+    </div>        
 {% endblock %}
 
 {% block javascripts %}
+<script src="{{ asset('js/imagezoom.js') }}"></script>
 {% endblock %}

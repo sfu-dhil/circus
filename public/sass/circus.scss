@@ -1,0 +1,728 @@
+/**
+ * Namespaces 
+ * 
+ **/
+
+@use 'sass:map';
+
+/**
+ * Imports 
+ * 
+ **/
+ 
+@import "_variables.scss";
+@import "_typography.scss";
+@import "_imagezoom.scss";
+@import "_breadcrumb.scss";
+@import '../yarn/hamburgers/_sass/hamburgers/hamburgers.scss';
+
+/* 
+ * 
+ * Root
+ */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 
+ * 
+ * Body
+ */
+
+body{
+    line-height: 1.675;
+    font-size: 16px;
+    background-color: $circus-tan;
+    font-family: "Lato", sans-serif;
+    color: black;
+}
+
+
+/*
+ * 
+ * Index page
+ */
+ .index{
+     .navbar{
+         margin-bottom:0;
+     }
+   .hero{
+     background:url('../images/circus-hero.jpeg');
+     width:100vw;
+     height:70vh;
+     background-attachment:fixed;
+     background-size:cover;
+     background-position:center;
+     margin-bottom:map.get($typescale, 1);
+     display:flex;
+     flex-direction:column;
+     align-items:center;
+     justify-content:center;
+     .title, .subtitle{
+         background: rgba($circus-black, 0.75);
+        
+     }
+     .title{
+          margin-top:-1rem;
+          padding:map.get($typescale, 1)  map.get($typescale, 1);
+          margin-bottom: map.get($typescale, 2);
+          img{
+              max-width:80vw;
+          }
+     }
+     .subtitle{
+         color:white;
+         max-width:80vw;
+         padding: map.get($typescale, 8) map.get($typescale, 4);
+         font-weight:normal;
+     } 
+ }
+   article{
+         
+         display:flex;
+        justify-content:space-between;
+         section{
+             flex-grow:1;
+             flex-shrink:1;
+      
+             &:first-child{
+                 flex-basis:calc(50% - 6rem);
+                 margin-right:3rem;
+                 line-height:1.8;
+             }
+             &.nav-blocks{
+                 flex-basis:30%;
+                 display:flex;
+                 flex-wrap:wrap;
+                 margin-left:1rem;
+                 align-content:baseline;
+                  & > div {
+                     height:30rem;
+                     flex-grow:1;
+                     flex-shrink:1;
+                     background-size:cover;
+                     background-repeat:no-repeat;
+                     background-position:center;
+                     filter: grayscale(70%);
+                     transition: filter 0.2s ease-in-out;
+                     &:hover{
+                       filter: grayscale(0%);
+                     }
+                     &:first-child{
+                         width:100%;
+                         background-image: url('../images/microcosm.jpg');
+                         margin-bottom:1rem;
+                     }
+                     &:nth-child(2){
+                         width:45%;
+                         margin-right:1rem;
+                         background-image: url('../images/amphitheatre.jpg');
+                     }
+                     &:nth-child(3){
+                         width:45%;
+                         background-image: url('../images/astley_riding_school.jpg');
+                     }
+                     & > a{
+                         display:flex;
+                         align-items:flex-end;
+                         height:100%;
+                         border-bottom:none;
+                         h2{
+                            width:100%;
+                            padding: map.get($typescale, 4);
+                            color:white;
+                            text-align:center;
+                            background: rgba($circus-black, 0.8);
+                           }
+                     }
+                 }
+                 
+                
+             }
+         }
+   }
+ }
+ 
+
+/*
+ *  Main
+ *  */
+
+main{
+    min-height:80vh;
+    margin-bottom:10rem;
+    p{
+        line-height: 1.85;
+        font-size: map.get($typescale, 4)* 1.05;
+    }
+     p:not(:last-child){
+        margin-bottom: map.get($typescale, 1);
+    }
+}
+
+/* 
+ * Article content
+ */
+
+article{
+    
+    a:not(.imgContainer):not(.btn){
+        border-bottom: 0.3rem solid rgba($circus-orange, 0.5);
+        line-height: 1.7;
+        padding-bottom: 0.3rem;
+        transition: border-bottom-color 0.2s ease-in-out;
+        text-decoration:none;
+        color:inherit;
+        &:hover{
+            border-bottom-color: $circus-orange;
+            text-decoration:none;
+            color:inherit;
+        }
+    }
+    
+
+    
+}
+
+/*
+ *  Gallery 
+ * */
+
+
+.gallery{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    padding-left:0;
+    .card{
+        background: $circus-grey;
+        transition:box-shadow 0.2s ease-in-out;
+        cursor:pointer;
+        &:hover{
+            /* Box shadow taken from tailwind shadow component */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+                        0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            & > a.imgContainer{
+                border-color:transparent;
+                border-bottom:none;
+            }
+        }
+        .clip-link{
+            border-bottom:none;
+            &:hover{
+                border-bottom:none;
+            }
+        }
+        & > a.imgContainer{
+            border: 1px dashed #BFBFBF;
+            transition: border-color 0.2s ease-in-out;
+            border-bottom:none;
+        }
+        .card-content{
+            padding: map.get($typescale, 8);
+                  font-family:"Lato";
+        }
+        h2{
+            margin-bottom: map.get($typescale, 4);
+        }
+        p{
+      
+            font-weight:300;
+            font-size: map.get($typescale, 4) * 0.9;
+        }
+        .date.unset{
+            opacity: 0.5;
+        }
+        .date{
+            margin-bottom: map.get($typescale, 3); 
+        }
+        img{
+            display:block;
+            max-width:100%;
+            height:auto;
+        }
+        
+        /* Page fold thing, which interacts badly
+         * with box shadow so not sure whether or not
+         * we should keep it. */
+         
+         /* &:before{
+            content: "";
+            display:block;
+            position:absolute;
+            bottom:0;
+            right:0;
+            border-width: 2.5rem 2.5rem 0  0;
+            height:1px;
+            border-style:solid;
+            border-color: darken($circus-grey,18%) $circus-tan $circus-tan $circus-tan;
+        } */
+    }
+    .card, .empty{
+        display:flex;
+        flex-direction:column;
+        flex:1 0 21%;
+        margin:2rem;
+        
+        padding-bottom: map.get($typescale, 1);
+        margin-left:0;
+        min-width:20rem;
+        
+    }
+}
+
+/* 
+ * 
+ * Category gallery
+ * 
+ * This corresponds to the category/sources _show pages.
+ */
+ 
+ .cat-gallery{
+     display:flex;
+     flex-wrap:wrap;
+     li{
+         display:block;
+         flex:1 1 45%;
+         background-position: center center;
+         background-repeat:no-repeat;
+         margin:2rem;
+         color:white;
+         background-size:100%;
+         transition:background-size 0.2s ease-in-out;
+         
+         /* Various background images; these are more-or-less arbitrary chosen;
+          * there are ways to make these randomized in twig, but the images are too
+          * variable in terms of quality to make random selections worthwhile */
+            
+            /* Categories */
+              &.cat1{
+                background-image: url('../images/clippings/899af04f49e0ba74b909b438553542d9_tn.png');
+              }
+              &.cat2{
+                  background-image: url('../images/clippings/27fb83d0998a2f6fba964330d3f8a4e7_tn.png');
+              }
+              &.cat3{
+                  background-image: url('../images/clippings/1576b7a3959885e2c64c1bf3f58f129d_tn.png');
+              }
+              &.cat4{
+                  background-image: url('../images/clippings/001c8f295c2e4932cb0330c1b6c6c4b4_tn.png');
+              }
+              
+           /* Sources */
+              
+             
+
+              &.source1{
+                    background-image: url('../images/clippings/942756040c0f3a3c7a2e2485d752720d_tn.png');
+                }
+                
+               &.source2{
+                    background-image: url('../images/clippings/ec8cc84c4350dfba1428af5a31ccd8a8_tn.png');
+                }  
+                
+               &.source3{
+                    background-image: url('../images/clippings/5d4191fdc072f0dc31b371dcd232e852_tn.png');
+               }  
+
+        
+        h2{
+            padding:map.get($typescale, 5);
+        }
+         
+         &:hover{
+               background-size:105%;
+         }
+         a:not(.imgContainer){
+             border:none;
+             background:rgba($circus-grey, 0.4);
+             color:white;
+             display:block;
+             height:100%;
+             width:100%;
+             padding:1.5rem;
+             display:flex;
+             align-items:center;
+             justify-content:center;
+            &:hover{
+                border:none;
+              
+            }
+            & > div{
+                background: rgba($circus-black, 0.6);
+                display:block;
+                width:80%;
+                text-align:center;
+                padding: map.get($typescale, 3) 0;
+                .desc{
+                    font-size: map.get($typescale, 4);
+                }
+                
+            }
+         }
+     }
+ }
+ 
+/*
+ *  Clipping Page 
+ * */
+ 
+ .clipping{
+     display:flex;
+     flex-wrap:no-wrap;
+     justify-content:space-between;
+     .transcription{
+         margin-top: map.get($typescale, 2);
+         margin-right: 10%;
+     }
+     
+     .metadata {
+
+        flex: 0 1 30rem;
+        &.no-transcription{
+          flex: 1 1 100%;  
+          .metadata-content{
+              flex-direction:row;
+              a{
+                  margin-right:2rem;
+              }
+          }
+        }
+         .metadata-content{
+            position: -webkit-sticky;
+            position:sticky;
+            top:1rem;
+            background: $circus-grey;
+            padding:map.get($typescale, 4);
+            display:flex;
+            flex-direction:column;
+            
+         }
+         .metadata-body{
+             display:flex;
+             flex-wrap:wrap;
+             font-family: "Lato", sans-serif;
+             font-size: 0.9em;
+             & > div{
+                 margin: map.get($typescale, 8);
+                 flex: 1 1 30%;
+             }
+             h4{
+                 margin-bottom: map.get($typescale, 8);
+                 font-weight:300;
+                 font-family: inherit;
+                 font-size:inherit;
+             }
+
+         }
+         
+     }
+ }
+ 
+/*
+ * Headings
+ * 
+ * This little formula iterates through all of the heading levels
+ * and associates it with the typography scale
+ */ 
+ @for $i from 1 to 6 {
+  h#{$i} {
+    font-size: map.get($typescale, $i);
+    font-family: "Playfair Display";
+    margin-bottom:map.get($typescale, $i);
+  }
+}
+
+/* 
+ * Header
+ * 
+ */
+
+.horses{
+    height:10vh;
+    background: url('../images/circus-header.png');
+    background-size:contain;
+    background-repeat:repeat-x;
+    transform:translateX(0);
+
+    overflow-x:hidden;
+    /* Shhh...it's a secret */
+    &.egg{
+        pointer-events:none;
+        width:200vw;
+        transform: translateX(-40vw);
+        transition: transform 4s linear;
+    }
+}
+
+/* 
+ * 
+ * Header navbar
+ * 
+ * Most of the follow consists of 
+ * bootstrap overrides, grr.
+ * 
+ */
+ 
+ 
+
+.navbar{
+    background:$circus-black;
+    border-radius:0;
+    font-size: map.get($typescale, 3);
+    font-family: "Lora", serif;
+    .navbar-brand{
+        padding-right:1.5rem;
+        margin-right: 1rem;
+        border-right: 2px dashed $circus-tan;
+        height:115%;
+        img {
+            width:13rem;
+        }
+    }
+    
+    .dropdown-menu{
+        background: $circus-black;
+        font-size: map.get($typescale, 3);
+        & > li > a{
+            transition: background 0.2s ease;
+            &:focus, &:hover{
+               background: rgba($circus-orange, 0.8);
+            }
+        }
+    }
+    *{
+        color:white;
+    }
+    a{
+        color:inherit;
+        text-shadow:none;
+    }
+    
+    .hamburger{
+        display:none;
+    }
+    
+    .nav .open > a{
+       background: inherit;
+       &:hover, &:focus{
+           background:inherit;
+       }
+    }
+    
+    .nav > li > a{
+        border-bottom: .2rem solid transparent;
+         transition: border-bottom-color 0.2s ease;
+       &:hover, &:focus{
+            background-color: inherit;
+            border-bottom-color: $circus-orange;
+        }
+    }
+    .dropdown-menu > li > a{
+        color:white;
+
+    }
+    a.dropdown-toggle{
+        &::after{
+        content: "\e080";
+        font-size:1rem;
+        font-weight:200;
+        font-family: "Glyphicons Halflings";
+        margin-left: .5rem;
+        margin-right:.5rem;
+        display:inline-block;
+        transform: rotate(0deg);
+        transition: transform 0.2s ease-in-out;
+       }
+       &[aria-expanded='true']::after{
+           transform:rotate(90deg);
+       }
+    }
+}
+
+
+ 
+
+/*
+ *  Blog pages
+ *  */
+ 
+ .nines{
+     
+     /* Make images responsive */
+     main img{
+         max-width:60%;
+        
+         height:auto;
+         
+         /* Since we have no clue where these images
+          * might be in the DOM, we use every centering approach
+          * and hope that one sticks */
+          
+         margin:0 auto;
+         text-align:center;
+         position:relative;
+         transform: translateX(-50%);
+         left: 50%;
+     }
+     
+     /* Hide the metadata for most users */
+     div.text-right{
+         &:last-child{
+             display:none;
+         }
+     }
+     
+     /* But logged in users can see it;
+      * this is a bit of a hack */
+     
+     .btn-toolbar ~ div.text-right{
+         &:last-child{
+             display:block;
+         }
+     }
+     
+     
+ }
+
+
+/*
+ *  Search
+ *  */
+.search-form{
+    .form-group{
+        margin:0;
+    }
+}
+
+
+.search-results{
+    list-style-type:none;
+    margin-left:0;
+    padding-left:0;
+    li{
+        background: #f9f9f9;
+        font-size: map.get($typescale, 4) * 0.9;
+        margin:0;
+        padding:.25rem;
+    }
+    
+    
+    li + li{
+        margin-top: map.get($typescale, 8);
+    }
+    
+}
+
+mark{
+    background: rgba($circus-orange, 0.4);
+}
+
+
+/*
+ *  Pagination
+ *  */
+ 
+ .navigation{
+     display:flex;
+     justify-content:flex-end;
+     .pagination a{
+         color: $circus-black;
+         transition:background 0.2s ease-in-out;
+         &:hover{
+             color: $circus-black;
+             background: $circus-grey;
+         }
+     }
+     .pagination > .active > a{
+         color:white;
+         background:$circus-orange;
+         border-color: $circus-orange;
+         transition: border-color 0.2s ease-in-out,
+                     background 0.2s ease-in-out;
+         &:hover{ 
+           background: rgba($circus-orange, 0.8);
+            border-color: rgba($circus-orange, 0.8);
+         }
+     }
+ }
+
+/*
+ *  Footer
+ *  */
+ 
+footer{
+
+    
+    
+    & > .container{
+        display:flex;
+        flex-wrap:wrap;
+        margin: 2rem auto 2rem auto;
+        justify-content:space-between;
+        align-content:center;
+        
+        &:after{
+            content:unset;
+        }
+        &::before{
+        content:"";
+        display:block;
+        width:110%;
+        height:.2rem;
+        background:$circus-orange;
+        margin-bottom: 2rem;
+        
+    }
+    }
+    ul, li{
+        list-style-type:none;
+        padding:0;
+        margin:0;
+    }
+    
+    .footer-menu{
+        display:flex;
+        flex:0.25 1 30%;
+        flex-wrap:wrap;
+        font-family: "Lato", sans-serif;
+        ul{
+            columns:2;
+            a{
+               color:$circus-black; 
+            }
+            }
+    }
+    
+    .footer-imgs{
+        align-self:flex-end;
+        ul{
+             display:flex;
+             flex-direction:row;
+             text-align:right;
+             flex-wrap:wrap;
+             li{
+                 margin-right: 1rem;
+                 margin-top: 1rem;
+             }
+        }
+        img{
+            max-height:8rem;
+            filter:grayscale(0%);
+            transition: filter 0.2s ease-in-out;
+            &:hover{
+                filter:grayscale(100%);
+            }
+        }
+       
+    }
+}
+
+/* 
+ * Final import, which is the mobile stylesheet
+ * to ensure proper inheritance and precedence
+ */
+@import "_mobile.scss";

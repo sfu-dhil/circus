@@ -1,0 +1,995 @@
+@charset "UTF-8";
+/**
+ * Namespaces 
+ * 
+ **/
+/**
+ * Imports 
+ * 
+ **/
+/*
+ * 
+ * Hamburger menu mods
+ *  */
+/* Only include spin */
+/* Override color */
+/* Uses the packages from yarn */
+/* Note: We use @import here in combination with the .css 
+ * extension for these. This forces SCSS to interpret 
+ * the import as a CSS import and NOT an SCSS, which means paths
+ * all stay properly formatted.  */
+@import "../yarn/typeface-lora/index.css";
+@import "../yarn/typeface-playfair-display/index.css";
+@import "../yarn/typeface-lato/index.css";
+/* CSS Library for imagezoom, with some styling support from
+ * 
+ *  */
+/* Loader circle (one element!) comes from
+ * 
+ * https://projects.lukehaas.me/css-loaders/
+ * 
+ * with many thanks.
+ *  */
+#facsViewerContainer {
+  display: none;
+}
+#facsViewerContainer.open {
+  display: flex;
+  background: black;
+  color: white;
+  margin: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  position: fixed;
+  padding-right: 2rem;
+  align-self: center;
+  z-index: 9000;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+#facsViewerContainer.open #facs_closer {
+  font-size: 4rem;
+  color: white;
+  justify-self: flex-end;
+  left: -3.5rem;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+#facsViewerContainer.open #facs_closer:hover {
+  color: #C03F2A;
+  transition: color 0.2 ease-in-out;
+}
+#facsViewerContainer.loaded #facs_loader {
+  display: none;
+}
+
+#facs_loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#facs_loader .loader,
+#facs_loader .loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+#facs_loader .loader {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+
+.facs-overlay #header_overlay {
+  background: black;
+  opacity: 0.7;
+  width: 100vw;
+  height: 101vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  filter: blur(2px);
+  z-index: 8000;
+}
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.breadcrumb {
+  position: relative;
+  padding: 0;
+  width: max-content;
+  margin: 0;
+  font-size: 1.3125rem;
+  font-family: "Lato";
+  font-weight: 400;
+  color: #050505;
+  background: #FFFEFE;
+  margin-bottom: 4.578rem;
+  border-radius: 0;
+  /* Bootstrap override */
+}
+.breadcrumb li {
+  margin: 0;
+}
+.breadcrumb li:not(.active) {
+  border-right: 2px solid #fff9f0;
+  transform: skew(-20deg);
+}
+.breadcrumb li.active {
+  padding: 0 1.953rem;
+  color: rgba(5, 5, 5, 0.8);
+}
+.breadcrumb li > * {
+  display: inline-block;
+  color: inherit;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0.64rem 1.953rem;
+}
+.breadcrumb li > a {
+  transform: skew(20deg);
+}
+.breadcrumb li > a:hover, .breadcrumb li > a:focus {
+  text-decoration: none;
+  color: #C03F2A;
+}
+.breadcrumb li + li:before {
+  content: unset;
+}
+
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+.hamburger {
+  padding: 15px 15px;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+}
+.hamburger:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after {
+  background-color: white;
+}
+
+.hamburger-box {
+  width: 30px;
+  height: 18px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -1.5px;
+}
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hamburger-inner::before, .hamburger-inner::after {
+  content: "";
+  display: block;
+}
+.hamburger-inner::before {
+  top: -7.5px;
+}
+.hamburger-inner::after {
+  bottom: -7.5px;
+}
+
+/*
+ * Spin
+ */
+.hamburger--spin .hamburger-inner {
+  transition-duration: 0.22s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--spin .hamburger-inner::before {
+  transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+}
+.hamburger--spin .hamburger-inner::after {
+  transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--spin.is-active .hamburger-inner {
+  transform: rotate(225deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.hamburger--spin.is-active .hamburger-inner::before {
+  top: 0;
+  opacity: 0;
+  transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+}
+.hamburger--spin.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+  transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* 
+ * 
+ * Root
+ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 
+ * 
+ * Body
+ */
+body {
+  line-height: 1.675;
+  font-size: 16px;
+  background-color: #fff9f0;
+  font-family: "Lato", sans-serif;
+  color: black;
+}
+
+/*
+ * 
+ * Index page
+ */
+.index .navbar {
+  margin-bottom: 0;
+}
+.index .hero {
+  background: url("../images/circus-hero.jpeg");
+  width: 100vw;
+  height: 70vh;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 3.052rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.index .hero .title, .index .hero .subtitle {
+  background: rgba(5, 5, 5, 0.75);
+}
+.index .hero .title {
+  margin-top: -1rem;
+  padding: 3.052rem 3.052rem;
+  margin-bottom: 2.441rem;
+}
+.index .hero .title img {
+  max-width: 80vw;
+}
+.index .hero .subtitle {
+  color: white;
+  max-width: 80vw;
+  padding: 0.64rem 1.563rem;
+  font-weight: normal;
+}
+.index article {
+  display: flex;
+  justify-content: space-between;
+}
+.index article section {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.index article section:first-child {
+  flex-basis: calc(50% - 6rem);
+  margin-right: 3rem;
+  line-height: 1.8;
+}
+.index article section.nav-blocks {
+  flex-basis: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 1rem;
+  align-content: baseline;
+}
+.index article section.nav-blocks > div {
+  height: 30rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: grayscale(70%);
+  transition: filter 0.2s ease-in-out;
+}
+.index article section.nav-blocks > div:hover {
+  filter: grayscale(0%);
+}
+.index article section.nav-blocks > div:first-child {
+  width: 100%;
+  background-image: url("../images/microcosm.jpg");
+  margin-bottom: 1rem;
+}
+.index article section.nav-blocks > div:nth-child(2) {
+  width: 45%;
+  margin-right: 1rem;
+  background-image: url("../images/amphitheatre.jpg");
+}
+.index article section.nav-blocks > div:nth-child(3) {
+  width: 45%;
+  background-image: url("../images/astley_riding_school.jpg");
+}
+.index article section.nav-blocks > div > a {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  border-bottom: none;
+}
+.index article section.nav-blocks > div > a h2 {
+  width: 100%;
+  padding: 1.563rem;
+  color: white;
+  text-align: center;
+  background: rgba(5, 5, 5, 0.8);
+}
+
+/*
+ *  Main
+ *  */
+main {
+  min-height: 80vh;
+  margin-bottom: 10rem;
+}
+main p {
+  line-height: 1.85;
+  font-size: 1.64115rem;
+}
+main p:not(:last-child) {
+  margin-bottom: 3.052rem;
+}
+
+/* 
+ * Article content
+ */
+article a:not(.imgContainer):not(.btn) {
+  border-bottom: 0.3rem solid rgba(192, 63, 42, 0.5);
+  line-height: 1.7;
+  padding-bottom: 0.3rem;
+  transition: border-bottom-color 0.2s ease-in-out;
+  text-decoration: none;
+  color: inherit;
+}
+article a:not(.imgContainer):not(.btn):hover {
+  border-bottom-color: #C03F2A;
+  text-decoration: none;
+  color: inherit;
+}
+
+/*
+ *  Gallery 
+ * */
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+.gallery .card {
+  background: #F2F2F2;
+  transition: box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  /* Page fold thing, which interacts badly
+   * with box shadow so not sure whether or not
+   * we should keep it. */
+  /* &:before{
+      content: "";
+      display:block;
+      position:absolute;
+      bottom:0;
+      right:0;
+      border-width: 2.5rem 2.5rem 0  0;
+      height:1px;
+      border-style:solid;
+      border-color: darken($circus-grey,18%) $circus-tan $circus-tan $circus-tan;
+  } */
+}
+.gallery .card:hover {
+  /* Box shadow taken from tailwind shadow component */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.gallery .card:hover > a.imgContainer {
+  border-color: transparent;
+  border-bottom: none;
+}
+.gallery .card .clip-link {
+  border-bottom: none;
+}
+.gallery .card .clip-link:hover {
+  border-bottom: none;
+}
+.gallery .card > a.imgContainer {
+  border: 1px dashed #BFBFBF;
+  transition: border-color 0.2s ease-in-out;
+  border-bottom: none;
+}
+.gallery .card .card-content {
+  padding: 0.64rem;
+  font-family: "Lato";
+}
+.gallery .card h2 {
+  margin-bottom: 1.563rem;
+}
+.gallery .card p {
+  font-weight: 300;
+  font-size: 1.4067rem;
+}
+.gallery .card .date.unset {
+  opacity: 0.5;
+}
+.gallery .card .date {
+  margin-bottom: 1.953rem;
+}
+.gallery .card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.gallery .card, .gallery .empty {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 21%;
+  margin: 2rem;
+  padding-bottom: 3.052rem;
+  margin-left: 0;
+  min-width: 20rem;
+}
+
+/* 
+ * 
+ * Category gallery
+ * 
+ * This corresponds to the category/sources _show pages.
+ */
+.cat-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cat-gallery li {
+  display: block;
+  flex: 1 1 45%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 2rem;
+  color: white;
+  background-size: 100%;
+  transition: background-size 0.2s ease-in-out;
+  /* Various background images; these are more-or-less arbitrary chosen;
+   * there are ways to make these randomized in twig, but the images are too
+   * variable in terms of quality to make random selections worthwhile */
+  /* Categories */
+  /* Sources */
+}
+.cat-gallery li.cat1 {
+  background-image: url("../images/clippings/899af04f49e0ba74b909b438553542d9_tn.png");
+}
+.cat-gallery li.cat2 {
+  background-image: url("../images/clippings/27fb83d0998a2f6fba964330d3f8a4e7_tn.png");
+}
+.cat-gallery li.cat3 {
+  background-image: url("../images/clippings/1576b7a3959885e2c64c1bf3f58f129d_tn.png");
+}
+.cat-gallery li.cat4 {
+  background-image: url("../images/clippings/001c8f295c2e4932cb0330c1b6c6c4b4_tn.png");
+}
+.cat-gallery li.source1 {
+  background-image: url("../images/clippings/942756040c0f3a3c7a2e2485d752720d_tn.png");
+}
+.cat-gallery li.source2 {
+  background-image: url("../images/clippings/ec8cc84c4350dfba1428af5a31ccd8a8_tn.png");
+}
+.cat-gallery li.source3 {
+  background-image: url("../images/clippings/5d4191fdc072f0dc31b371dcd232e852_tn.png");
+}
+.cat-gallery li h2 {
+  padding: 1.25rem;
+}
+.cat-gallery li:hover {
+  background-size: 105%;
+}
+.cat-gallery li a:not(.imgContainer) {
+  border: none;
+  background: rgba(242, 242, 242, 0.4);
+  color: white;
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-gallery li a:not(.imgContainer):hover {
+  border: none;
+}
+.cat-gallery li a:not(.imgContainer) > div {
+  background: rgba(5, 5, 5, 0.6);
+  display: block;
+  width: 80%;
+  text-align: center;
+  padding: 1.953rem 0;
+}
+.cat-gallery li a:not(.imgContainer) > div .desc {
+  font-size: 1.563rem;
+}
+
+/*
+ *  Clipping Page 
+ * */
+.clipping {
+  display: flex;
+  flex-wrap: no-wrap;
+  justify-content: space-between;
+}
+.clipping .transcription {
+  margin-top: 2.441rem;
+  margin-right: 10%;
+}
+.clipping .metadata {
+  flex: 0 1 30rem;
+}
+.clipping .metadata.no-transcription {
+  flex: 1 1 100%;
+}
+.clipping .metadata.no-transcription .metadata-content {
+  flex-direction: row;
+}
+.clipping .metadata.no-transcription .metadata-content a {
+  margin-right: 2rem;
+}
+.clipping .metadata .metadata-content {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 1rem;
+  background: #F2F2F2;
+  padding: 1.563rem;
+  display: flex;
+  flex-direction: column;
+}
+.clipping .metadata .metadata-body {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Lato", sans-serif;
+  font-size: 0.9em;
+}
+.clipping .metadata .metadata-body > div {
+  margin: 0.64rem;
+  flex: 1 1 30%;
+}
+.clipping .metadata .metadata-body h4 {
+  margin-bottom: 0.64rem;
+  font-weight: 300;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/*
+ * Headings
+ * 
+ * This little formula iterates through all of the heading levels
+ * and associates it with the typography scale
+ */
+h1 {
+  font-size: 3.052rem;
+  font-family: "Playfair Display";
+  margin-bottom: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+  font-family: "Playfair Display";
+  margin-bottom: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+  font-family: "Playfair Display";
+  margin-bottom: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+  font-family: "Playfair Display";
+  margin-bottom: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-family: "Playfair Display";
+  margin-bottom: 1.25rem;
+}
+
+/* 
+ * Header
+ * 
+ */
+.horses {
+  height: 10vh;
+  background: url("../images/circus-header.png");
+  background-size: contain;
+  background-repeat: repeat-x;
+  transform: translateX(0);
+  overflow-x: hidden;
+  /* Shhh...it's a secret */
+}
+.horses.egg {
+  pointer-events: none;
+  width: 200vw;
+  transform: translateX(-40vw);
+  transition: transform 4s linear;
+}
+
+/* 
+ * 
+ * Header navbar
+ * 
+ * Most of the follow consists of 
+ * bootstrap overrides, grr.
+ * 
+ */
+.navbar {
+  background: #050505;
+  border-radius: 0;
+  font-size: 1.953rem;
+  font-family: "Lora", serif;
+}
+.navbar .navbar-brand {
+  padding-right: 1.5rem;
+  margin-right: 1rem;
+  border-right: 2px dashed #fff9f0;
+  height: 115%;
+}
+.navbar .navbar-brand img {
+  width: 13rem;
+}
+.navbar .dropdown-menu {
+  background: #050505;
+  font-size: 1.953rem;
+}
+.navbar .dropdown-menu > li > a {
+  transition: background 0.2s ease;
+}
+.navbar .dropdown-menu > li > a:focus, .navbar .dropdown-menu > li > a:hover {
+  background: rgba(192, 63, 42, 0.8);
+}
+.navbar * {
+  color: white;
+}
+.navbar a {
+  color: inherit;
+  text-shadow: none;
+}
+.navbar .hamburger {
+  display: none;
+}
+.navbar .nav .open > a {
+  background: inherit;
+}
+.navbar .nav .open > a:hover, .navbar .nav .open > a:focus {
+  background: inherit;
+}
+.navbar .nav > li > a {
+  border-bottom: 0.2rem solid transparent;
+  transition: border-bottom-color 0.2s ease;
+}
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+  background-color: inherit;
+  border-bottom-color: #C03F2A;
+}
+.navbar .dropdown-menu > li > a {
+  color: white;
+}
+.navbar a.dropdown-toggle::after {
+  content: "";
+  font-size: 1rem;
+  font-weight: 200;
+  font-family: "Glyphicons Halflings";
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in-out;
+}
+.navbar a.dropdown-toggle[aria-expanded=true]::after {
+  transform: rotate(90deg);
+}
+
+/*
+ *  Blog pages
+ *  */
+.nines {
+  /* Make images responsive */
+  /* Hide the metadata for most users */
+  /* But logged in users can see it;
+   * this is a bit of a hack */
+}
+.nines main img {
+  max-width: 60%;
+  height: auto;
+  /* Since we have no clue where these images
+   * might be in the DOM, we use every centering approach
+   * and hope that one sticks */
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+}
+.nines div.text-right:last-child {
+  display: none;
+}
+.nines .btn-toolbar ~ div.text-right:last-child {
+  display: block;
+}
+
+/*
+ *  Search
+ *  */
+.search-form .form-group {
+  margin: 0;
+}
+
+.search-results {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+.search-results li {
+  background: #f9f9f9;
+  font-size: 1.4067rem;
+  margin: 0;
+  padding: 0.25rem;
+}
+.search-results li + li {
+  margin-top: 0.64rem;
+}
+
+mark {
+  background: rgba(192, 63, 42, 0.4);
+}
+
+/*
+ *  Pagination
+ *  */
+.navigation {
+  display: flex;
+  justify-content: flex-end;
+}
+.navigation .pagination a {
+  color: #050505;
+  transition: background 0.2s ease-in-out;
+}
+.navigation .pagination a:hover {
+  color: #050505;
+  background: #F2F2F2;
+}
+.navigation .pagination > .active > a {
+  color: white;
+  background: #C03F2A;
+  border-color: #C03F2A;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+.navigation .pagination > .active > a:hover {
+  background: rgba(192, 63, 42, 0.8);
+  border-color: rgba(192, 63, 42, 0.8);
+}
+
+/*
+ *  Footer
+ *  */
+footer > .container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2rem auto 2rem auto;
+  justify-content: space-between;
+  align-content: center;
+}
+footer > .container:after {
+  content: unset;
+}
+footer > .container::before {
+  content: "";
+  display: block;
+  width: 110%;
+  height: 0.2rem;
+  background: #C03F2A;
+  margin-bottom: 2rem;
+}
+footer ul, footer li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+footer .footer-menu {
+  display: flex;
+  flex: 0.25 1 30%;
+  flex-wrap: wrap;
+  font-family: "Lato", sans-serif;
+}
+footer .footer-menu ul {
+  columns: 2;
+}
+footer .footer-menu ul a {
+  color: #050505;
+}
+footer .footer-imgs {
+  align-self: flex-end;
+}
+footer .footer-imgs ul {
+  display: flex;
+  flex-direction: row;
+  text-align: right;
+  flex-wrap: wrap;
+}
+footer .footer-imgs ul li {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+footer .footer-imgs img {
+  max-height: 8rem;
+  filter: grayscale(0%);
+  transition: filter 0.2s ease-in-out;
+}
+footer .footer-imgs img:hover {
+  filter: grayscale(100%);
+}
+
+/* 
+ * Final import, which is the mobile stylesheet
+ * to ensure proper inheritance and precedence
+ */
+@media (max-width: 995px) {
+  .breadcrumb li {
+    display: none;
+  }
+  .breadcrumb li:nth-last-child(-n+3) {
+    display: inline-block;
+  }
+
+  .index article {
+    flex-direction: column;
+  }
+  .index article section:first-child {
+    margin-right: 0;
+  }
+  .index article section.nav-blocks {
+    margin-top: 4rem;
+    flex: 1 1 30% !important;
+  }
+  .index article section.nav-blocks > div {
+    width: auto !important;
+    margin: 1.25rem;
+  }
+}
+@media (max-width: 767px) {
+  .breadcrumb li:nth-last-child(3) {
+    display: none;
+  }
+  .breadcrumb li:nth-last-child(-n+2) {
+    margin: 0;
+    padding: 0 1.953rem;
+    display: inline-block;
+  }
+  .breadcrumb li:nth-last-child(-n+2) > * {
+    max-width: 15ch;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .index {
+    /* Necessary for safari */
+  }
+  .index .hero {
+    background-attachment: scroll;
+  }
+  .index .subtitle {
+    margin-top: 3rem;
+  }
+  .index .subtitle h2 {
+    text-align: center;
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  article img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .clipping {
+    flex-direction: column-reverse;
+  }
+  .clipping a.imgContainer {
+    text-align: center;
+    margin-bottom: 0.64rem;
+  }
+  .clipping .metadata.no-transcription .metadata-content {
+    flex-direction: column;
+  }
+  .clipping .metadata .metadata-body > div {
+    flex: 1 1 45%;
+  }
+  .clipping .transcription {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #facsCloser {
+    left: 0;
+  }
+
+  .navbar .hamburger {
+    display: block;
+  }
+
+  .nines main img {
+    max-width: 80%;
+  }
+}
+
+/*# sourceMappingURL=circus.css.map */

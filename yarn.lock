@@ -2,16 +2,6 @@
 # yarn lockfile v1
 
 
-"@openfonts/bevan_all@^1.44.0":
-  version "1.44.0"
-  resolved "https://registry.yarnpkg.com/@openfonts/bevan_all/-/bevan_all-1.44.0.tgz#3ba531f7b40a65040f4e5f3663892ab2dc5e2c68"
-  integrity sha512-qA0r3FYQjEnWWOm65hdIKO42N+FwTG9QkbpEoenqRPmhRFwUXJGlx1ts9f8rik0eIEi7ma6QV7uOm+uKThoJ3A==
-
-"@openfonts/domine_latin-ext@^1.44.0":
-  version "1.44.0"
-  resolved "https://registry.yarnpkg.com/@openfonts/domine_latin-ext/-/domine_latin-ext-1.44.0.tgz#792d343a474bfc7303495b9ca406486837ec2759"
-  integrity sha512-xMEWpD2myOO3xfd/pVrogv4Kf9WfdTtjcsouitirkZMXouEcseMxu6JkRlkJ6DFEFccPDiWFBZhPIbESQdhJDA==
-
 add@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
@@ -21,6 +11,11 @@ bootstrap3@^3.3.5:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/bootstrap3/-/bootstrap3-3.3.5.tgz#496a4ef6c087214fa96838196d60de645e82591a"
   integrity sha1-SWpO9sCHIU+paDgZbWDeZF6CWRo=
+
+hamburgers@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/hamburgers/-/hamburgers-1.1.3.tgz#eb583ede269d3a774aa5f613442b17ea13952b84"
+  integrity sha512-qpfnJwZq6ATAGJEriwuyfVNgT++GG+o+3bBfPYF7F3WY452cYKbaYGUuqwhp+3kHLI6CL4VIBfj8bfbp90Lp1A==
 
 jquery-colorbox@^1.6.4:
   version "1.6.4"
@@ -54,11 +49,6 @@ select2@^4.0.13:
   resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.13.tgz#0dbe377df3f96167c4c1626033e924372d8ef44d"
   integrity sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
 
-source-serif-pro@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/source-serif-pro/-/source-serif-pro-3.1.0.tgz#22e4916c537a610d27cfa3b51a7f2057d06963ef"
-  integrity sha512-b4/f5JilgkEGbFjLh7M9safsjWTovyfvpiQIgGY8pigRkH5lAfO+9jLxbRnKoekBQqmnhacWxiRsCJu4JB4Qhg==
-
 symfony-collection@^2.1.30:
   version "2.1.30"
   resolved "https://registry.yarnpkg.com/symfony-collection/-/symfony-collection-2.1.30.tgz#c9b50abec1a080a6694973d91975d1acf14efb31"
@@ -78,3 +68,18 @@ typeahead.js@^0.11.1:
   integrity sha1-TmTmcbIjEKhgb0rsgFkkuoSwFbg=
   dependencies:
     jquery ">=1.7"
+
+typeface-lato@^0.0.75:
+  version "0.0.75"
+  resolved "https://registry.yarnpkg.com/typeface-lato/-/typeface-lato-0.0.75.tgz#8aa11c5611dc38416837c089b265a2abd1f7dd31"
+  integrity sha512-iA5uJD4PSTyIE4BDiSOexQeXkDkiJuX4Hu3wh3saJ06EB2TvJayab1Lbbmqq2je/LQv7KCQZHZmC0k4hedd8sw==
+
+typeface-lora@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/typeface-lora/-/typeface-lora-0.0.72.tgz#850c211ef51167d8b71b610c93a9b1ca0f17863c"
+  integrity sha512-6Q029hpZAJOU2K0V3JM0xColUa/u/0xpzgN5nv1aKe019lNYp9u+6u+BF3zK7n+gwGAjrz75qdFxhM34fheSAA==
+
+typeface-playfair-display@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/typeface-playfair-display/-/typeface-playfair-display-1.1.4.tgz#ef37c9847a48996e1250cfd726387c36b34ecd07"
+  integrity sha512-FhzVmu6EE3LMsYTxG4x3DFkzhGHnv7/5Ltf6U9i6kDnQZQ4STtB2sVdrZ+wEqvr7oX0s+E8IjfL5ycMzBofiWw==
