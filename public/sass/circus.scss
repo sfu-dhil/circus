@@ -377,6 +377,9 @@ article{
      .transcription{
          margin-top: map.get($typescale, 2);
          margin-right: 10%;
+         p{
+             margin-bottom:.25rem!important;
+         }
      }
      
      .metadata {

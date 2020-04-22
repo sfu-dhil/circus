@@ -587,6 +587,9 @@ article a:not(.imgContainer):not(.btn):hover {
   margin-top: 2.441rem;
   margin-right: 10%;
 }
+.clipping .transcription p {
+  margin-bottom: 0.25rem !important;
+}
 .clipping .metadata {
   flex: 0 1 30rem;
 }

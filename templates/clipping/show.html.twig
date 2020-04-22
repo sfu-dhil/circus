@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% set title = clipping.number ~ " (Vol. " ~ clipping.source.id  ~ ")" %}
+{% set clipNum =  clipping.number | replace({'number.':'number'}) %}
+{% set title = clipNum ~ " (Vol. " ~ clipping.source.id  ~ ")" %}
+
 {% block title %}{{ title }}{% endblock %}
+
 
 {% set fromCat = app.request.server.get('HTTP_REFERER') matches '/\\/category\\//' %}
 
@@ -82,7 +85,7 @@
                 <div class="metadata-body">
                    <div>
                        <h4>Clipping Number</h4>
-                       <div>{{ clipping.number }}</div>
+                       <div>{{ clipNum }}</div>
                    </div>
                     <div>
                         <h4>Written Date</h4>
@@ -99,7 +102,10 @@
                         {% if clipping.date is null %}
                             <div class="unset">Not dated</div>
                         {% else %}
-                        <div>{{ clipping.date }}</div>
+                        <div>
+                            {% set dateStr = clipping.date | date('F d, Y') %}
+                            {{ dateStr | replace({', 0000': ', [?]', '00,': ''}) }}
+                        </div>
                         {% endif %}
                     </div>
        
