@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
+use App\Entity\Source;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
@@ -47,11 +49,17 @@ class Builder implements ContainerAwareInterface {
      */
     private $packages;
 
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage, Packages $packages) {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage, Packages $packages, EntityManagerInterface $em) {
         $this->factory = $factory;
         $this->authChecker = $authChecker;
         $this->tokenStorage = $tokenStorage;
         $this->packages = $packages;
+        $this->em = $em;
     }
 
     private function hasRole($role) {
@@ -68,14 +76,8 @@ class Builder implements ContainerAwareInterface {
      * @return ItemInterface
      */
     public function mainMenu(array $options) {
-
-        /* NOTE: Any changes made to main menu
-        will not be reflected in the footer menu */
-
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttributes([
-                                         'class' => 'nav navbar-nav',
-                                     ]);
+        $menu->setChildrenAttributes(['class' => 'nav navbar-nav',]);
 
         $menu->addChild('home', [
             'label' => 'Welcome',
@@ -91,23 +93,16 @@ class Builder implements ContainerAwareInterface {
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $browse->addChild('astley1', [
-            'label' => "Astley's Volume 1",
-            'route' => 'source_show',
-            'routeParameters' => ['id' => 1],
-        ]);
+        $sources = $this->em->getRepository(Source::class)
+            ->findBy([], ['label' => 'ASC']);
 
-        $browse->addChild('astley2', [
-            'label' => "Astley's Volume 2",
-            'route' => 'source_show',
-            'routeParameters' => ['id' => 2],
-        ]);
-
-        $browse->addChild('astley3', [
-            'label' => "Astley's Volume 3",
-            'route' => 'source_show',
-            'routeParameters' => ['id' => 3],
-        ]);
+        foreach($sources as $source) {
+            $browse->addChild('astley_' . $source->getId(), [
+                'label' => $source->getLabel(),
+                'route' => 'source_show',
+                'routeParameters' => ['id' => $source->getId()],
+            ]);
+        }
 
         $browse->addChild('categories', [
             'label' => 'Categories',
@@ -124,9 +119,9 @@ class Builder implements ContainerAwareInterface {
                 'label' => '',
             ]);
             $divider->setAttributes([
-                                        'role' => 'separator',
-                                        'class' => 'divider',
-                                    ]);
+                'role' => 'separator',
+                'class' => 'divider',
+            ]);
 
             $browse->addChild('categories', [
                 'label' => 'Categories',
