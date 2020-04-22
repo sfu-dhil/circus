@@ -44,9 +44,13 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Clipping::class, 'e')->orderBy('e.date', 'ASC');
+        $qb->select('e')
+            ->addSelect('CAST(e.number as unsigned integer) HIDDEN n')
+            ->from(Clipping::class, 'e')
+            ->orderBy('n', 'ASC')
+            ->addOrderBy('e.date', 'ASC')
+            ->addOrderBy('e.id', 'ASC');
         $query = $qb->getQuery();
-
         $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [

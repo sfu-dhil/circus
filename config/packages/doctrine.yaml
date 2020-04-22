@@ -19,3 +19,4 @@ doctrine:
         dql:
             string_functions:
                 match: Nines\UtilBundle\Extensions\Doctrine\MySQL\MatchAgainst
+                cast: Nines\UtilBundle\Extensions\Doctrine\MySQL\Cast
