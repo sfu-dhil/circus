@@ -94,8 +94,7 @@ class Builder implements ContainerAwareInterface {
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
         $sources = $this->em->getRepository(Source::class)
-            ->findBy([], ['label' => 'ASC']);
-
+            ->findBy([], ['id' => 'ASC']);
         foreach($sources as $source) {
             $browse->addChild('astley_' . $source->getId(), [
                 'label' => $source->getLabel(),
