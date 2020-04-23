@@ -4,10 +4,11 @@
 <form method="get" action="{{ path(search_path) }}" class="form-horizontal">
     <fieldset class="search-form">
         <div class="form-group">
-            <label class="form-label" for='q'>Please Enter your Search Term</label>
+            <label class="form-label" for='q'>Please enter your search term</label>
             <div class="form-input">
                 <div class="input-group">
-                    <input type='text' name='q' id='q' class='form-control' value='{{ q }}'>
+                    <input type='text' name='q' id='q' class='form-control' value='{{ q }}' 
+                        placeholder="Search...">
                     <span class="input-group-btn">
 						<button class="btn btn-default" type="submit">
 							<span class="glyphicon glyphicon-search"></span>

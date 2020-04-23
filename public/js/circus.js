@@ -28,6 +28,8 @@ burgers.forEach(function(burg){
     });
 
 
+
+
 /* ssshhh this is a secret */
 
 const horses = document.querySelectorAll('.horses')[0];
@@ -41,4 +43,8 @@ horses.addEventListener('click', function(){
         });
     }
   });
-    
+
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
