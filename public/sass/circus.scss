@@ -421,12 +421,6 @@ article{
              }
              [data-toggle='tooltip']{
                  opacity: 0.8;
-                 &:before{
-                     content:"[";
-                 }
-                 &:after{
-                     content:"]";
-                 }
              }
              .image-size{
                  opacity:0.8;
