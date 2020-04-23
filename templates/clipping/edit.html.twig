@@ -11,7 +11,7 @@
 {%- endblock %}
 
 {% block pageheader %}
-    <h1 class="page-title">Edit Clipping: {{ clipping.originalName }}</h1>
+    <h1 class="page-title">Edit Item: {{ clipping.originalName }}</h1>
 {% endblock %} 
 
 
@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <div class="form-submit">
                             <div class="button-group">
-                                <input type="submit" value="Update Clipping" class="btn btn-primary" />
+                                <input type="submit" value="Update Item" class="btn btn-primary" />
                                 <a href="{{ path('clipping_show', { 'id': clipping.id }) }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </div>

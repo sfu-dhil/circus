@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
+
 {% set title = clipping.number ~ " (Vol. " ~ clipping.source.id  ~ ")" %}
+{% set needsTooltip = clipping.number matches '/\\*/' %}
+
 {% block title %}{{ title }}{% endblock %}
+
 
 {% set fromCat = app.request.server.get('HTTP_REFERER') matches '/\\/category\\//' %}
 
@@ -62,7 +66,6 @@
 
 {% block body %}
     <article class="clipping">
-        
         {% if clipping.transcription is not empty  %}
             <section class="transcription">
                 <h3 class="sr-only">Transcription</h3>
@@ -81,8 +84,14 @@
                 </a>
                 <div class="metadata-body">
                    <div>
-                       <h4>Clipping Number</h4>
-                       <div>{{ clipping.number }}</div>
+                       <h4>Item Number</h4>
+                       <div>
+                           {% if needsTooltip %}
+                           <span data-toggle="tooltip" data-placement="right" title="Number not provided in the original">{{ clipping.number }}</span>
+                           {% else %}
+                                {{ clipping.number }}
+                           {% endif %}
+                           </div>
                    </div>
                     <div>
                         <h4>Written Date</h4>
@@ -99,7 +108,10 @@
                         {% if clipping.date is null %}
                             <div class="unset">Not dated</div>
                         {% else %}
-                        <div>{{ clipping.date }}</div>
+                        <div>
+                            {% set dateStr = clipping.date | date('F d, Y') %}
+                            {{ dateStr | replace({', 0000': ', [?]', '00,': ''}) }}
+                        </div>
                         {% endif %}
                     </div>
        
@@ -119,11 +131,12 @@
                             </a>
                         </div>
                     </div>
-                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
                     <div>
-                        <h4>Image Number</h4>
-                        <div><a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">{{ clipping.originalName }}</a></div>
+                        <h4>Download Image</h4>
+                        <div><a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">{{ clipping.originalName }}</a><span class="image-size">({{ (clipping.imageSize / (1024 * 1024))|round(2) }}MB)</span></div>
                     </div>
+                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                   
                     <div>
                         <h4>Created</h4>
                         <div>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</div>
@@ -152,4 +165,11 @@
 
 {% block javascripts %}
 <script src="{{ asset('js/imagezoom.js') }}"></script>
+{% if needsTooltip %}
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+{% endif %}
 {% endblock %}

@@ -99,6 +99,7 @@
   
              {% if breadpath is not defined and isNines %}
                  
+                 {% if page.title is defined %}
                  {% set breadpath =
                     { 
                         0: {
@@ -107,7 +108,7 @@
                     }
                     
                   %}
-                  
+                  {% endif %}
               {% endif %}
               
               {# Now include the breadcrumb bit #}

@@ -587,6 +587,9 @@ article a:not(.imgContainer):not(.btn):hover {
   margin-top: 2.441rem;
   margin-right: 10%;
 }
+.clipping .transcription p {
+  margin-bottom: auto;
+}
 .clipping .metadata {
   flex: 0 1 30rem;
 }
@@ -623,6 +626,14 @@ article a:not(.imgContainer):not(.btn):hover {
   font-weight: 300;
   font-family: inherit;
   font-size: inherit;
+}
+.clipping .metadata .metadata-body [data-toggle=tooltip] {
+  opacity: 0.8;
+}
+.clipping .metadata .metadata-body .image-size {
+  opacity: 0.8;
+  display: block;
+  margin-top: 0.25rem;
 }
 
 /*
@@ -766,16 +777,8 @@ h5 {
    * this is a bit of a hack */
 }
 .nines main img {
-  max-width: 60%;
+  max-width: 100%;
   height: auto;
-  /* Since we have no clue where these images
-   * might be in the DOM, we use every centering approach
-   * and hope that one sticks */
-  margin: 0 auto;
-  text-align: center;
-  position: relative;
-  transform: translateX(-50%);
-  left: 50%;
 }
 .nines div.text-right:last-child {
   display: none;
