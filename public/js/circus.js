@@ -44,7 +44,3 @@ horses.addEventListener('click', function(){
     }
   });
 
-
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
