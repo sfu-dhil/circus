@@ -31,3 +31,4 @@ config/deploy.yml
 public/images/clippings
 config/deploy.yaml
 public/docs
+public/images/blog
