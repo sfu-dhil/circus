@@ -23,6 +23,15 @@ function getTinyMceConfig(editorUploadPath) {
 		style_formats_merge: true,
 		style_formats: [
 			{
+				title: 'Image-Center',
+				selector: 'img, figure',
+				styles: {
+					position: 'relative',
+					transform: 'translateX(-50%)',
+					left: '50%'
+				}
+			},
+			{
 				title: 'Image-Left',
 				selector: 'img, figure',
 				classes: 'image-left',
