@@ -402,20 +402,34 @@
                 "sqlserver",
                 "sqlsrv"
             ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdbal",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-04-20T17:19:26+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "6926771140ee87a823c3b2c72602de9dda4490d3"
+                "reference": "b0e0deb6e700438401ede433a15a6372d2285202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/6926771140ee87a823c3b2c72602de9dda4490d3",
-                "reference": "6926771140ee87a823c3b2c72602de9dda4490d3",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/b0e0deb6e700438401ede433a15a6372d2285202",
+                "reference": "b0e0deb6e700438401ede433a15a6372d2285202",
                 "shasum": ""
             },
             "require": {
@@ -494,7 +508,21 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2020-01-18T11:56:15+00:00"
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-bundle",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-04-23T10:52:09+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -1479,16 +1507,16 @@
         },
         {
             "name": "knplabs/knp-components",
-            "version": "v2.3.3",
+            "version": "v2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/knp-components.git",
-                "reference": "5a89e60dfe93179f329e35f92ed9348d52143f7b"
+                "reference": "a57e196b8ab413cb409aa49a5bd28fea61f619b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/5a89e60dfe93179f329e35f92ed9348d52143f7b",
-                "reference": "5a89e60dfe93179f329e35f92ed9348d52143f7b",
+                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/a57e196b8ab413cb409aa49a5bd28fea61f619b2",
+                "reference": "a57e196b8ab413cb409aa49a5bd28fea61f619b2",
                 "shasum": ""
             },
             "require": {
@@ -1550,7 +1578,7 @@
                 "pager",
                 "paginator"
             ],
-            "time": "2020-02-24T15:11:24+00:00"
+            "time": "2020-04-24T07:13:34+00:00"
         },
         {
             "name": "knplabs/knp-menu",
@@ -1980,23 +2008,20 @@
         },
         {
             "name": "phpdocumentor/reflection-common",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a"
+                "reference": "6568f4687e5b41b054365f9ae03fcb1ed5f2069b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/63a995caa1ca9e5590304cd845c15ad6d482a62a",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/6568f4687e5b41b054365f9ae03fcb1ed5f2069b",
+                "reference": "6568f4687e5b41b054365f9ae03fcb1ed5f2069b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6"
             },
             "type": "library",
             "extra": {
@@ -2028,7 +2053,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2018-08-07T13:53:10+00:00"
+            "time": "2020-04-27T09:25:28+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -7751,20 +7776,34 @@
                 "Fixture",
                 "persistence"
             ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-fixtures-bundle",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-04-02T16:40:37+00:00"
         },
         {
             "name": "liip/test-fixtures-bundle",
-            "version": "1.7.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipTestFixturesBundle.git",
-                "reference": "664e155cf57c3f6a376d1d7a8e426d5468bbd0de"
+                "reference": "44f60a776a1f71a1e6800bd9a7e0076b454f35c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipTestFixturesBundle/zipball/664e155cf57c3f6a376d1d7a8e426d5468bbd0de",
-                "reference": "664e155cf57c3f6a376d1d7a8e426d5468bbd0de",
+                "url": "https://api.github.com/repos/liip/LiipTestFixturesBundle/zipball/44f60a776a1f71a1e6800bd9a7e0076b454f35c8",
+                "reference": "44f60a776a1f71a1e6800bd9a7e0076b454f35c8",
                 "shasum": ""
             },
             "require": {
@@ -7822,7 +7861,7 @@
                 "symfony",
                 "testing"
             ],
-            "time": "2020-02-16T18:43:29+00:00"
+            "time": "2020-04-27T10:24:37+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -8279,6 +8318,20 @@
                 "generator",
                 "scaffold",
                 "scaffolding"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-04-21T19:17:25+00:00"
         },
