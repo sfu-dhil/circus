@@ -108,11 +108,6 @@ class Builder implements ContainerAwareInterface {
             'route' => 'category_index',
         ]);
 
-        $browse->addChild('all', [
-            'label' => "View all",
-            'route' => 'clipping_index',
-        ]);
-
         if ($this->hasRole('ROLE_USER')) {
             $divider = $browse->addChild('divider', [
                 'label' => '',
