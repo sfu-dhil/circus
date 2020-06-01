@@ -114,7 +114,7 @@ class Clipping extends AbstractEntity {
      */
     private $source;
 
-    public function __toString() {
+    public function __toString() : string {
         return $this->originalName;
     }
 
