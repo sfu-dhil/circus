@@ -30,7 +30,7 @@ class ClippingSearchType extends AbstractType {
             'label' => 'Transcription',
             'required' => false,
             'attr' => [
-                'help_block' => '',
+                'help_block' => 'Search within the transcription',
             ],
         ]);
 
@@ -38,7 +38,8 @@ class ClippingSearchType extends AbstractType {
             'label' => 'Handwritten Number',
             'required' => false,
             'attr' => [
-                'help_block' => 'Usually found in the corner.',
+                'help_block' => 'Usually found in the corner',
+                 'placeholder' => '122'
             ],
         ]);
 
@@ -46,15 +47,19 @@ class ClippingSearchType extends AbstractType {
             'label' => 'Written Date',
             'required' => false,
             'attr' => [
-                'help_block' => 'eg. “April 6 98” or “April 1768” for a handwritten date.',
+                'help_block' => 'eg. “April 6 98” or “April 1768” for a handwritten date',
+                'placeholder' => 'April 6 98'
+                
             ],
         ]);
 
         $builder->add('date', null, [
             'label' => 'Date',
             'required' => false,
+
             'attr' => [
-                'help_block' => 'Standard form: yyyy-mm-dd. Eg. “1768-04-21” or “1768-04-00” if no day is given.',
+                'help_block' => 'Standard form: yyyy-mm-dd. Eg. “1768-04-21” or “1768-04-00” if no day is given',
+                 'placeholder' => "1768-04-21"
             ],
         ]);
         $builder->add('category', EntityType::class, [
@@ -63,7 +68,7 @@ class ClippingSearchType extends AbstractType {
             'expanded' => true,
             'multiple' => true,
             'attr' => [
-                'help_block' => 'The type of the clipping.',
+                'help_block' => 'The type of the clipping',
             ],
         ]);
 
@@ -73,7 +78,7 @@ class ClippingSearchType extends AbstractType {
             'expanded' => true,
             'multiple' => true,
             'attr' => [
-                'help_block' => 'Select the source of the clipping.',
+                'help_block' => 'Select the source of the clipping',
             ],
         ]);
     }

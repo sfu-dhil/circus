@@ -528,6 +528,7 @@ article{
     .nav > li > a{
         border-bottom: .2rem solid transparent;
          transition: border-bottom-color 0.2s ease;
+        line-height:1.675;
        &:hover, &:focus{
             background-color: inherit;
             border-bottom-color: $circus-orange;
@@ -593,9 +594,86 @@ article{
 /*
  *  Search
  *  */
-.search-form{
+.form-horizontal{
     .form-group{
         margin:0;
+    }
+    
+    input[type='text']{
+        color: $circus-black;
+        font-size:map.get($typescale, 4)!important;
+        width:94%;
+        &:placeholder{
+            color: rgba($circus-grey, 0.9);
+        }
+       .checkbox input[type=checkbox]{
+           margin-top:6px;
+      }
+    }
+    .form-label{
+        font-size:16px;
+        font-weight:bold;
+    }
+    
+    .label-grp{
+        display:flex;
+        align-items:baseline;
+        .search-tooltip{
+            margin-left:.5rem;
+        }
+        
+    }
+    .advanced-search{
+        margin-top:map.get($typescale, 3);
+        .pull-right{
+            margin-right:6%;
+        }
+    }
+    #controls{
+        &.collapse{
+            display:none;
+        }
+        &[aria-expanded = 'true'],
+        &.collapsing{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:space-between;
+            margin-bottom:map.get($typescale, 2);
+            .checkbox{
+                padding-top:5px;
+            }
+            .help-block > p{
+                font-size:map.get($typescale, 5);
+                line-height: 1.5;
+                width: 80%;
+           }
+         }
+        .form-row{
+            flex: 1 1 30%;
+            margin-top:map.get($typescale, 8);
+            input[type='text'].form-control{
+                width:80%;
+            }
+        }
+    }
+}
+
+
+article.submitted{
+    margin-top: map.get($typescale, 1);
+    padding-top:map.get($typescale, 1);
+    p{
+        margin-bottom:0;
+        font-style:italic;
+    }
+    .gallery:before{
+        content:"";
+        display:block;
+        width:80%;
+        margin:map.get($typescale, 2) auto;
+        height:1px;
+        background:rgba($circus-orange,0.9);
+        
     }
 }
 

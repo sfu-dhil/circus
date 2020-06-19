@@ -744,6 +744,7 @@ h5 {
 .navbar .nav > li > a {
   border-bottom: 0.2rem solid transparent;
   transition: border-bottom-color 0.2s ease;
+  line-height: 1.675;
 }
 .navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
   background-color: inherit;
@@ -790,8 +791,77 @@ h5 {
 /*
  *  Search
  *  */
-.search-form .form-group {
+.form-horizontal .form-group {
   margin: 0;
+}
+.form-horizontal input[type=text] {
+  color: #050505;
+  font-size: 1.563rem !important;
+  width: 94%;
+}
+.form-horizontal input[type=text]:placeholder {
+  color: rgba(242, 242, 242, 0.9);
+}
+.form-horizontal input[type=text] .checkbox input[type=checkbox] {
+  margin-top: 6px;
+}
+.form-horizontal .form-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+.form-horizontal .label-grp {
+  display: flex;
+  align-items: baseline;
+}
+.form-horizontal .label-grp .search-tooltip {
+  margin-left: 0.5rem;
+}
+.form-horizontal .advanced-search {
+  margin-top: 1.953rem;
+}
+.form-horizontal .advanced-search .pull-right {
+  margin-right: 6%;
+}
+.form-horizontal #controls.collapse {
+  display: none;
+}
+.form-horizontal #controls[aria-expanded=true], .form-horizontal #controls.collapsing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 2.441rem;
+}
+.form-horizontal #controls[aria-expanded=true] .checkbox, .form-horizontal #controls.collapsing .checkbox {
+  padding-top: 5px;
+}
+.form-horizontal #controls[aria-expanded=true] .help-block > p, .form-horizontal #controls.collapsing .help-block > p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  width: 80%;
+}
+.form-horizontal #controls .form-row {
+  flex: 1 1 30%;
+  margin-top: 0.64rem;
+}
+.form-horizontal #controls .form-row input[type=text].form-control {
+  width: 80%;
+}
+
+article.submitted {
+  margin-top: 3.052rem;
+  padding-top: 3.052rem;
+}
+article.submitted p {
+  margin-bottom: 0;
+  font-style: italic;
+}
+article.submitted .gallery:before {
+  content: "";
+  display: block;
+  width: 80%;
+  margin: 2.441rem auto;
+  height: 1px;
+  background: rgba(192, 63, 42, 0.9);
 }
 
 .search-results {
@@ -986,8 +1056,19 @@ footer .footer-imgs img:hover {
     left: 0;
   }
 
+  .form-row {
+    flex-basis: 100% !important;
+  }
+  .form-row input[type=text] {
+    width: 100% !important;
+  }
+
   .navbar .hamburger {
     display: block;
+  }
+
+  .advanced-search .pull-right {
+    margin-right: 0 !important;
   }
 
   .nines main img {

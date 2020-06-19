@@ -13,19 +13,26 @@
 {% block form_row -%}
     <div class="form-row{% if (not compound or force_error|default(false)) and not valid %} has-error
 	{% endif %}">
-        {{- form_label(form) -}}
+        <div class="label-grp">
+            {{- form_label(form) -}}   
+            {% if attr.help_block is defined %}
+            <span data-toggle="tooltip" title="{{ attr.help_block|raw }}" class="search-tooltip">
+                <span class="glyphicon glyphicon-info-sign my-tooltip">
+                    <span class="sr-only">Info</span>
+                </span>
+            </span>
+            {% endif %}
+            
+        </div>    
         <div class="{{ block('form_group_class') }}">
+
             <div class="form-widget">
                 {{- form_widget(form) -}}
             </div>
             <div class="form-errors">
                 {{- form_errors(form) -}}
             </div>
-            {% if attr.help_block is defined %}
-                <div class="help-block">
-                    <p>{{ attr.help_block|raw }}</p>
-                </div>
-            {% endif %}
+
         </div>
     </div>
 {%- endblock %}

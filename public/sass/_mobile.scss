@@ -107,10 +107,22 @@
         left: 0;
     }
     
+    .form-row{
+        flex-basis:100%!important;
+        input[type='text']{
+            width:100%!important;
+        }
+    }
     .navbar{
      .hamburger{
         display:block;
      }  
+    }
+    
+   .advanced-search{
+        .pull-right{
+            margin-right:0!important;
+        }
     }
     
     .nines{
