@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Clipping;
+use App\Form\ClippingSearchType;
 use App\Form\ClippingType;
 use App\Repository\ClippingRepository;
 use App\Services\FileUploader;
@@ -65,21 +66,29 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @Template()
      *
+     * @param Request $request
+     * @param ClippingRepository $repo
+     *
      * @return array
      */
     public function searchAction(Request $request, ClippingRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
+        $form = $this->createForm(ClippingSearchType::class, null, [
+            'method' => 'GET',
+        ]);
+        $form->handleRequest($request);
+        $clippings = [];
+        $submitted = false;
 
+        if($form->isSubmitted() && $form->isValid()) {
+            $submitted = true;
+            $query = $repo->searchQuery($form->getData());
             $clippings = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
-        } else {
-            $clippings = [];
         }
 
         return [
+            'submitted' => $submitted,
             'clippings' => $clippings,
-            'q' => $q,
+            'form' => $form->createView(),
         ];
     }
 

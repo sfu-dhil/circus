@@ -14,6 +14,8 @@ use App\Entity\Category;
 use App\Entity\Clipping;
 use App\Entity\Source;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -26,12 +28,79 @@ class ClippingRepository extends ServiceEntityRepository {
         parent::__construct($registry, Clipping::class);
     }
 
-    public function searchQuery($q) {
+    /**
+     * @param QueryBuilder $qb
+     * @param array $data
+     * @param string $fieldName
+     * @param string $formName
+     */
+    private function fulltextPart(QueryBuilder $qb, $data, $fieldName, $formName) {
+        if( ! isset($data[$formName])) {
+            return;
+        }
+        $term = trim($data[$formName]);
+        if( ! $term) {
+            return;
+        }
+
+        $m = [];
+        if(preg_match('/^"(.*)"$/u', $term, $m)) {
+            $qb->andWhere("e.{$fieldName} like :{$fieldName}Exact");
+            $qb->setParameter("{$fieldName}Exact", "%{$m[1]}%");
+        } else {
+            $qb->andWhere("MATCH (e.{$fieldName}) AGAINST(:{$fieldName} BOOLEAN) > 0");
+            $qb->setParameter($fieldName, $term);
+        }
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param $data
+     * @param $fieldName
+     * @param $formName
+     */
+    private function textPart(QueryBuilder $qb, $data, $fieldName, $formName) {
+        if ( ! isset($data[$formName])) {
+            return;
+        }
+        $term = trim($data[$formName]);
+        if ( ! $term) {
+            return;
+        }
+        $qb->andWhere("e.{$fieldName} like :{$fieldName}");
+        $qb->setParameter("{$fieldName}", "%{$term}%");
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param array $data
+     * @param string $fieldName
+     * @param string $formName
+     */
+    private function arrayPart($qb, $data, $fieldName, $formName) {
+        dump($data[$formName]);
+        if( ! isset($data[$formName])) {
+            return;
+        }
+        /** @var Collection $list */
+        $list = $data[$formName];
+        if( ! count($list)) {
+            return;
+        }
+        $qb->andWhere("e.{$fieldName} IN (:{$fieldName})");
+        $qb->setParameter($fieldName, $list->toArray());
+    }
+
+    public function searchQuery($data) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect('MATCH (e.transcription) AGAINST (:q BOOLEAN) AS HIDDEN score');
-        $qb->andWhere('MATCH (e.transcription) AGAINST(:q BOOLEAN) > 0.0');
-        $qb->orderBy('score', 'desc');
-        $qb->setParameter('q', $q);
+        dump($data);
+        $this->fulltextPart($qb, $data, 'transcription', 'transcription');
+        $this->textPart($qb, $data, 'number', 'number');
+        $this->textPart($qb, $data, 'writtenDate', 'writtenDate');
+        $this->textPart($qb, $data, 'date', 'date');
+
+        $this->arrayPart($qb, $data, 'category', 'category');
+        $this->arrayPart($qb, $data, 'source', 'source');
 
         return $qb->getQuery();
     }
