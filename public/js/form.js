@@ -3,9 +3,6 @@
     var dirty = false;
 
     $(document).ready(function () {
-    
-
-        
         var hostname = window.location.hostname.replace('www.', '');
         $('a').each(function (index, value) {
             if (value.hostname !== hostname) {
