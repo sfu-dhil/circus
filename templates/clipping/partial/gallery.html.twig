@@ -20,7 +20,7 @@
                 {% endif %}
                 {% if query is defined and text_service.searchHighlight(clipping.transcription, query) %}
                 <ol class="search-results">
-                    {% for result in text_service.searchHighlight(clipping.transcription, query) %}
+                    {% for result in text_service.searchHighlight(clipping.transcription, query)|slice(0,5) %}
                         <li>...{{ result|raw }}...</li>
                     {% endfor %}
                 </ol>

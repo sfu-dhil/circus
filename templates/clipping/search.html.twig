@@ -16,7 +16,7 @@
 
 {% block pageheader %}
     <h1 class="page-title">Clippings Search</h1>
- 
+
 {% endblock %}
 
 {% block body %}
@@ -34,23 +34,23 @@
                 <a class="btn btn-primary" id="advanced_search" role="button" data-toggle="collapse" href="#controls" aria-expanded="false" aria-controls="collapseExample">Search Options</a>
                 <a class="btn btn-default" href="{{ path('clipping_search') }}">Reset</a>
             </div>
-     
+
         </div>
     </div>
     {{ form_end(form) }}
-    
+
 
     <article{% if submitted %} class="submitted"{% endif %}>
         {% if submitted %}
         <p>Displaying {{ clippings|length }} clippings of {{ clippings.getTotalItemCount }} total.</p>
         {% endif %}
-        {% include 'clipping/partial/gallery.html.twig' with {'q':''}%}
+        {% include 'clipping/partial/gallery.html.twig' with {'query':q}%}
     </article>
 
     {% include 'misc/search-footer.html.twig' %}
-    
+
     {% block javascripts %}
-    
+
     <script src="{{ asset('js/search.js') }}"></script>
 
     {% endblock %}
