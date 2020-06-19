@@ -78,7 +78,6 @@ class ClippingRepository extends ServiceEntityRepository {
      * @param string $formName
      */
     private function arrayPart($qb, $data, $fieldName, $formName) {
-        dump($data[$formName]);
         if( ! isset($data[$formName])) {
             return;
         }
@@ -93,7 +92,6 @@ class ClippingRepository extends ServiceEntityRepository {
 
     public function searchQuery($data) {
         $qb = $this->createQueryBuilder('e');
-        dump($data);
         $this->fulltextPart($qb, $data, 'transcription', 'transcription');
         $this->textPart($qb, $data, 'number', 'number');
         $this->textPart($qb, $data, 'writtenDate', 'writtenDate');
