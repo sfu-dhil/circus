@@ -106,6 +106,19 @@ class ClippingRepository extends ServiceEntityRepository {
         $this->arrayPart($qb, $data, 'category', 'category');
         $this->arrayPart($qb, $data, 'source', 'source');
 
+        if(isset($data['order']) && $data['order']) {
+            switch($data['order']) {
+                case 'date':
+                    $qb->orderBy('e.date', 'ASC');
+                    break;
+                case 'number':
+                    $qb->orderBy('CONVERT(e.number, unsigned integer)');
+                    $qb->addOrderBy('e.number', 'ASC');
+                    break;
+                default:
+            }
+        }
+
         return $qb->getQuery();
     }
 

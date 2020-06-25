@@ -1,23 +1,23 @@
 /**
- * Namespaces 
- * 
+ * Namespaces
+ *
  **/
 
 @use 'sass:map';
 
 /**
- * Imports 
- * 
+ * Imports
+ *
  **/
- 
+
 @import "_variables.scss";
 @import "_typography.scss";
 @import "_imagezoom.scss";
 @import "_breadcrumb.scss";
 @import '../yarn/hamburgers/_sass/hamburgers/hamburgers.scss';
 
-/* 
- * 
+/*
+ *
  * Root
  */
 
@@ -27,8 +27,8 @@
   text-rendering: optimizeLegibility;
 }
 
-/* 
- * 
+/*
+ *
  * Body
  */
 
@@ -42,7 +42,7 @@ body{
 
 
 /*
- * 
+ *
  * Index page
  */
  .index{
@@ -63,7 +63,7 @@ body{
      justify-content:center;
      .title, .subtitle{
          background: rgba($circus-black, 0.75);
-        
+
      }
      .title{
           margin-top:-1rem;
@@ -78,16 +78,16 @@ body{
          max-width:80vw;
          padding: map.get($typescale, 8) map.get($typescale, 4);
          font-weight:normal;
-     } 
+     }
  }
    article{
-         
+
          display:flex;
         justify-content:space-between;
          section{
              flex-grow:1;
              flex-shrink:1;
-      
+
              &:first-child{
                  flex-basis:calc(50% - 6rem);
                  margin-right:3rem;
@@ -139,13 +139,13 @@ body{
                            }
                      }
                  }
-                 
-                
+
+
              }
          }
    }
  }
- 
+
 
 /*
  *  Main
@@ -158,18 +158,18 @@ main{
         line-height: 1.85;
         font-size: map.get($typescale, 4)* 1.05;
     }
-    
+
      p:not(:last-child){
         margin-bottom: map.get($typescale, 1);
     }
 }
 
-/* 
+/*
  * Article content
  */
 
 article{
-    
+
     a:not(.imgContainer):not(.btn){
         border-bottom: 0.3rem solid rgba($circus-orange, 0.5);
         line-height: 1.7;
@@ -183,13 +183,13 @@ article{
             color:inherit;
         }
     }
-    
 
-    
+
+
 }
 
 /*
- *  Gallery 
+ *  Gallery
  * */
 
 
@@ -230,7 +230,7 @@ article{
             margin-bottom: map.get($typescale, 4);
         }
         p{
-      
+
             font-weight:300;
             font-size: map.get($typescale, 4) * 0.9;
         }
@@ -238,18 +238,18 @@ article{
             opacity: 0.5;
         }
         .date{
-            margin-bottom: map.get($typescale, 3); 
+            margin-bottom: map.get($typescale, 3);
         }
         img{
             display:block;
             max-width:100%;
             height:auto;
         }
-        
+
         /* Page fold thing, which interacts badly
          * with box shadow so not sure whether or not
          * we should keep it. */
-         
+
          /* &:before{
             content: "";
             display:block;
@@ -267,21 +267,21 @@ article{
         flex-direction:column;
         flex:1 0 21%;
         margin:2rem;
-        
+
         padding-bottom: map.get($typescale, 1);
         margin-left:0;
         min-width:20rem;
-        
+
     }
 }
 
-/* 
- * 
+/*
+ *
  * Category gallery
- * 
+ *
  * This corresponds to the category/sources _show pages.
  */
- 
+
  .cat-gallery{
      display:flex;
      flex-wrap:wrap;
@@ -294,11 +294,11 @@ article{
          color:white;
          background-size:100%;
          transition:background-size 0.2s ease-in-out;
-         
+
          /* Various background images; these are more-or-less arbitrary chosen;
           * there are ways to make these randomized in twig, but the images are too
           * variable in terms of quality to make random selections worthwhile */
-            
+
             /* Categories */
               &.cat1{
                 background-image: url('../images/clippings/899af04f49e0ba74b909b438553542d9_tn.png');
@@ -312,28 +312,28 @@ article{
               &.cat4{
                   background-image: url('../images/clippings/001c8f295c2e4932cb0330c1b6c6c4b4_tn.png');
               }
-              
+
            /* Sources */
-              
-             
+
+
 
               &.source1{
                     background-image: url('../images/clippings/942756040c0f3a3c7a2e2485d752720d_tn.png');
                 }
-                
+
                &.source2{
                     background-image: url('../images/clippings/ec8cc84c4350dfba1428af5a31ccd8a8_tn.png');
-                }  
-                
+                }
+
                &.source3{
                     background-image: url('../images/clippings/5d4191fdc072f0dc31b371dcd232e852_tn.png');
-               }  
+               }
 
-        
+
         h2{
             padding:map.get($typescale, 5);
         }
-         
+
          &:hover{
                background-size:105%;
          }
@@ -350,7 +350,7 @@ article{
              justify-content:center;
             &:hover{
                 border:none;
-              
+
             }
             & > div{
                 background: rgba($circus-black, 0.6);
@@ -361,16 +361,16 @@ article{
                 .desc{
                     font-size: map.get($typescale, 4);
                 }
-                
+
             }
          }
      }
  }
- 
+
 /*
- *  Clipping Page 
+ *  Clipping Page
  * */
- 
+
  .clipping{
      display:flex;
      flex-wrap:no-wrap;
@@ -382,12 +382,12 @@ article{
              margin-bottom:auto;
          }
      }
-     
+
      .metadata {
 
         flex: 0 1 30rem;
         &.no-transcription{
-          flex: 1 1 100%;  
+          flex: 1 1 100%;
           .metadata-content{
               flex-direction:row;
               a{
@@ -403,7 +403,7 @@ article{
             padding:map.get($typescale, 4);
             display:flex;
             flex-direction:column;
-            
+
          }
          .metadata-body{
              display:flex;
@@ -430,16 +430,16 @@ article{
              }
 
          }
-         
+
      }
  }
- 
+
 /*
  * Headings
- * 
+ *
  * This little formula iterates through all of the heading levels
  * and associates it with the typography scale
- */ 
+ */
  @for $i from 1 to 6 {
   h#{$i} {
     font-size: map.get($typescale, $i);
@@ -448,9 +448,9 @@ article{
   }
 }
 
-/* 
+/*
  * Header
- * 
+ *
  */
 
 .horses{
@@ -470,16 +470,16 @@ article{
     }
 }
 
-/* 
- * 
+/*
+ *
  * Header navbar
- * 
- * Most of the follow consists of 
+ *
+ * Most of the follow consists of
  * bootstrap overrides, grr.
- * 
+ *
  */
- 
- 
+
+
 
 .navbar{
     background:$circus-black;
@@ -495,7 +495,7 @@ article{
             width:13rem;
         }
     }
-    
+
     .dropdown-menu{
         background: $circus-black;
         font-size: map.get($typescale, 3);
@@ -513,18 +513,18 @@ article{
         color:inherit;
         text-shadow:none;
     }
-    
+
     .hamburger{
         display:none;
     }
-    
+
     .nav .open > a{
        background: inherit;
        &:hover, &:focus{
            background:inherit;
        }
     }
-    
+
     .nav > li > a{
         border-bottom: .2rem solid transparent;
          transition: border-bottom-color 0.2s ease;
@@ -557,37 +557,37 @@ article{
 }
 
 
- 
+
 
 /*
  *  Blog pages
  *  */
- 
+
  .nines{
-     
+
      /* Make images responsive */
      main img{
          max-width:100%;
          height:auto;
      }
-     
+
      /* Hide the metadata for most users */
      div.text-right{
          &:last-child{
              display:none;
          }
      }
-     
+
      /* But logged in users can see it;
       * this is a bit of a hack */
-     
+
      .btn-toolbar ~ div.text-right{
          &:last-child{
              display:block;
          }
      }
-     
-     
+
+
  }
 
 
@@ -598,7 +598,7 @@ article{
     .form-group{
         margin:0;
     }
-    
+
     input[type='text']{
         color: $circus-black;
         font-size:map.get($typescale, 4)!important;
@@ -614,14 +614,14 @@ article{
         font-size:16px;
         font-weight:bold;
     }
-    
+
     .label-grp{
         display:flex;
         align-items:baseline;
         .search-tooltip{
             margin-left:.5rem;
         }
-        
+
     }
     .advanced-search{
         margin-top:map.get($typescale, 3);
@@ -651,7 +651,7 @@ article{
         .form-row{
             flex: 1 1 30%;
             margin-top:map.get($typescale, 8);
-            input[type='text'].form-control{
+            input[type='text'].form-control, select.form-control{
                 width:80%;
             }
         }
@@ -673,7 +673,7 @@ article.submitted{
         margin:map.get($typescale, 2) auto;
         height:1px;
         background:rgba($circus-orange,0.9);
-        
+
     }
 }
 
@@ -688,12 +688,12 @@ article.submitted{
         margin:0;
         padding:.25rem;
     }
-    
-    
+
+
     li + li{
         margin-top: map.get($typescale, 8);
     }
-    
+
 }
 
 mark{
@@ -704,7 +704,7 @@ mark{
 /*
  *  Pagination
  *  */
- 
+
  .navigation{
      display:flex;
      justify-content:flex-end;
@@ -722,7 +722,7 @@ mark{
          border-color: $circus-orange;
          transition: border-color 0.2s ease-in-out,
                      background 0.2s ease-in-out;
-         &:hover{ 
+         &:hover{
            background: rgba($circus-orange, 0.8);
             border-color: rgba($circus-orange, 0.8);
          }
@@ -732,18 +732,18 @@ mark{
 /*
  *  Footer
  *  */
- 
+
 footer{
 
-    
-    
+
+
     & > .container{
         display:flex;
         flex-wrap:wrap;
         margin: 2rem auto 2rem auto;
         justify-content:space-between;
         align-content:center;
-        
+
         &:after{
             content:unset;
         }
@@ -754,7 +754,7 @@ footer{
         height:.2rem;
         background:$circus-orange;
         margin-bottom: 2rem;
-        
+
     }
     }
     ul, li{
@@ -762,7 +762,7 @@ footer{
         padding:0;
         margin:0;
     }
-    
+
     .footer-menu{
         display:flex;
         flex:0.25 1 30%;
@@ -771,11 +771,11 @@ footer{
         ul{
             columns:2;
             a{
-               color:$circus-black; 
+               color:$circus-black;
             }
             }
     }
-    
+
     .footer-imgs{
         align-self:flex-end;
         ul{
@@ -796,11 +796,11 @@ footer{
                 filter:grayscale(100%);
             }
         }
-       
+
     }
 }
 
-/* 
+/*
  * Final import, which is the mobile stylesheet
  * to ensure proper inheritance and precedence
  */

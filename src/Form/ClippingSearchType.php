@@ -15,6 +15,7 @@ use App\Entity\Source;
 use App\Services\FileUploader;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -81,6 +82,15 @@ class ClippingSearchType extends AbstractType {
             'attr' => [
                 'help_block' => 'Select the source of the clipping',
             ],
+        ]);
+
+        $builder->add('order', ChoiceType::class, [
+            'label' => 'Sort by',
+            'choices' => [
+                'Unsorted' => null,
+                'Date' => 'date',
+                'Handwritten Number' => 'number',
+            ]
         ]);
     }
 
