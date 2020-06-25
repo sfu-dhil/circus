@@ -78,10 +78,11 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         $form->handleRequest($request);
         $clippings = [];
         $submitted = false;
+        $q = '';
 
         if($form->isSubmitted() && $form->isValid()) {
             $submitted = true;
-            $q = $form->get('transcription')->getData() ?? '';
+            $q = $form->get('transcription')->getData();
             $query = $repo->searchQuery($form->getData());
             $clippings = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
         }

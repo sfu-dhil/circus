@@ -93,7 +93,13 @@ class ClippingRepository extends ServiceEntityRepository {
     public function searchQuery($data) {
         $qb = $this->createQueryBuilder('e');
         $this->fulltextPart($qb, $data, 'transcription', 'transcription');
-        $this->textPart($qb, $data, 'number', 'number');
+
+        if ( isset($data['number']) && $data['number']) {
+            $term = trim($data['number']);
+            $qb->andWhere("e.number like :number");
+            $qb->setParameter("number", "{$term}%");
+        }
+
         $this->textPart($qb, $data, 'writtenDate', 'writtenDate');
         $this->textPart($qb, $data, 'date', 'date');
 
