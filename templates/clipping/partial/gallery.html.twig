@@ -18,7 +18,7 @@
                         {{ dateStr | replace({', 0000': ', [?]', '00,': ''}) }}
                     </div>
                 {% endif %}
-                {% if query is not null and text_service.searchHighlight(clipping.transcription, query) %}
+                {% if query is defined and query is not null and text_service.searchHighlight(clipping.transcription, query) %}
                 <ol class="search-results">
                     {% for result in text_service.searchHighlight(clipping.transcription, query)|slice(0,5) %}
                         <li>...{{ result|raw }}...</li>
