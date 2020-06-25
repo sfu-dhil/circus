@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{# Clipping Search and Search ListingPage #}
+{# Search and Search Listing Page #}
 
 {% set breadpath =
     { 0:
@@ -15,8 +15,7 @@
 
 
 {% block pageheader %}
-    <h1 class="page-title">Clippings Search</h1>
-
+    <h1 class="page-title">Search</h1>
 {% endblock %}
 
 {% block body %}
@@ -38,7 +37,6 @@
         </div>
     </div>
     {{ form_end(form) }}
-
 
     <article{% if submitted %} class="submitted"{% endif %}>
         {% if submitted %}
