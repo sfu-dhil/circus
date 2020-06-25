@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /**
- * Namespaces 
- * 
+ * Namespaces
+ *
  **/
 /**
- * Imports 
- * 
+ * Imports
+ *
  **/
 /*
  * 
@@ -266,8 +266,8 @@
   transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-/* 
- * 
+/*
+ *
  * Root
  */
 * {
@@ -276,8 +276,8 @@
   text-rendering: optimizeLegibility;
 }
 
-/* 
- * 
+/*
+ *
  * Body
  */
 body {
@@ -289,7 +289,7 @@ body {
 }
 
 /*
- * 
+ *
  * Index page
  */
 .index .navbar {
@@ -401,7 +401,7 @@ main p:not(:last-child) {
   margin-bottom: 3.052rem;
 }
 
-/* 
+/*
  * Article content
  */
 article a:not(.imgContainer):not(.btn) {
@@ -419,7 +419,7 @@ article a:not(.imgContainer):not(.btn):hover {
 }
 
 /*
- *  Gallery 
+ *  Gallery
  * */
 .gallery {
   display: flex;
@@ -497,10 +497,10 @@ article a:not(.imgContainer):not(.btn):hover {
   min-width: 20rem;
 }
 
-/* 
- * 
+/*
+ *
  * Category gallery
- * 
+ *
  * This corresponds to the category/sources _show pages.
  */
 .cat-gallery {
@@ -576,7 +576,7 @@ article a:not(.imgContainer):not(.btn):hover {
 }
 
 /*
- *  Clipping Page 
+ *  Clipping Page
  * */
 .clipping {
   display: flex;
@@ -638,7 +638,7 @@ article a:not(.imgContainer):not(.btn):hover {
 
 /*
  * Headings
- * 
+ *
  * This little formula iterates through all of the heading levels
  * and associates it with the typography scale
  */
@@ -672,9 +672,9 @@ h5 {
   margin-bottom: 1.25rem;
 }
 
-/* 
+/*
  * Header
- * 
+ *
  */
 .horses {
   height: 10vh;
@@ -692,13 +692,13 @@ h5 {
   transition: transform 4s linear;
 }
 
-/* 
- * 
+/*
+ *
  * Header navbar
- * 
- * Most of the follow consists of 
+ *
+ * Most of the follow consists of
  * bootstrap overrides, grr.
- * 
+ *
  */
 .navbar {
   background: #050505;
@@ -843,7 +843,7 @@ h5 {
   flex: 1 1 30%;
   margin-top: 0.64rem;
 }
-.form-horizontal #controls .form-row input[type=text].form-control {
+.form-horizontal #controls .form-row input[type=text].form-control, .form-horizontal #controls .form-row select.form-control {
   width: 80%;
 }
 
@@ -969,7 +969,7 @@ footer .footer-imgs img:hover {
   filter: grayscale(100%);
 }
 
-/* 
+/*
  * Final import, which is the mobile stylesheet
  * to ensure proper inheritance and precedence
  */

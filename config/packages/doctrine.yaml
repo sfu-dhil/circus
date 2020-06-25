@@ -20,3 +20,4 @@ doctrine:
             string_functions:
                 match: Nines\UtilBundle\Extensions\Doctrine\MySQL\MatchAgainst
                 cast: Nines\UtilBundle\Extensions\Doctrine\MySQL\Cast
+                convert: Nines\UtilBundle\Extensions\Doctrine\MySQL\Convert
