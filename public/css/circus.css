@@ -822,19 +822,16 @@ h5 {
 .form-horizontal .advanced-search .pull-right {
   margin-right: 6%;
 }
-.form-horizontal #controls.collapse {
-  display: none;
-}
-.form-horizontal #controls[aria-expanded=true], .form-horizontal #controls.collapsing {
+.form-horizontal #controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 2.441rem;
 }
-.form-horizontal #controls[aria-expanded=true] .checkbox, .form-horizontal #controls.collapsing .checkbox {
+.form-horizontal #controls .checkbox {
   padding-top: 5px;
 }
-.form-horizontal #controls[aria-expanded=true] .help-block > p, .form-horizontal #controls.collapsing .help-block > p {
+.form-horizontal #controls .help-block > p {
   font-size: 1.25rem;
   line-height: 1.5;
   width: 80%;

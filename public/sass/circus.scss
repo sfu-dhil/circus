@@ -630,13 +630,8 @@ article{
         }
     }
     #controls{
-        &.collapse{
-            display:none;
-        }
-        &[aria-expanded = 'true'],
-        &.collapsing{
-            display:flex;
-            flex-wrap:wrap;
+          display:flex;
+          flex-wrap:wrap;
             justify-content:space-between;
             margin-bottom:map.get($typescale, 2);
             .checkbox{
@@ -647,7 +642,7 @@ article{
                 line-height: 1.5;
                 width: 80%;
            }
-         }
+
         .form-row{
             flex: 1 1 30%;
             margin-top:map.get($typescale, 8);

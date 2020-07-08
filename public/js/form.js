@@ -62,6 +62,7 @@
     }
 
     $(document).ready(function () {
+        $(".search-tooltip").tooltip();
         $('input:file').change(function () {
             var $input = $(this);
             if ($input.data('maxsize') && $input.data('maxsize') < this.files[0].size) {

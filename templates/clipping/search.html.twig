@@ -21,7 +21,7 @@
 {% block body %}
     {{ form_start(form) }}
     {{ form_row(form.transcription) }}
-    <div id="controls" class="collapse">
+    <div id="controls">
         {{ form_rest(form) }}
         {# empty div for flex #}
         <div class="form-row"></div>
@@ -30,7 +30,6 @@
         <div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <div class="pull-right">
-                <a class="btn btn-primary" id="advanced_search" role="button" data-toggle="collapse" href="#controls" aria-expanded="false" aria-controls="collapseExample">Search Options</a>
                 <a class="btn btn-default" href="{{ path('clipping_search') }}">Reset</a>
             </div>
 
@@ -46,11 +45,5 @@
     </article>
 
     {% include 'misc/search-footer.html.twig' %}
-
-    {% block javascripts %}
-
-    <script src="{{ asset('js/search.js') }}"></script>
-
-    {% endblock %}
 
 {% endblock %}
