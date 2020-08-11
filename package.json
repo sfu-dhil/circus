@@ -16,7 +16,7 @@
     "select2": "^4.0.13",
     "select2-bootstrap-css": "^1.4.6",
     "symfony-collection": "^2.1.30",
-    "tinymce": "^5.4.0",
+    "tinymce": "^5.4.1",
     "typeahead.js": "^0.11.1",
     "typeface-lato": "^0.0.75",
     "typeface-lora": "^0.0.72",
