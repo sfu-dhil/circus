@@ -22,8 +22,7 @@ class DefaultControllerTest extends ControllerBaseCase {
 
     public function testIndex() : void {
         $crawler = $this->client->request('GET', '/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertStringContainsString('Circus', $crawler->text(null, true));
-
     }
 }

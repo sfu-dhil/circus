@@ -14,7 +14,6 @@ use App\Entity\Source;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -77,7 +76,7 @@ class Builder implements ContainerAwareInterface {
      */
     public function mainMenu(array $options) {
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttributes(['class' => 'nav navbar-nav',]);
+        $menu->setChildrenAttributes(['class' => 'nav navbar-nav']);
 
         $menu->addChild('home', [
             'label' => 'Welcome',
@@ -94,8 +93,10 @@ class Builder implements ContainerAwareInterface {
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
         $sources = $this->em->getRepository(Source::class)
-            ->findBy([], ['id' => 'ASC']);
-        foreach($sources as $source) {
+            ->findBy([], ['id' => 'ASC'])
+        ;
+
+        foreach ($sources as $source) {
             $browse->addChild('astley_' . $source->getId(), [
                 'label' => $source->getLabel(),
                 'route' => 'source_show',
@@ -151,29 +152,28 @@ class Builder implements ContainerAwareInterface {
 
         $menu->addChild('clipping_index', [
             'label' => 'Archive',
-            'route' => 'clipping_index'
+            'route' => 'clipping_index',
         ]);
 
         $menu->addChild('clipping_search', [
             'label' => 'Search',
-            'route' => 'clipping_search'
+            'route' => 'clipping_search',
         ]);
 
         $menu->addChild('documentation', [
             'label' => 'Documentation',
-            'uri' => $this->packages->getUrl('docs/sphinx/index.html')
+            'uri' => $this->packages->getUrl('docs/sphinx/index.html'),
         ]);
 
         $menu->addChild('privacy', [
             'label' => 'Privacy',
-            'route' => 'privacy'
+            'route' => 'privacy',
         ]);
 
         $menu->addChild('github', [
             'label' => 'Github',
-            'uri' => 'https://github.com/sfu-dhil/circus'
+            'uri' => 'https://github.com/sfu-dhil/circus',
         ]);
-
 
         return $menu;
     }

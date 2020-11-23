@@ -39,7 +39,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/", name="clipping_index", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -50,7 +50,8 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
             ->from(Clipping::class, 'e')
             ->orderBy('n', 'ASC')
             ->addOrderBy('e.date', 'ASC')
-            ->addOrderBy('e.id', 'ASC');
+            ->addOrderBy('e.id', 'ASC')
+        ;
         $query = $qb->getQuery();
         $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
@@ -64,10 +65,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/search", name="clipping_search", methods={"GET"})
      *
-     * @Template()
-     *
-     * @param Request $request
-     * @param ClippingRepository $repo
+     * @Template
      *
      * @return array
      */
@@ -80,7 +78,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         $submitted = false;
         $q = '';
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $submitted = true;
             $q = $form->get('transcription')->getData();
             $query = $repo->searchQuery($form->getData());
@@ -98,9 +96,9 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
     /**
      * Creates a new Clipping entity.
      *
-     * @Route("/new", name="clipping_new", methods={"GET","POST"})
+     * @Route("/new", name="clipping_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template()
+     * @Template
      *
      * @return array | RedirectResponse
      */
@@ -130,7 +128,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/{id}", name="clipping_show", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -143,10 +141,10 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
     /**
      * Displays a form to edit an existing Clipping entity.
      *
-     * @Route("/{id}/edit", name="clipping_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="clipping_edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
-     * @Template()
+     * @Template
      *
      * @return array | RedirectResponse
      */

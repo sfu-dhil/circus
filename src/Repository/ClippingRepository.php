@@ -29,22 +29,21 @@ class ClippingRepository extends ServiceEntityRepository {
     }
 
     /**
-     * @param QueryBuilder $qb
      * @param array $data
      * @param string $fieldName
      * @param string $formName
      */
-    private function fulltextPart(QueryBuilder $qb, $data, $fieldName, $formName) {
-        if( ! isset($data[$formName])) {
+    private function fulltextPart(QueryBuilder $qb, $data, $fieldName, $formName) : void {
+        if ( ! isset($data[$formName])) {
             return;
         }
         $term = trim($data[$formName]);
-        if( ! $term) {
+        if ( ! $term) {
             return;
         }
 
         $m = [];
-        if(preg_match('/^"(.*)"$/u', $term, $m)) {
+        if (preg_match('/^"(.*)"$/u', $term, $m)) {
             $qb->andWhere("e.{$fieldName} like :{$fieldName}Exact");
             $qb->setParameter("{$fieldName}Exact", "%{$m[1]}%");
         } else {
@@ -54,12 +53,11 @@ class ClippingRepository extends ServiceEntityRepository {
     }
 
     /**
-     * @param QueryBuilder $qb
      * @param $data
      * @param $fieldName
      * @param $formName
      */
-    private function textPart(QueryBuilder $qb, $data, $fieldName, $formName) {
+    private function textPart(QueryBuilder $qb, $data, $fieldName, $formName) : void {
         if ( ! isset($data[$formName])) {
             return;
         }
@@ -77,13 +75,13 @@ class ClippingRepository extends ServiceEntityRepository {
      * @param string $fieldName
      * @param string $formName
      */
-    private function arrayPart($qb, $data, $fieldName, $formName) {
-        if( ! isset($data[$formName])) {
+    private function arrayPart($qb, $data, $fieldName, $formName) : void {
+        if ( ! isset($data[$formName])) {
             return;
         }
         /** @var Collection $list */
         $list = $data[$formName];
-        if( ! count($list)) {
+        if ( ! count($list)) {
             return;
         }
         $qb->andWhere("e.{$fieldName} IN (:{$fieldName})");
@@ -94,10 +92,10 @@ class ClippingRepository extends ServiceEntityRepository {
         $qb = $this->createQueryBuilder('e');
         $this->fulltextPart($qb, $data, 'transcription', 'transcription');
 
-        if ( isset($data['number']) && $data['number']) {
+        if (isset($data['number']) && $data['number']) {
             $term = trim($data['number']);
-            $qb->andWhere("e.number like :number");
-            $qb->setParameter("number", "{$term}%");
+            $qb->andWhere('e.number like :number');
+            $qb->setParameter('number', "{$term}%");
         }
 
         $this->textPart($qb, $data, 'writtenDate', 'writtenDate');
@@ -106,8 +104,8 @@ class ClippingRepository extends ServiceEntityRepository {
         $this->arrayPart($qb, $data, 'category', 'category');
         $this->arrayPart($qb, $data, 'source', 'source');
 
-        if(isset($data['order']) && $data['order']) {
-            switch($data['order']) {
+        if (isset($data['order']) && $data['order']) {
+            switch ($data['order']) {
                 case 'date':
                     $qb->orderBy('e.date', 'ASC');
                     break;

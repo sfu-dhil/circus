@@ -24,17 +24,16 @@ class CategoryControllerTest extends ControllerBaseCase {
     }
 
     public function testAnonIndex() : void {
-
         $crawler = $this->client->request('GET', '/category/');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
     public function testUserIndex() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/category/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -42,16 +41,14 @@ class CategoryControllerTest extends ControllerBaseCase {
     public function testAdminIndex() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/category/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
     public function testAnonShow() : void {
-
         $crawler = $this->client->request('GET', '/category/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
@@ -60,7 +57,7 @@ class CategoryControllerTest extends ControllerBaseCase {
     public function testUserShow() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/category/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
@@ -69,29 +66,28 @@ class CategoryControllerTest extends ControllerBaseCase {
     public function testAdminShow() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/category/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
         $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
 
     public function testAnonEdit() : void {
-
         $crawler = $this->client->request('GET', '/category/1/edit');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
     public function testUserEdit() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/category/1/edit');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminEdit() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/category/1/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
             'category[name]' => 'Cheese.',
@@ -102,15 +98,14 @@ class CategoryControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect('/category/1'));
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $responseCrawler->filter('td:contains("It is a cheese.")')->count());
     }
 
     public function testAnonNew() : void {
-
         $crawler = $this->client->request('GET', '/category/new');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -118,13 +113,13 @@ class CategoryControllerTest extends ControllerBaseCase {
     public function testUserNew() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/category/new');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminNew() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/category/new');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
             'category[name]' => 'Cheese.',
@@ -135,15 +130,14 @@ class CategoryControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $responseCrawler->filter('td:contains("It is a cheese.")')->count());
     }
 
     public function testAnonDelete() : void {
-
         $crawler = $this->client->request('GET', '/category/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -151,18 +145,18 @@ class CategoryControllerTest extends ControllerBaseCase {
     public function testUserDelete() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/category/1/delete');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminDelete() : void {
         $preCount = count($this->entityManager->getRepository(Category::class)->findAll());
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/category/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
         $postCount = count($this->entityManager->getRepository(Category::class)->findAll());

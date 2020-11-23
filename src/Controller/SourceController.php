@@ -36,7 +36,7 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      *
      * @Route("/", name="source_index", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -55,10 +55,10 @@ class SourceController extends AbstractController implements PaginatorAwareInter
     /**
      * Creates a new Source entity.
      *
-     * @Route("/new", name="source_new", methods={"GET","POST"})
+     * @Route("/new", name="source_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
-     * @Template()
+     * @Template
      *
      * @return array | RedirectResponse
      */
@@ -87,7 +87,7 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      *
      * @Route("/{id}", name="source_show", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -106,10 +106,10 @@ class SourceController extends AbstractController implements PaginatorAwareInter
     /**
      * Displays a form to edit an existing Source entity.
      *
-     * @Route("/{id}/edit", name="source_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="source_edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
-     * @Template()
+     * @Template
      *
      * @return array | RedirectResponse
      */

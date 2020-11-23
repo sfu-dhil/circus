@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\BlogBundle\Entity\Page;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,19 +26,22 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      * Show the home page.
      *
      * @Route("/", name="homepage", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
-    public function indexAction(Request $request) {
-        return [];
+    public function indexAction(Request $request, EntityManagerInterface $em) {
+        $pageRepo = $em->getRepository(Page::class);
+        return [
+            'homepage' => $pageRepo->findHomepage(),
+        ];
     }
 
     /**
      * Show the privacy page.
      *
      * @Route("/privacy", name="privacy", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
