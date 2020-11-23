@@ -25,10 +25,8 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testAnonIndex() : void {
-
         $crawler = $this->client->request('GET', '/clipping/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -36,7 +34,7 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testUserIndex() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/clipping/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -44,16 +42,14 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testAdminIndex() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/clipping/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
     public function testAnonShow() : void {
-
         $crawler = $this->client->request('GET', '/clipping/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
@@ -62,7 +58,7 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testUserShow() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/clipping/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
@@ -71,16 +67,15 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testAdminShow() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/clipping/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
         $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
 
     public function testAnonEdit() : void {
-
         $crawler = $this->client->request('GET', '/clipping/1/edit');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -88,13 +83,13 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testUserEdit() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/clipping/1/edit');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminEdit() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/clipping/1/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $path = dirname(__FILE__, 2) . '/data/image.jpg';
         $form = $formCrawler->selectButton('Update')->form([
@@ -111,15 +106,14 @@ class ClippingControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect('/clipping/1'));
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(4, $responseCrawler->filter('div:contains("April 1972")')->count());
     }
 
     public function testAnonNew() : void {
-
         $crawler = $this->client->request('GET', '/clipping/new');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -127,13 +121,13 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testUserNew() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/clipping/new');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminNew() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/clipping/new');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $image = new UploadedFile(dirname(__FILE__, 2) . '/data/image.jpg', 'image.jpg', 'image/jpeg', 123);
         $form = $formCrawler->selectButton('Create')->form([
@@ -150,15 +144,14 @@ class ClippingControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(4, $responseCrawler->filter('div:contains("April 1972")')->count());
     }
 
     public function testAnonDelete() : void {
-
         $crawler = $this->client->request('GET', '/clipping/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -166,18 +159,18 @@ class ClippingControllerTest extends ControllerBaseCase {
     public function testUserDelete() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/clipping/1/delete');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminDelete() : void {
         $preCount = count($this->entityManager->getRepository(Clipping::class)->findAll());
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/clipping/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
         $postCount = count($this->entityManager->getRepository(Clipping::class)->findAll());

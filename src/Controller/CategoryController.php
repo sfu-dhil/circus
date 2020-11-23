@@ -37,7 +37,7 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/", name="category_index", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -56,9 +56,9 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
     /**
      * Creates a new Category entity.
      *
-     * @Route("/new", name="category_new", methods={"GET","POST"})
+     * @Route("/new", name="category_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template()
+     * @Template
      *
      * @return array | RedirectResponse
      */
@@ -87,7 +87,7 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/{id}", name="category_show", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -104,9 +104,9 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
     /**
      * Displays a form to edit an existing Category entity.
      *
-     * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="category_edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template()
+     * @Template
      *
      * @return array | RedirectResponse
      */

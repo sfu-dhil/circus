@@ -32,6 +32,7 @@ class GenerateThumbnailsCommand extends Command {
         $thumbnailer = $this->getContainer()->get(Thumbnailer::class);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $repo = $em->getRepository(Clipping::class);
+
         foreach ($repo->findAll() as $clipping) {
             $output->writeln($clipping->getOriginalName());
             $clipping->setThumbnailPath($thumbnailer->thumbnail($clipping));

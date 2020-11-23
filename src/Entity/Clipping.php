@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Clipping.
  *
  * @ORM\Table(name="clipping", indexes={
- *  @ORM\Index(columns="transcription", flags={"fulltext"})
+ *     @ORM\Index(columns="transcription", flags={"fulltext"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ClippingRepository")
  */

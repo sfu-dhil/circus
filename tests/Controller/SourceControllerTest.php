@@ -24,10 +24,8 @@ class SourceControllerTest extends ControllerBaseCase {
     }
 
     public function testAnonIndex() : void {
-
         $crawler = $this->client->request('GET', '/source/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -35,7 +33,7 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testUserIndex() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/source/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -43,16 +41,14 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testAdminIndex() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/source/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
     public function testAnonShow() : void {
-
         $crawler = $this->client->request('GET', '/source/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
@@ -61,7 +57,7 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testUserShow() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/source/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
@@ -70,16 +66,15 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testAdminShow() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/source/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
         $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
 
     public function testAnonEdit() : void {
-
         $crawler = $this->client->request('GET', '/source/1/edit');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -87,13 +82,13 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testUserEdit() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/source/1/edit');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminEdit() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/source/1/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
             'source[name]' => 'Cheese.',
@@ -105,15 +100,14 @@ class SourceControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect('/source/1'));
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $responseCrawler->filter('td:contains("It is a cheese.")')->count());
     }
 
     public function testAnonNew() : void {
-
         $crawler = $this->client->request('GET', '/source/new');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -121,13 +115,13 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testUserNew() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/source/new');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminNew() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/source/new');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
             'source[name]' => 'Cheese.',
@@ -139,15 +133,14 @@ class SourceControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertSame(1, $responseCrawler->filter('td:contains("It is a cheese.")')->count());
     }
 
     public function testAnonDelete() : void {
-
         $crawler = $this->client->request('GET', '/source/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -155,18 +148,18 @@ class SourceControllerTest extends ControllerBaseCase {
     public function testUserDelete() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/source/1/delete');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminDelete() : void {
         $preCount = count($this->entityManager->getRepository(Source::class)->findAll());
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/source/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
         $postCount = count($this->entityManager->getRepository(Source::class)->findAll());
