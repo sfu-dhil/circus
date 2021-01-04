@@ -32,6 +32,7 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $pageRepo = $em->getRepository(Page::class);
+
         return [
             'homepage' => $pageRepo->findHomepage(),
         ];
