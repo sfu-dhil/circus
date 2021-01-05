@@ -22,16 +22,16 @@
         <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/circus.css') }}"/>
-            
-       
-            
+
+
+
         <script src="{{ asset('yarn/jquery/dist/jquery.min.js') }}"></script>
-            
-       
+
+
         <style>
              {% block styles %} {% endblock %}
         </style>
-       
+
     </head>
     <body class="{% block classes %}base{% endblock %}{% if isNines %} nines {% endif %}">
         <header>
@@ -42,10 +42,10 @@
                 </a>
                 <div class="container">
                     <div class="navbar-header">
-                        
+
                         <!--HAMBURGER -->
                         <button class="hamburger navbar-toggle collapsed hamburger--spin"
-                            type="button" data-toggle="collapse" data-target="#navbar" 
+                            type="button" data-toggle="collapse" data-target="#navbar"
                             aria-expanded="false" aria-controls="navbar">
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
@@ -61,19 +61,19 @@
                                 <a href="{{ path('clipping_search') }}">Search</a>
                             </li>
                         </ul>
-                    </div> 
+                    </div>
                 </div>
-                
+
             </nav>
             <a id="header_overlay" class="facsCloser"></a>
         </header>
-        
+
         {# Special styles for index hero #}
-        
+
         {% block hero %} {% endblock %}
-        
+
         <main class="container">
-           
+
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
                     <div class="alert-wrapper">
@@ -87,46 +87,46 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-            
-            
+
+
             {% block admin %}
-            
+
             {% endblock %}
-            
+
             {% block breadcrumb %}
-            
+
             {# Check if we're in a nines page #}
-  
+
              {% if breadpath is not defined and isNines %}
-                 
+
                  {% if page.title is defined %}
                  {% set breadpath =
-                    { 
+                    {
                         0: {
                             'title': page.title
                         }
                     }
-                    
+
                   %}
                   {% endif %}
               {% endif %}
-              
+
               {# Now include the breadcrumb bit #}
-              
+
               {% include 'misc/breadcrumb.html.twig' %}
 
             {% endblock %}
-            
+
             {% block pageheader %}
-            
+
             {% endblock %}
-            
+
             {% block body %}
-                
+
             {% endblock %}
-            
+
         </main>
- 
+
         <footer class="footer">
             <div class="container">
                 <div class="footer-menu">
@@ -158,30 +158,8 @@
         {% block javascripts %}
         {% endblock %}
 
-        {% if piwik_enabled %}
-            <!-- Piwik -->
-            <script type="text/javascript">
-                var _paq = _paq || [];
-                _paq.push(["setDomains", ["{{ piwik_domain }}"]]);
-                _paq.push(["setDoNotTrack", true]);
-                _paq.push(['trackPageView']);
-                _paq.push(['enableLinkTracking']);
-                (function () {
-                    var u = "{{ piwik_url }}";
-                    _paq.push(['setTrackerUrl', u + 'piwik.php']);
-                    _paq.push(['setSiteId', '{{ piwik_siteid }}']);
-                    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                    g.type = 'text/javascript';
-                    g.async = true;
-                    g.defer = true;
-                    g.src = u + 'piwik.js';
-                    s.parentNode.insertBefore(g, s);
-                })();
-            </script>
-            <noscript>
-                <p><img src="{{ piwik_url }}piwik.php?idsite={{ piwik_siteid }}" style="border:0;" alt="" /></p>
-            </noscript>
-            <!-- End Piwik Code -->
+        {% if matomo_enabled %}
+            {% include '@NinesUtil/matomo.html.twig' %}
         {% endif %}
     </body>
 </html>

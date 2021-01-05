@@ -18,7 +18,7 @@ twig:
         nines_editor_config: js/editor-config.js
         text_service: '@Nines\UtilBundle\Services\Text'
         clipping_img_prefix: "%clipping_img_prefix%"
-        piwik_enabled: '%dhil.piwik_enabled%'
-        piwik_url: '%dhil.piwik_url%'
-        piwik_siteid: '%dhil.piwik_siteid%'
-        piwik_domain: '%dhil.piwik_domain%'
+        matomo_enabled: '%dhil.matomo_enabled%'
+        matomo_url: '%dhil.matomo_url%'
+        matomo_siteid: '%dhil.matomo_siteid%'
+        matomo_domain: '%dhil.matomo_domain%'
