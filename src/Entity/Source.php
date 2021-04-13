@@ -19,7 +19,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="source")
  * @ORM\Entity(repositoryClass="App\Repository\SourceRepository")
  */
-class Source extends AbstractTerm {
+class Source extends AbstractTerm
+{
     /**
      * YYYY-MM-DD.
      *
