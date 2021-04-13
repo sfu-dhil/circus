@@ -21,7 +21,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @author Michael Joyce <ubermichael@gmail.com>
  */
-class FileUploader {
+class FileUploader
+{
     /**
      * @var string
      */

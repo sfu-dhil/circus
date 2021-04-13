@@ -19,7 +19,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
-class Category extends AbstractTerm {
+class Category extends AbstractTerm
+{
     /**
      * @var Clipping[]|Collection
      * @ORM\OneToMany(targetEntity="Clipping", mappedBy="category")
