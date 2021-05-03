@@ -16,8 +16,7 @@ use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class ClippingControllerTest extends ControllerBaseCase
-{
+class ClippingControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

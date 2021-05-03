@@ -18,8 +18,7 @@ use Doctrine\Persistence\ObjectManager;
 /**
  * LoadClipping form.
  */
-class ClippingFixtures extends Fixture implements DependentFixtureInterface
-{
+class ClippingFixtures extends Fixture implements DependentFixtureInterface {
     /**
      * {@inheritdoc}
      */
