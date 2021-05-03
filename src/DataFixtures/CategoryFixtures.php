@@ -17,8 +17,7 @@ use Doctrine\Persistence\ObjectManager;
 /**
  * LoadCategory form.
  */
-class CategoryFixtures extends Fixture
-{
+class CategoryFixtures extends Fixture {
     /**
      * {@inheritdoc}
      */

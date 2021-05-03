@@ -19,8 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * CircusConvertEntitiesCommand command.
  */
-class ConvertEntitiesCommand extends Command
-{
+class ConvertEntitiesCommand extends Command {
     public const BATCH_SIZE = 100;
 
     /**
