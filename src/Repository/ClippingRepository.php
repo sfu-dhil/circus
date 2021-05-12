@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -108,11 +108,15 @@ class ClippingRepository extends ServiceEntityRepository {
             switch ($data['order']) {
                 case 'date':
                     $qb->orderBy('e.date', 'ASC');
+
                     break;
+
                 case 'number':
                     $qb->orderBy('CONVERT(e.number, unsigned integer)');
                     $qb->addOrderBy('e.number', 'ASC');
+
                     break;
+
                 default:
             }
         }
