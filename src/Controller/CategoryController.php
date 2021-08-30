@@ -60,7 +60,7 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template
      *
-     * @return array | RedirectResponse
+     * @return array|RedirectResponse
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $category = new Category();
@@ -108,7 +108,7 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template
      *
-     * @return array | RedirectResponse
+     * @return array|RedirectResponse
      */
     public function editAction(Request $request, Category $category, EntityManagerInterface $em) {
         $editForm = $this->createForm(CategoryType::class, $category);

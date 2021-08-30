@@ -60,7 +60,7 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      *
      * @Template
      *
-     * @return array | RedirectResponse
+     * @return array|RedirectResponse
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $source = new Source();
@@ -111,7 +111,7 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      *
      * @Template
      *
-     * @return array | RedirectResponse
+     * @return array|RedirectResponse
      */
     public function editAction(Request $request, Source $source, EntityManagerInterface $em) {
         $editForm = $this->createForm(SourceType::class, $source);

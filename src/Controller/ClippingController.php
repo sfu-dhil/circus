@@ -100,7 +100,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Template
      *
-     * @return array | RedirectResponse
+     * @return array|RedirectResponse
      */
     public function newAction(Request $request, EntityManagerInterface $em, FileUploader $uploader) {
         $clipping = new Clipping();
@@ -146,7 +146,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @Template
      *
-     * @return array | RedirectResponse
+     * @return array|RedirectResponse
      */
     public function editAction(Request $request, Clipping $clipping, EntityManagerInterface $em, FileUploader $uploader) {
         $editForm = $this->createForm(ClippingType::class, $clipping);
