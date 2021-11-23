@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Circus",
   "author": "Michael Joyce <ubermichael@gmail.com>",
-  "license": "GPL-2-or-newer",
+  "license": "GPL-2.0-or-later",
   "private": true,
   "dependencies": {
     "add": "^2.0.6",
