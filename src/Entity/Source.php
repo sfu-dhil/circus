@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
@@ -24,6 +26,7 @@ class Source extends AbstractTerm {
      * YYYY-MM-DD.
      *
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Date(message="{{ value }} is not a valid value. It must be formatted as yyyy-mm-dd and be a valid date.")
      */
     private string $date;
 
@@ -32,6 +35,11 @@ class Source extends AbstractTerm {
      * @ORM\OneToMany(targetEntity="Clipping", mappedBy="source")
      */
     private $clippings;
+
+    public function __construct() {
+        parent::__construct();
+        $this->clippings = new ArrayCollection();
+    }
 
     /**
      * Set date.
@@ -72,7 +80,7 @@ class Source extends AbstractTerm {
     /**
      * Get clippings.
      */
-    public function getClippings() : \Doctrine\Common\Collections\Collection {
+    public function getClippings() : Collection {
         return $this->clippings;
     }
 }

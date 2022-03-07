@@ -18,7 +18,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClippingType extends AbstractType {
-
     private FileUploader $fileUploader;
 
     public function __construct(FileUploader $fileUploader) {

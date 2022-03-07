@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
@@ -22,9 +24,14 @@ use Nines\UtilBundle\Entity\AbstractTerm;
 class Category extends AbstractTerm {
     /**
      * @var Clipping[]|Collection
-     * @ORM\OneToMany(targetEntity="Clipping", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Clipping", mappedBy="source")
      */
     private $clippings;
+
+    public function __construct() {
+        parent::__construct();
+        $this->clippings = new ArrayCollection();
+    }
 
     /**
      * Add clipping.
@@ -49,7 +56,7 @@ class Category extends AbstractTerm {
     /**
      * Get clippings.
      */
-    public function getClippings() : \Doctrine\Common\Collections\Collection {
+    public function getClippings() : Collection {
         return $this->clippings;
     }
 }
