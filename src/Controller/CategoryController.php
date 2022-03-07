@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -38,10 +38,8 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      * @Route("/", name="category_index", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    public function indexAction(Request $request, EntityManagerInterface $em) : array {
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Category::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
@@ -88,10 +86,8 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      * @Route("/{id}", name="category_show", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function showAction(Request $request, Category $category, ClippingRepository $repo) {
+    public function showAction(Request $request, Category $category, ClippingRepository $repo) : array {
         $query = $repo->categoryQuery($category);
         $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
@@ -132,10 +128,8 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/{id}/delete", name="category_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, Category $category, EntityManagerInterface $em) {
+    public function deleteAction(Request $request, Category $category, EntityManagerInterface $em) : RedirectResponse {
         $em->remove($category);
         $em->flush();
         $this->addFlash('success', 'The category was deleted.');

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -37,10 +37,8 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      * @Route("/", name="source_index", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    public function indexAction(Request $request, EntityManagerInterface $em) : array {
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Source::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
@@ -88,10 +86,8 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      * @Route("/{id}", name="source_show", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function showAction(Request $request, Source $source, EntityManagerInterface $em) {
+    public function showAction(Request $request, Source $source, EntityManagerInterface $em) : array {
         $repo = $em->getRepository(Clipping::class);
         $query = $repo->sourceQuery($source);
 
@@ -135,10 +131,8 @@ class SourceController extends AbstractController implements PaginatorAwareInter
      *
      * @Route("/{id}/delete", name="source_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, Source $source, EntityManagerInterface $em) {
+    public function deleteAction(Request $request, Source $source, EntityManagerInterface $em) : RedirectResponse {
         $em = $this->getDoctrine()->getManager();
         $em->remove($source);
         $em->flush();

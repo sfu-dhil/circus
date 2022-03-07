@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -28,30 +28,15 @@ class Builder implements ContainerAwareInterface {
 
     public const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
 
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
+    private FactoryInterface $factory;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authChecker;
+    private AuthorizationCheckerInterface $authChecker;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @var Packages
-     */
-    private $packages;
+    private Packages $packages;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage, Packages $packages, EntityManagerInterface $em) {
         $this->factory = $factory;
@@ -71,10 +56,8 @@ class Builder implements ContainerAwareInterface {
 
     /**
      * Build a menu for blog posts.
-     *
-     * @return ItemInterface
      */
-    public function mainMenu(array $options) {
+    public function mainMenu(array $options) : ItemInterface {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'nav navbar-nav']);
 
@@ -93,8 +76,7 @@ class Builder implements ContainerAwareInterface {
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
         $sources = $this->em->getRepository(Source::class)
-            ->findBy([], ['id' => 'ASC'])
-        ;
+            ->findBy([], ['id' => 'ASC']);
 
         foreach ($sources as $source) {
             $browse->addChild('astley_' . $source->getId(), [
@@ -133,10 +115,8 @@ class Builder implements ContainerAwareInterface {
 
     /**
      * Build a menu the footer.
-     *
-     * @return ItemInterface
      */
-    public function footerMenu(array $options) {
+    public function footerMenu(array $options) : ItemInterface {
         $menu = $this->factory->createItem('root');
 
         $menu->addChild('home', [

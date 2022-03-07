@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -28,12 +28,7 @@ class ClippingRepository extends ServiceEntityRepository {
         parent::__construct($registry, Clipping::class);
     }
 
-    /**
-     * @param array $data
-     * @param string $fieldName
-     * @param string $formName
-     */
-    private function fulltextPart(QueryBuilder $qb, $data, $fieldName, $formName) : void {
+    private function fulltextPart(QueryBuilder $qb, array $data, string $fieldName, string $formName) : void {
         if ( ! isset($data[$formName])) {
             return;
         }
@@ -69,13 +64,7 @@ class ClippingRepository extends ServiceEntityRepository {
         $qb->setParameter("{$fieldName}", "%{$term}%");
     }
 
-    /**
-     * @param QueryBuilder $qb
-     * @param array $data
-     * @param string $fieldName
-     * @param string $formName
-     */
-    private function arrayPart($qb, $data, $fieldName, $formName) : void {
+    private function arrayPart(QueryBuilder $qb, array $data, string $fieldName, string $formName) : void {
         if ( ! isset($data[$formName])) {
             return;
         }

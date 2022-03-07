@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -27,10 +27,8 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/", name="homepage", methods={"GET"})
      * @Template
-     *
-     * @return array
      */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    public function indexAction(Request $request, EntityManagerInterface $em) : array {
         $pageRepo = $em->getRepository(Page::class);
 
         return [
@@ -43,10 +41,8 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/privacy", name="privacy", methods={"GET"})
      * @Template
-     *
-     * @return array
      */
-    public function privacyAction(Request $request) {
+    public function privacyAction(Request $request) : array {
         return [];
     }
 }

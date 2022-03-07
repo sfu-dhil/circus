@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -25,94 +25,76 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Clipping extends AbstractEntity {
     /**
-     * @var string
      * @ORM\Column(type="string", length=128, nullable=false)
      */
-    private $originalName;
+    private string $originalName;
+
+    private File $imageFile;
 
     /**
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private $imageFilePath;
+    private string $imageFilePath;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private $thumbnailPath;
+    private string $thumbnailPath;
 
     /**
-     * @var int
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $imageSize;
+    private int $imageSize;
 
     /**
-     * @var int
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $imageWidth;
+    private int $imageWidth;
 
     /**
-     * @var int
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $imageHeight;
+    private int $imageHeight;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=24, nullable=true)
      */
-    private $number;
+    private string $number;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=24, nullable=true)
      */
-    private $writtenDate;
+    private string $writtenDate;
 
     /**
      * YYYY-MM-DD.
      *
-     * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Regex(pattern="/\d{4}-\d{2}-\d{2}/", message="The format must be YYYY-MM-DD. The year must be four digits. Month and day must be two digits.")
      */
-    private $date;
+    private string $date;
 
     /**
-     * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    private $transcription;
+    private string $transcription;
 
     /**
-     * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    private $annotations;
+    private string $annotations;
 
     /**
-     * @var Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="clippings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private Category $category;
 
     /**
-     * @var Source
      * @ORM\ManyToOne(targetEntity="Source", inversedBy="clippings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $source;
+    private Source $source;
 
     public function __toString() : string {
         return $this->originalName;
@@ -120,12 +102,8 @@ class Clipping extends AbstractEntity {
 
     /**
      * Set originalName.
-     *
-     * @param string $originalName
-     *
-     * @return Clipping
      */
-    public function setOriginalName($originalName) {
+    public function setOriginalName(string $originalName) : self {
         $this->originalName = $originalName;
 
         return $this;
@@ -133,19 +111,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get originalName.
-     *
-     * @return string
      */
-    public function getOriginalName() {
+    public function getOriginalName() : string {
         return $this->originalName;
     }
 
     /**
      * Get the image file.
-     *
-     * @return File
      */
-    public function getImageFile() {
+    public function getImageFile() : File {
         return $this->imageFile;
     }
 
@@ -157,12 +131,8 @@ class Clipping extends AbstractEntity {
 
     /**
      * Set imageFilePath.
-     *
-     * @param string $imageFilePath
-     *
-     * @return Clipping
      */
-    public function setImageFilePath($imageFilePath) {
+    public function setImageFilePath(string $imageFilePath) : self {
         $this->imageFilePath = $imageFilePath;
 
         return $this;
@@ -170,21 +140,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get imageFilePath.
-     *
-     * @return string
      */
-    public function getImageFilePath() {
+    public function getImageFilePath() : string {
         return $this->imageFilePath;
     }
 
     /**
      * Set imageSize.
-     *
-     * @param int $imageSize
-     *
-     * @return Clipping
      */
-    public function setImageSize($imageSize) {
+    public function setImageSize(int $imageSize) : self {
         $this->imageSize = $imageSize;
 
         return $this;
@@ -192,21 +156,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get imageSize.
-     *
-     * @return int
      */
-    public function getImageSize() {
+    public function getImageSize() : int {
         return $this->imageSize;
     }
 
     /**
      * Set imageWidth.
-     *
-     * @param int $imageWidth
-     *
-     * @return Clipping
      */
-    public function setImageWidth($imageWidth) {
+    public function setImageWidth(int $imageWidth) : self {
         $this->imageWidth = $imageWidth;
 
         return $this;
@@ -214,21 +172,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get imageWidth.
-     *
-     * @return int
      */
-    public function getImageWidth() {
+    public function getImageWidth() : int {
         return $this->imageWidth;
     }
 
     /**
      * Set imageHeight.
-     *
-     * @param int $imageHeight
-     *
-     * @return Clipping
      */
-    public function setImageHeight($imageHeight) {
+    public function setImageHeight(int $imageHeight) : self {
         $this->imageHeight = $imageHeight;
 
         return $this;
@@ -236,21 +188,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get imageHeight.
-     *
-     * @return int
      */
-    public function getImageHeight() {
+    public function getImageHeight() : int {
         return $this->imageHeight;
     }
 
     /**
      * Set number.
-     *
-     * @param string $number
-     *
-     * @return Clipping
      */
-    public function setNumber($number) {
+    public function setNumber(string $number) : self {
         $this->number = $number;
 
         return $this;
@@ -258,21 +204,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get number.
-     *
-     * @return string
      */
-    public function getNumber() {
+    public function getNumber() : string {
         return $this->number;
     }
 
     /**
      * Set writtenDate.
-     *
-     * @param string $writtenDate
-     *
-     * @return Clipping
      */
-    public function setWrittenDate($writtenDate) {
+    public function setWrittenDate(string $writtenDate) : self {
         $this->writtenDate = $writtenDate;
 
         return $this;
@@ -280,21 +220,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get writtenDate.
-     *
-     * @return string
      */
-    public function getWrittenDate() {
+    public function getWrittenDate() : string {
         return $this->writtenDate;
     }
 
     /**
      * Set date.
-     *
-     * @param string $date
-     *
-     * @return Clipping
      */
-    public function setDate($date) {
+    public function setDate(string $date) : self {
         $this->date = $date;
 
         return $this;
@@ -302,21 +236,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get date.
-     *
-     * @return string
      */
-    public function getDate() {
+    public function getDate() : string {
         return $this->date;
     }
 
     /**
      * Set transcription.
-     *
-     * @param string $transcription
-     *
-     * @return Clipping
      */
-    public function setTranscription($transcription) {
+    public function setTranscription(string $transcription) : self {
         $this->transcription = $transcription;
 
         return $this;
@@ -324,21 +252,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get transcription.
-     *
-     * @return string
      */
-    public function getTranscription() {
+    public function getTranscription() : string {
         return $this->transcription;
     }
 
     /**
      * Set annotations.
-     *
-     * @param string $annotations
-     *
-     * @return Clipping
      */
-    public function setAnnotations($annotations) {
+    public function setAnnotations(string $annotations) : self {
         $this->annotations = $annotations;
 
         return $this;
@@ -346,19 +268,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get annotations.
-     *
-     * @return string
      */
-    public function getAnnotations() {
+    public function getAnnotations() : string {
         return $this->annotations;
     }
 
     /**
      * Set category.
-     *
-     * @return Clipping
      */
-    public function setCategory(Category $category) {
+    public function setCategory(Category $category) : self {
         $this->category = $category;
 
         return $this;
@@ -366,19 +284,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get category.
-     *
-     * @return Category
      */
-    public function getCategory() {
+    public function getCategory() : Category {
         return $this->category;
     }
 
     /**
      * Set source.
-     *
-     * @return Clipping
      */
-    public function setSource(Source $source) {
+    public function setSource(Source $source) : self {
         $this->source = $source;
 
         return $this;
@@ -386,21 +300,15 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get source.
-     *
-     * @return Source
      */
-    public function getSource() {
+    public function getSource() : Source {
         return $this->source;
     }
 
     /**
      * Set thumbnailPath.
-     *
-     * @param string $thumbnailPath
-     *
-     * @return Clipping
      */
-    public function setThumbnailPath($thumbnailPath) {
+    public function setThumbnailPath(string $thumbnailPath) : self {
         $this->thumbnailPath = $thumbnailPath;
 
         return $this;
@@ -408,10 +316,8 @@ class Clipping extends AbstractEntity {
 
     /**
      * Get thumbnailPath.
-     *
-     * @return string
      */
-    public function getThumbnailPath() {
+    public function getThumbnailPath() : string {
         return $this->thumbnailPath;
     }
 }

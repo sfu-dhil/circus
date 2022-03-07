@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -22,10 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ConvertEntitiesCommand extends Command {
     public const BATCH_SIZE = 100;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em) {
         parent::__construct();
@@ -38,8 +35,7 @@ class ConvertEntitiesCommand extends Command {
     protected function configure() : void {
         $this
             ->setName('circus:convert:entities')
-            ->setDescription('Convert encoded entities to utf8.')
-        ;
+            ->setDescription('Convert encoded entities to utf8.');
     }
 
     /**

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -40,18 +40,15 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      * @Route("/", name="clipping_index", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    public function indexAction(Request $request, EntityManagerInterface $em) : array {
         $qb = $em->createQueryBuilder();
         $qb->select('e')
             ->addSelect('CAST(e.number as unsigned integer) HIDDEN n')
             ->from(Clipping::class, 'e')
             ->orderBy('n', 'ASC')
             ->addOrderBy('e.date', 'ASC')
-            ->addOrderBy('e.id', 'ASC')
-        ;
+            ->addOrderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
@@ -66,10 +63,8 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      * @Route("/search", name="clipping_search", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function searchAction(Request $request, ClippingRepository $repo) {
+    public function searchAction(Request $request, ClippingRepository $repo) : array {
         $form = $this->createForm(ClippingSearchType::class, null, [
             'method' => 'GET',
         ]);
@@ -129,10 +124,8 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      * @Route("/{id}", name="clipping_show", methods={"GET"})
      *
      * @Template
-     *
-     * @return array
      */
-    public function showAction(Clipping $clipping) {
+    public function showAction(Clipping $clipping) : array {
         return [
             'clipping' => $clipping,
         ];
@@ -183,10 +176,8 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
      *
      * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, Clipping $clipping, EntityManagerInterface $em) {
+    public function deleteAction(Request $request, Clipping $clipping, EntityManagerInterface $em) : RedirectResponse {
         $em->remove($clipping);
         $em->flush();
         $this->addFlash('success', 'The clipping was deleted.');

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -23,10 +23,9 @@ class Source extends AbstractTerm {
     /**
      * YYYY-MM-DD.
      *
-     * @var string
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $date;
+    private string $date;
 
     /**
      * @var Clipping[]|Collection
@@ -36,12 +35,8 @@ class Source extends AbstractTerm {
 
     /**
      * Set date.
-     *
-     * @param string $date
-     *
-     * @return Source
      */
-    public function setDate($date) {
+    public function setDate(string $date) : self {
         $this->date = $date;
 
         return $this;
@@ -49,10 +44,8 @@ class Source extends AbstractTerm {
 
     /**
      * Get date.
-     *
-     * @return string
      */
-    public function getDate() {
+    public function getDate() : string {
         return $this->date;
     }
 
@@ -60,10 +53,8 @@ class Source extends AbstractTerm {
      * Add clipping.
      *
      * @param \App\Entity\Clipping $clipping
-     *
-     * @return Source
      */
-    public function addClipping(Clipping $clipping) {
+    public function addClipping(Clipping $clipping) : self {
         $this->clippings[] = $clipping;
 
         return $this;
@@ -80,10 +71,8 @@ class Source extends AbstractTerm {
 
     /**
      * Get clippings.
-     *
-     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getClippings() {
+    public function getClippings() : \Doctrine\Common\Collections\Collection {
         return $this->clippings;
     }
 }

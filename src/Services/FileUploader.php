@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -18,14 +18,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Description of FileUploader.
- *
- * @author Michael Joyce <ubermichael@gmail.com>
  */
 class FileUploader {
-    /**
-     * @var string
-     */
-    private $imageDir;
+
+    private string $imageDir;
 
     private $thumbWidth;
 
@@ -47,10 +43,7 @@ class FileUploader {
         return $filename;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageDir() {
+    public function getImageDir() : string {
         return $this->imageDir;
     }
 
@@ -63,7 +56,7 @@ class FileUploader {
         $magick->thumbnailimage($this->thumbWidth, $this->thumbHeight, true, true);
         $magick->setImageFormat('png32');
 
-        $handle = fopen($file->getPath() . '/' . $thumbname, 'wb');
+        $handle = fopen($file->getPath() . '/' . $thumbname, 'w');
         fwrite($handle, $magick->getimageblob());
 
         return $thumbname;

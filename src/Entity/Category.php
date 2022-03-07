@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -30,10 +30,8 @@ class Category extends AbstractTerm {
      * Add clipping.
      *
      * @param \App\Entity\Clipping $clipping
-     *
-     * @return Category
      */
-    public function addClipping(Clipping $clipping) {
+    public function addClipping(Clipping $clipping) : self {
         $this->clippings[] = $clipping;
 
         return $this;
@@ -50,10 +48,8 @@ class Category extends AbstractTerm {
 
     /**
      * Get clippings.
-     *
-     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getClippings() {
+    public function getClippings() : \Doctrine\Common\Collections\Collection {
         return $this->clippings;
     }
 }
