@@ -115,7 +115,7 @@ class ClippingRepository extends ServiceEntityRepository {
 
     public function categoryQuery(Category $category) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect('CAST(e.number as unsigned integer) HIDDEN n');
+        $qb->addSelect('CAST(e.number as integer) HIDDEN n');
         $qb->andWhere('e.category = :category');
         $qb->setParameter('category', $category);
         $qb->orderBy('n', 'ASC');
@@ -127,7 +127,7 @@ class ClippingRepository extends ServiceEntityRepository {
 
     public function sourceQuery(Source $source) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect('CAST(e.number as unsigned integer) HIDDEN n');
+        $qb->addSelect('CAST(e.number as integer) HIDDEN n');
         $qb->andWhere('e.source = :source');
         $qb->setParameter('source', $source);
         $qb->orderBy('n', 'ASC');

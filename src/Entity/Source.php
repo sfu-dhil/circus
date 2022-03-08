@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Source.
@@ -28,7 +29,7 @@ class Source extends AbstractTerm {
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Date(message="{{ value }} is not a valid value. It must be formatted as yyyy-mm-dd and be a valid date.")
      */
-    private string $date;
+    private ?string $date = null;
 
     /**
      * @var Clipping[]|Collection
@@ -44,7 +45,7 @@ class Source extends AbstractTerm {
     /**
      * Set date.
      */
-    public function setDate(string $date) : self {
+    public function setDate(?string $date) : self {
         $this->date = $date;
 
         return $this;
@@ -53,7 +54,7 @@ class Source extends AbstractTerm {
     /**
      * Get date.
      */
-    public function getDate() : string {
+    public function getDate() : ?string {
         return $this->date;
     }
 

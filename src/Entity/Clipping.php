@@ -27,44 +27,44 @@ class Clipping extends AbstractEntity {
     /**
      * @ORM\Column(type="string", length=128, nullable=false)
      */
-    private string $originalName;
+    private ?string $originalName = null;
 
-    private File $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
-    private string $imageFilePath;
+    private ?File $imageFile = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private string $thumbnailPath;
+    private ?string $imageFilePath = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private ?string $thumbnailPath = null;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private int $imageSize;
+    private ?int $imageSize = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $imageWidth;
+    private ?int $imageWidth = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $imageHeight;
+    private ?int $imageHeight = null;
 
     /**
      * @ORM\Column(type="string", length=24, nullable=true)
      */
-    private string $number;
+    private ?string $number = null;
 
     /**
      * @ORM\Column(type="string", length=24, nullable=true)
      */
-    private string $writtenDate;
+    private ?string $writtenDate = null;
 
     /**
      * YYYY-MM-DD.
@@ -72,29 +72,29 @@ class Clipping extends AbstractEntity {
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Date(message="{{ value }} is not a valid value. It must be formatted as yyyy-mm-dd and be a valid date.")
      */
-    private string $date;
+    private ?string $date = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $transcription;
+    private ?string $transcription = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $annotations;
+    private ?string $annotations = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="clippings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private Category $category;
+    private ?Category $category = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Source", inversedBy="clippings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private Source $source;
+    private ?Source $source = null;
 
     public function __toString() : string {
         return $this->originalName;
@@ -112,14 +112,14 @@ class Clipping extends AbstractEntity {
     /**
      * Get originalName.
      */
-    public function getOriginalName() : string {
+    public function getOriginalName() : ?string {
         return $this->originalName;
     }
 
     /**
      * Get the image file.
      */
-    public function getImageFile() : File {
+    public function getImageFile() : ?File {
         return $this->imageFile;
     }
 
@@ -141,7 +141,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get imageFilePath.
      */
-    public function getImageFilePath() : string {
+    public function getImageFilePath() : ?string {
         return $this->imageFilePath;
     }
 
@@ -157,7 +157,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get imageSize.
      */
-    public function getImageSize() : int {
+    public function getImageSize() : ?int {
         return $this->imageSize;
     }
 
@@ -173,7 +173,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get imageWidth.
      */
-    public function getImageWidth() : int {
+    public function getImageWidth() : ?int {
         return $this->imageWidth;
     }
 
@@ -189,7 +189,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get imageHeight.
      */
-    public function getImageHeight() : int {
+    public function getImageHeight() : ?int {
         return $this->imageHeight;
     }
 
@@ -205,7 +205,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get number.
      */
-    public function getNumber() : string {
+    public function getNumber() : ?string {
         return $this->number;
     }
 
@@ -221,7 +221,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get writtenDate.
      */
-    public function getWrittenDate() : string {
+    public function getWrittenDate() : ?string {
         return $this->writtenDate;
     }
 
@@ -237,7 +237,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get date.
      */
-    public function getDate() : string {
+    public function getDate() : ?string {
         return $this->date;
     }
 
@@ -253,7 +253,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get transcription.
      */
-    public function getTranscription() : string {
+    public function getTranscription() : ?string {
         return $this->transcription;
     }
 
@@ -269,7 +269,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get annotations.
      */
-    public function getAnnotations() : string {
+    public function getAnnotations() : ?string {
         return $this->annotations;
     }
 
@@ -285,7 +285,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get category.
      */
-    public function getCategory() : Category {
+    public function getCategory() : ?Category {
         return $this->category;
     }
 
@@ -301,7 +301,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get source.
      */
-    public function getSource() : Source {
+    public function getSource() : ?Source {
         return $this->source;
     }
 
@@ -317,7 +317,7 @@ class Clipping extends AbstractEntity {
     /**
      * Get thumbnailPath.
      */
-    public function getThumbnailPath() : string {
+    public function getThumbnailPath() : ?string {
         return $this->thumbnailPath;
     }
 }

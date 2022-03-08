@@ -12,46 +12,46 @@ namespace App\DataFixtures;
 
 use App\Entity\Clipping;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * LoadClipping form.
- */
-class ClippingFixtures extends Fixture implements DependentFixtureInterface {
+class ClippingFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
+    public static function getGroups() : array {
+        return ['dev', 'test'];
+    }
+
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    public function load(ObjectManager $em) : void {
-        for ($i = 0; $i < 4; $i++) {
+    public function load(ObjectManager $manager) : void {
+        for ($i = 1; $i <= 5; $i++) {
             $fixture = new Clipping();
             $fixture->setOriginalName('OriginalName ' . $i);
             $fixture->setImageFilePath('ImageFilePath ' . $i);
             $fixture->setThumbnailPath('ThumbnailPath ' . $i);
-            $fixture->setImageSize(16000);
-            $fixture->setImageWidth(400);
-            $fixture->setImageHeight(400);
+            $fixture->setImageSize($i);
+            $fixture->setImageWidth($i);
+            $fixture->setImageHeight($i);
             $fixture->setNumber('Number ' . $i);
             $fixture->setWrittenDate('WrittenDate ' . $i);
-            $fixture->setDate(1850 + $i);
-            $fixture->setTranscription('Transcription ' . $i);
-            $fixture->setAnnotations('Annotations ' . $i);
-            $fixture->setCategory($this->getReference('category.1'));
-            $fixture->setSource($this->getReference('source.1'));
-
-            $em->persist($fixture);
+            $fixture->setDate("1850-0{$i}-02");
+            $fixture->setTranscription("<p>This is paragraph {$i}</p>");
+            $fixture->setAnnotations("<p>This is paragraph {$i}</p>");
+            $fixture->setCategory($this->getReference('category.' . $i));
+            $fixture->setSource($this->getReference('source.' . $i));
+            $manager->persist($fixture);
             $this->setReference('clipping.' . $i, $fixture);
         }
-
-        $em->flush();
+        $manager->flush();
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @return array<string>
      */
-    public function getDependencies() {
-        // add dependencies here, or remove this
-        // function and "implements DependentFixtureInterface" above
+    public function getDependencies() : array {
         return [
             CategoryFixtures::class,
             SourceFixtures::class,

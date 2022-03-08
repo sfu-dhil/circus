@@ -12,27 +12,27 @@ namespace App\DataFixtures;
 
 use App\Entity\Source;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * LoadSource form.
- */
-class SourceFixtures extends Fixture {
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em) : void {
-        for ($i = 0; $i < 4; $i++) {
-            $fixture = new Source();
-            $fixture->setName('source-' . $i);
-            $fixture->setLabel('Source ' . $i);
-            $fixture->setDescription("This is test source #{$i}");
-            $fixture->setDate(1900 + $i);
+class SourceFixtures extends Fixture implements FixtureGroupInterface {
+    public static function getGroups() : array {
+        return ['dev', 'test'];
+    }
 
-            $em->persist($fixture);
+    /**
+     * {@inheritDoc}
+     */
+    public function load(ObjectManager $manager) : void {
+        for ($i = 1; $i <= 5; $i++) {
+            $fixture = new Source();
+            $fixture->setLabel('Label ' . $i);
+            $fixture->setDescription("<p>This is paragraph {$i}</p>");
+            $fixture->setDate("1850-0{$i}-02");
+
+            $manager->persist($fixture);
             $this->setReference('source.' . $i, $fixture);
         }
-
-        $em->flush();
+        $manager->flush();
     }
 }

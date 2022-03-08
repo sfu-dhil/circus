@@ -24,7 +24,7 @@ use Nines\UtilBundle\Entity\AbstractTerm;
 class Category extends AbstractTerm {
     /**
      * @var Clipping[]|Collection
-     * @ORM\OneToMany(targetEntity="Clipping", mappedBy="source")
+     * @ORM\OneToMany(targetEntity="Clipping", mappedBy="category")
      */
     private $clippings;
 

@@ -14,7 +14,6 @@ twig:
         - '@TetranzSelect2Entity/Form/fields.html.twig'
         - 'jquery.collection.html.twig'
     globals:
-        comment_service: '@Nines\FeedbackBundle\Services\CommentService'
         nines_editor_config: js/editor-config.js
         text_service: '@Nines\UtilBundle\Services\Text'
         clipping_img_prefix: "%clipping_img_prefix%"

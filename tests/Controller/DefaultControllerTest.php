@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use Nines\UserBundle\DataFixtures\UserFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UtilBundle\TestCase\ControllerTestCase;
 
-class DefaultControllerTest extends ControllerBaseCase {
+class DefaultControllerTest extends ControllerTestCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,
