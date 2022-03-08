@@ -79,7 +79,7 @@ class SourceTest extends ControllerTestCase {
             'source[name]' => 'Updated Name',
             'source[label]' => 'Updated Label',
             'source[description]' => '<p>Updated Text</p>',
-            'source[date]' => 'Updated Date',
+            'source[date]' => '1800-03-09',
         ]);
 
         $this->client->submit($form);
@@ -108,7 +108,7 @@ class SourceTest extends ControllerTestCase {
             'source[name]' => 'New Name',
             'source[label]' => 'New Label',
             'source[description]' => '<p>Updated Text</p>',
-            'source[date]' => 'Updated Date',
+            'source[date]' => '1800-03-09',
         ]);
 
         $this->client->submit($form);
@@ -122,8 +122,13 @@ class SourceTest extends ControllerTestCase {
         $repo = self::$container->get(SourceRepository::class);
         $preCount = count($repo->findAll());
 
+        foreach($repo->find(5)->getClippings() as $clipping) {
+            $this->em->remove($clipping);
+        }
+        $this->em->flush();
+
         $this->login(UserFixtures::ADMIN);
-        $crawler = $this->client->request('GET', '/source/1');
+        $crawler = $this->client->request('GET', '/source/5');
         $this->assertResponseIsSuccessful();
         $form = $crawler->selectButton('Delete')->form();
         $this->client->submit($form);
@@ -135,5 +140,6 @@ class SourceTest extends ControllerTestCase {
         $this->em->clear();
         $postCount = count($repo->findAll());
         $this->assertSame($preCount - 1, $postCount);
+        $this->reset();
     }
 }

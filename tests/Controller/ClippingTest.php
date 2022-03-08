@@ -13,6 +13,7 @@ namespace App\Tests\Controller;
 use App\Repository\ClippingRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\TestCase\ControllerTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClippingTest extends ControllerTestCase {
@@ -59,7 +60,10 @@ class ClippingTest extends ControllerTestCase {
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
     }
 
-    public function testAnonSearch() : void {
+    /**
+     * @dataProvider searchData
+     */
+    public function testAnonSearch($data) : void {
         $crawler = $this->client->request('GET', '/clipping/search');
         $this->assertResponseStatusCodeSame(self::ANON_RESPONSE_CODE);
         if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
@@ -67,35 +71,50 @@ class ClippingTest extends ControllerTestCase {
             return;
         }
 
-        $form = $crawler->selectButton('btn-search')->form([
-            'q' => 'clipping',
-        ]);
+        $form = $crawler->selectButton('Search')->form($data);
 
         $responseCrawler = $this->client->submit($form);
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testUserSearch() : void {
+    public function searchData() : array {
+        return [
+            [[]],
+            [['clipping_search[transcription]' => 'paragraph']],
+            [['clipping_search[transcription]' => '"paragraph 2"']],
+            [['clipping_search[writtenDate]' => 'WrittenDate 3']],
+            [['clipping_search[number]' => 'Number 2']],
+            [['clipping_search[date]' => '1850-02-02']],
+            [['clipping_search[source]' => [1]]],
+            [['clipping_search[category]' => [1]]],
+            [['clipping_search[order]' => '0']],
+            [['clipping_search[order]' => '1']],
+        ];
+    }
+
+    /**
+     * @dataProvider searchData
+     */
+    public function testUserSearch($data) : void {
         $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/clipping/search');
         $this->assertResponseIsSuccessful();
 
-        $form = $crawler->selectButton('btn-search')->form([
-            'q' => 'clipping',
-        ]);
+        $form = $crawler->selectButton('Search')->form($data);
 
         $responseCrawler = $this->client->submit($form);
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testAdminSearch() : void {
+    /**
+     * @dataProvider searchData
+     */
+    public function testAdminSearch($data) : void {
         $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/clipping/search');
         $this->assertResponseIsSuccessful();
 
-        $form = $crawler->selectButton('btn-search')->form([
-            'q' => 'clipping',
-        ]);
+        $form = $crawler->selectButton('Search')->form($data);
 
         $responseCrawler = $this->client->submit($form);
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
@@ -118,15 +137,9 @@ class ClippingTest extends ControllerTestCase {
         $this->assertResponseIsSuccessful();
 
         $form = $formCrawler->selectButton('Update')->form([
-            'clipping[originalName]' => 'Updated OriginalName',
-            'clipping[imageFilePath]' => 'Updated ImageFilePath',
-            'clipping[thumbnailPath]' => 'Updated ThumbnailPath',
-            'clipping[imageSize]' => 10,
-            'clipping[imageWidth]' => 10,
-            'clipping[imageHeight]' => 10,
             'clipping[number]' => 'Updated Number',
             'clipping[writtenDate]' => 'Updated WrittenDate',
-            'clipping[date]' => 'Updated Date',
+            'clipping[date]' => '1900-02-06',
             'clipping[transcription]' => '<p>Updated Text</p>',
             'clipping[annotations]' => '<p>Updated Text</p>',
         ]);
@@ -155,18 +168,14 @@ class ClippingTest extends ControllerTestCase {
         $formCrawler = $this->client->request('GET', '/clipping/new');
         $this->assertResponseIsSuccessful();
 
+        $image = new UploadedFile(dirname(__FILE__, 2) . '/data/image.jpg', 'image.jpg', 'image/jpeg', 123);
         $form = $formCrawler->selectButton('Create')->form([
-            'clipping[originalName]' => 'Updated OriginalName',
-            'clipping[imageFilePath]' => 'Updated ImageFilePath',
-            'clipping[thumbnailPath]' => 'Updated ThumbnailPath',
-            'clipping[imageSize]' => 10,
-            'clipping[imageWidth]' => 10,
-            'clipping[imageHeight]' => 10,
-            'clipping[number]' => 'Updated Number',
-            'clipping[writtenDate]' => 'Updated WrittenDate',
-            'clipping[date]' => 'Updated Date',
-            'clipping[transcription]' => '<p>Updated Text</p>',
-            'clipping[annotations]' => '<p>Updated Text</p>',
+            'clipping[imageFile]' => $image,
+            'clipping[number]' => 'New Number',
+            'clipping[writtenDate]' => 'New WrittenDate',
+            'clipping[date]' => '1900-02-06',
+            'clipping[transcription]' => '<p>New Text</p>',
+            'clipping[annotations]' => '<p>New Text</p>',
         ]);
         $form['clipping[category]']->disableValidation()->setValue(2);
         $form['clipping[source]']->disableValidation()->setValue(2);
@@ -195,5 +204,6 @@ class ClippingTest extends ControllerTestCase {
         $this->em->clear();
         $postCount = count($repo->findAll());
         $this->assertSame($preCount - 1, $postCount);
+        $this->reset();
     }
 }

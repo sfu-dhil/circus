@@ -120,8 +120,13 @@ class CategoryTest extends ControllerTestCase {
         $repo = self::$container->get(CategoryRepository::class);
         $preCount = count($repo->findAll());
 
+        foreach($repo->find(5)->getClippings() as $clipping) {
+            $this->em->remove($clipping);
+        }
+        $this->em->flush();
+
         $this->login(UserFixtures::ADMIN);
-        $crawler = $this->client->request('GET', '/category/1');
+        $crawler = $this->client->request('GET', '/category/5');
         $this->assertResponseIsSuccessful();
         $form = $crawler->selectButton('Delete')->form();
         $this->client->submit($form);
@@ -133,5 +138,6 @@ class CategoryTest extends ControllerTestCase {
         $this->em->clear();
         $postCount = count($repo->findAll());
         $this->assertSame($preCount - 1, $postCount);
+        $this->reset();
     }
 }

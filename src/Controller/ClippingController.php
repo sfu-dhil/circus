@@ -14,57 +14,43 @@ use App\Entity\Clipping;
 use App\Form\ClippingSearchType;
 use App\Form\ClippingType;
 use App\Repository\ClippingRepository;
+
 use App\Services\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Clipping controller.
- *
  * @Route("/clipping")
  */
 class ClippingController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
-     * Lists all Clipping entities.
-     *
      * @Route("/", name="clipping_index", methods={"GET"})
-     *
-     * @Template
      */
-    public function indexAction(Request $request, EntityManagerInterface $em) : array {
-        $qb = $em->createQueryBuilder();
-        $qb->select('e')
-            ->addSelect('CAST(e.number as unsigned integer) HIDDEN n')
-            ->from(Clipping::class, 'e')
-            ->orderBy('n', 'ASC')
-            ->addOrderBy('e.date', 'ASC')
-            ->addOrderBy('e.id', 'ASC');
-        $query = $qb->getQuery();
-        $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
+    public function index(Request $request, ClippingRepository $clippingRepository) : Response {
+        $query = $clippingRepository->indexQuery();
+        $pageSize = (int) $this->getParameter('page_size');
+        $page = $request->query->getint('page', 1);
 
-        return [
-            'clippings' => $clippings,
-        ];
+        return $this->render('clipping/index.html.twig', [
+            'clippings' => $this->paginator->paginate($query, $page, $pageSize),
+        ]);
     }
 
     /**
-     * Search for Clipping entities.
-     *
      * @Route("/search", name="clipping_search", methods={"GET"})
-     *
-     * @Template
      */
-    public function searchAction(Request $request, ClippingRepository $repo) : array {
+    public function search(Request $request, ClippingRepository $repo) : Response {
         $form = $this->createForm(ClippingSearchType::class, null, [
             'method' => 'GET',
         ]);
@@ -80,24 +66,19 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
             $clippings = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
         }
 
-        return [
+        return $this->render('clipping/search.html.twig', [
             'submitted' => $submitted,
             'clippings' => $clippings,
             'form' => $form->createView(),
             'q' => $q,
-        ];
+        ]);
     }
 
     /**
-     * Creates a new Clipping entity.
-     *
      * @Route("/new", name="clipping_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template
-     *
-     * @return array|RedirectResponse
      */
-    public function newAction(Request $request, EntityManagerInterface $em, FileUploader $uploader) {
+    public function new(Request $request, EntityManagerInterface $em, FileUploader $uploader) : Response {
         $clipping = new Clipping();
         $form = $this->createForm(ClippingType::class, $clipping);
         $form->handleRequest($request);
@@ -106,45 +87,34 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
             $uploader->processClipping($clipping);
             $em->persist($clipping);
             $em->flush();
-
-            $this->addFlash('success', 'The new clipping was created.');
+            $this->addFlash('success', 'The new clipping has been saved.');
 
             return $this->redirectToRoute('clipping_show', ['id' => $clipping->getId()]);
         }
 
-        return [
+        return $this->render('clipping/new.html.twig', [
             'clipping' => $clipping,
             'form' => $form->createView(),
-        ];
+        ]);
     }
 
     /**
-     * Finds and displays a Clipping entity.
-     *
      * @Route("/{id}", name="clipping_show", methods={"GET"})
-     *
-     * @Template
      */
-    public function showAction(Clipping $clipping) : array {
-        return [
+    public function show(Clipping $clipping) : Response {
+        return $this->render('clipping/show.html.twig', [
             'clipping' => $clipping,
-        ];
+        ]);
     }
 
     /**
-     * Displays a form to edit an existing Clipping entity.
-     *
-     * @Route("/{id}/edit", name="clipping_edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @Template
-     *
-     * @return array|RedirectResponse
+     * @Route("/{id}/edit", name="clipping_edit", methods={"GET", "POST"})
      */
-    public function editAction(Request $request, Clipping $clipping, EntityManagerInterface $em, FileUploader $uploader) {
-        $editForm = $this->createForm(ClippingType::class, $clipping);
-        $editForm->remove('imageFile');
-        $editForm->add('newImageFile', FileType::class, [
+    public function editAction(Request $request, Clipping $clipping, EntityManagerInterface $em, FileUploader $uploader) : Response {        $form = $this->createForm(ClippingType::class, $clipping);
+        $this->createForm(ClippingType::class, $clipping);
+        $form->remove('imageFile');
+        $form->add('newImageFile', FileType::class, [
             'label' => 'New Image',
             'required' => false,
             'attr' => [
@@ -152,35 +122,37 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
             ],
             'mapped' => false,
         ]);
-        $editForm->handleRequest($request);
+        $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if (($upload = $editForm->get('newImageFile')->getData())) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (($upload = $form->get('newImageFile')->getData())) {
                 $clipping->setImageFile($upload);
                 $uploader->processClipping($clipping);
             }
             $em->flush();
-            $this->addFlash('success', 'The clipping has been updated.');
+            $this->addFlash('success', 'The updated clipping has been saved.');
 
             return $this->redirectToRoute('clipping_show', ['id' => $clipping->getId()]);
         }
 
-        return [
+        return $this->render('clipping/edit.html.twig', [
             'clipping' => $clipping,
-            'edit_form' => $editForm->createView(),
-        ];
+            'edit_form' => $form->createView(),
+        ]);
     }
 
     /**
-     * Deletes a Clipping entity.
-     *
-     * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
      * @IsGranted("ROLE_CONTENT_ADMIN")
+     * @Route("/{id}", name="clipping_delete", methods={"DELETE"})
      */
-    public function deleteAction(Request $request, Clipping $clipping, EntityManagerInterface $em) : RedirectResponse {
-        $em->remove($clipping);
-        $em->flush();
-        $this->addFlash('success', 'The clipping was deleted.');
+    public function delete(Request $request, Clipping $clipping, EntityManagerInterface $em) : RedirectResponse {
+        if ($this->isCsrfTokenValid('delete' . $clipping->getId(), $request->request->get('_token'))) {
+            $em->remove($clipping);
+            $em->flush();
+            $this->addFlash('success', 'The clipping has been deleted.');
+        } else {
+            $this->addFlash('warning', 'The security token was not valid.');
+        }
 
         return $this->redirectToRoute('clipping_index');
     }

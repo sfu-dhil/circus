@@ -12,6 +12,7 @@ namespace App\Form;
 
 use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,11 +37,11 @@ class SourceType extends TermType {
                 'class' => 'tinymce',
             ],
         ]);
-        $builder->add('date', null, [
+        $builder->add('date', TextType::class, [
             'label' => 'Publication Date',
             'required' => false,
             'attr' => [
-                'help_block' => 'Date of publication, if known.',
+                'help_block' => 'Date of publication, if known. Standard form: yyyy-mm-dd. Eg. “1768-04-21” or “1768-04-00” if no day is given.',
             ],
         ]);
     }

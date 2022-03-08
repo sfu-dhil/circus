@@ -9,7 +9,7 @@
 
 {% set fromCat = app.request.server.get('HTTP_REFERER') matches '/\\/category\\//' %}
 
-{% set breadpath = 
+{% set breadpath =
     { 0:
         { 'path': path('source_index'),
            'title': 'Sources'
@@ -17,8 +17,8 @@
       1: {
             'path': path('source_show', {'id' : clipping.source.id }),
             'title': clipping.source
-         },   
-      2: { 
+         },
+      2: {
             'title': title
         }
     }
@@ -27,7 +27,7 @@
 {% if fromCat %}
 
     {% set breadpath =
-    
+
         { 0:
             { 'path': path('category_index'),
               'title': 'Categories'
@@ -35,10 +35,10 @@
           1: {
                'path': path('category_show', {'id': clipping.category.id}),
                'title': clipping.category
-             },   
-          2: { 
+             },
+          2: {
                 'title': title
-             }   
+             }
         }
     %}
 
@@ -55,10 +55,13 @@
                 <a href="{{ path('clipping_edit', { 'id': clipping.id }) }}"
                     class="btn btn-default">
                     <span class='glyphicon glyphicon-edit'></span> Edit Item </a>
-                <a href="{{ path('clipping_delete', { 'id': clipping.id }) }}" class="btn btn-default" 
-                    data-confirm="Are you sure you want to delete this Clipping?">
-                <span class='glyphicon glyphicon-remove'></span> Delete Item </a>
-        
+            </div>
+            <div class='btn-group'>
+                <form class='delete-form' method="post" action="{{ path('clipping_delete', {'id': clipping.id }) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token("delete" ~ clipping.id) }}">
+                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                </form>
             </div>
         </div>
     {% endif %}
@@ -74,13 +77,13 @@
                 </div>
             </section>
         {% endif %}
-        
+
         <section class="metadata{% if clipping.transcription is empty %} no-transcription{% endif %}">
             <div class="metadata-content">
                 <a class="zoomable imgContainer" href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank" rel="noopener noreferrer">
-                    <img 
-                        src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}" 
-                        alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/> 
+                    <img
+                        src="{{ asset(clipping_img_prefix ~ clipping.thumbnailPath) }}"
+                        alt="{{ clipping.originalName }}" title="{{ clipping.originalName }}"/>
                 </a>
                 <div class="metadata-body">
                    <div>
@@ -95,8 +98,8 @@
                    </div>
                     <div>
                         <h4>Written Date</h4>
-                        
-                        
+
+
                         {% if clipping.writtenDate matches '([nN]\.?[dD]|No [dD]ate\.?)' %}
                             <div class="unset">Not dated</div>
                         {% else %}
@@ -114,7 +117,7 @@
                         </div>
                         {% endif %}
                     </div>
-       
+
                     <div>
                         <h4>Category</h4>
                         <div>
@@ -136,7 +139,7 @@
                         <div><a href="{{ asset(clipping_img_prefix ~ clipping.imageFilePath) }}" target="_blank">{{ clipping.originalName }}</a><span class="image-size">({{ (clipping.imageSize / (1024 * 1024))|round(2) }}MB)</span></div>
                     </div>
                     {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                   
+
                     <div>
                         <h4>Created</h4>
                         <div>{% if clipping.created %}{{ clipping.created|date('Y-m-d H:i:s') }}{% endif %}</div>
@@ -147,20 +150,20 @@
                     </div>
                     {% endif %}
                 </div>
-            
+
             </div>
         </section>
     </article>
     <div id="facsViewerContainer">
             <span id="facs_closer" class="facsCloser">&times;</span>
-            
+
             <div id="facs_loader">
                 <div class="loader">Loading</div>
             </div>
             <canvas id="viewer"/>
-        
-        
-    </div>        
+
+
+    </div>
 {% endblock %}
 
 {% block javascripts %}

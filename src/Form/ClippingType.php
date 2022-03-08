@@ -14,6 +14,7 @@ use App\Services\FileUploader;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -48,7 +49,7 @@ class ClippingType extends AbstractType {
                 'help_block' => 'eg. “April 6 98” or “April 1768” for a handwritten date or leave blank for no date.',
             ],
         ]);
-        $builder->add('date', null, [
+        $builder->add('date', TextType::class, [
             'label' => 'Date',
             'required' => false,
             'attr' => [
