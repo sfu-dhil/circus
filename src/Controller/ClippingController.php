@@ -23,6 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,7 +47,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
         $qb->select('e')
-            ->addSelect('CAST(e.number as unsigned integer) HIDDEN n')
+            ->addSelect('CAST(e.number as integer) HIDDEN n')
             ->from(Clipping::class, 'e')
             ->orderBy('n', 'ASC')
             ->addOrderBy('e.date', 'ASC')

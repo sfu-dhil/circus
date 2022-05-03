@@ -10,20 +10,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\ClippingFixtures;
 use App\Entity\Clipping;
 use Nines\UserBundle\DataFixtures\UserFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class ClippingControllerTest extends ControllerBaseCase {
-    protected function fixtures() : array {
-        return [
-            UserFixtures::class,
-            ClippingFixtures::class,
-        ];
-    }
-
+class ClippingControllerTest extends ControllerTestCase {
     public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/clipping/');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
@@ -32,7 +24,7 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testUserIndex() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/clipping/');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
@@ -40,7 +32,7 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testAdminIndex() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/clipping/');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
@@ -56,7 +48,7 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testUserShow() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/clipping/1');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
@@ -65,7 +57,7 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testAdminShow() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/clipping/1');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
@@ -81,13 +73,13 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testUserEdit() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/clipping/1/edit');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminEdit() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/clipping/1/edit');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
@@ -119,13 +111,13 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testUserNew() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/clipping/new');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminNew() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/clipping/new');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
@@ -157,14 +149,14 @@ class ClippingControllerTest extends ControllerBaseCase {
     }
 
     public function testUserDelete() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/clipping/1/delete');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminDelete() : void {
-        $preCount = count($this->entityManager->getRepository(Clipping::class)->findAll());
-        $this->login('user.admin');
+        $preCount = count($this->em->getRepository(Clipping::class)->findAll());
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/clipping/1/delete');
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
@@ -172,8 +164,8 @@ class ClippingControllerTest extends ControllerBaseCase {
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
-        $this->entityManager->clear();
-        $postCount = count($this->entityManager->getRepository(Clipping::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(Clipping::class)->findAll());
         $this->assertSame($preCount - 1, $postCount);
     }
 }

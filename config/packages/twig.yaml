@@ -14,7 +14,6 @@ twig:
         - '@TetranzSelect2Entity/Form/fields.html.twig'
         - 'jquery.collection.html.twig'
     globals:
-        comment_service: '@Nines\FeedbackBundle\Services\CommentService'
         nines_editor_config: js/editor-config.js
         text_service: '@Nines\UtilBundle\Services\Text'
         clipping_img_prefix: "%clipping_img_prefix%"
@@ -22,3 +21,4 @@ twig:
         matomo_url: '%dhil.matomo_url%'
         matomo_siteid: '%dhil.matomo_siteid%'
         matomo_domain: '%dhil.matomo_domain%'
+        linker: '@Nines\UtilBundle\Services\EntityLinker'
