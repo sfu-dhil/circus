@@ -32,7 +32,7 @@ class SourceFixtures extends Fixture implements FixtureGroupInterface {
             $fixture->setName('source-' . $i);
             $fixture->setLabel('Source ' . $i);
             $fixture->setDescription("This is test source #{$i}");
-            $fixture->setDate(1900 + $i);
+            $fixture->setDate(sprintf("%d", 1900 + $i));
 
             $manager->persist($fixture);
             $this->setReference('source.' . $i, $fixture);

@@ -12,6 +12,7 @@ namespace App\Services;
 
 use App\Entity\Clipping;
 use Imagick;
+use ImagickException;
 use ImagickPixel;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -27,16 +28,32 @@ class FileUploader {
      */
     private $imageDir;
 
+    /**
+     * @var int
+     */
     private $thumbWidth;
 
+    /**
+     * @var int
+     */
     private $thumbHeight;
 
+    /**
+     * @param string $imageDir
+     * @param int $thumbWidth
+     * @param int $thumbHeight
+     */
     public function __construct($imageDir, $thumbWidth, $thumbHeight) {
         $this->imageDir = $imageDir;
         $this->thumbHeight = $thumbHeight;
         $this->thumbWidth = $thumbWidth;
     }
 
+    /**
+     * @param UploadedFile $file
+     *
+     * @return string
+     */
     public function upload(UploadedFile $file) {
         $original = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safe = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $original);
@@ -54,6 +71,12 @@ class FileUploader {
         return $this->imageDir;
     }
 
+    /**
+     * @param Clipping $clipping
+     *
+     * @return string
+     * @throws ImagickException
+     */
     public function thumbnail(Clipping $clipping) {
         $file = $clipping->getImageFile();
         $thumbname = $file->getBasename('.' . $file->getExtension()) . '_tn.png';
@@ -84,6 +107,11 @@ class FileUploader {
         $clipping->setThumbnailPath($this->thumbnail($clipping));
     }
 
+    /**
+     * @param bool $asBytes
+     *
+     * @return float|int|string
+     */
     public function getMaxUploadSize($asBytes = true) {
         static $maxBytes = -1;
 
@@ -108,9 +136,14 @@ class FileUploader {
         return $est . $units[$exp];
     }
 
+    /**
+     * @param string $size
+     *
+     * @return float
+     */
     public function parseSize($size) {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
-        $bytes = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+        $bytes = (float) preg_replace('/[^\d\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {
             // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
             return round($bytes * 1024 ** mb_stripos('bkmgtpezy', $unit[0]));

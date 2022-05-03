@@ -38,7 +38,7 @@ class ClippingFixtures extends Fixture implements DependentFixtureInterface, Fix
             $fixture->setImageHeight(400);
             $fixture->setNumber('Number ' . $i);
             $fixture->setWrittenDate('WrittenDate ' . $i);
-            $fixture->setDate(1850 + $i);
+            $fixture->setDate(sprintf("%d", 1850 + $i));
             $fixture->setTranscription('Transcription ' . $i);
             $fixture->setAnnotations('Annotations ' . $i);
             $fixture->setCategory($this->getReference('category.1'));

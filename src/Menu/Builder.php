@@ -61,6 +61,11 @@ class Builder implements ContainerAwareInterface {
         $this->em = $em;
     }
 
+    /**
+     * @param string $role
+     *
+     * @return bool
+     */
     private function hasRole($role) {
         if ( ! $this->tokenStorage->getToken()) {
             return false;

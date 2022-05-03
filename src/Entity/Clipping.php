@@ -149,6 +149,9 @@ class Clipping extends AbstractEntity {
         return $this->imageFile;
     }
 
+    /**
+     * @return self
+     */
     public function setImageFile(File $imageFile) {
         $this->imageFile = $imageFile;
 
