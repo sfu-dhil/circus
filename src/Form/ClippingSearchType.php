@@ -21,11 +21,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClippingSearchType extends AbstractType {
-    /**
-     * @var FileUploader
-     */
-    private $fileUploader;
-
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
         $builder->add('transcription', TextType::class, [
             'label' => 'Search query',

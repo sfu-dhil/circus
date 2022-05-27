@@ -15,6 +15,7 @@ use App\Entity\Clipping;
 use App\Entity\Source;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -53,9 +54,9 @@ class ClippingRepository extends ServiceEntityRepository {
     }
 
     /**
-     * @param $data
-     * @param $fieldName
-     * @param $formName
+     * @param array $data
+     * @param string $fieldName
+     * @param string $formName
      */
     private function textPart(QueryBuilder $qb, $data, $fieldName, $formName) : void {
         if ( ! isset($data[$formName])) {
@@ -88,6 +89,11 @@ class ClippingRepository extends ServiceEntityRepository {
         $qb->setParameter($fieldName, $list->toArray());
     }
 
+    /**
+     * @param array $data
+     *
+     * @return Query
+     */
     public function searchQuery($data) {
         $qb = $this->createQueryBuilder('e');
         $this->fulltextPart($qb, $data, 'transcription', 'transcription');
@@ -112,7 +118,7 @@ class ClippingRepository extends ServiceEntityRepository {
                     break;
 
                 case 'number':
-                    $qb->orderBy('CONVERT(e.number, unsigned integer)');
+                    $qb->orderBy('CONVERT(e.number, integer)');
                     $qb->addOrderBy('e.number', 'ASC');
 
                     break;
@@ -124,9 +130,14 @@ class ClippingRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
+    /**
+     * @param Category $category
+     *
+     * @return Query
+     */
     public function categoryQuery(Category $category) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect('CAST(e.number as unsigned integer) HIDDEN n');
+        $qb->addSelect('CAST(e.number as integer) HIDDEN n');
         $qb->andWhere('e.category = :category');
         $qb->setParameter('category', $category);
         $qb->orderBy('n', 'ASC');
@@ -136,9 +147,14 @@ class ClippingRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
+    /**
+     * @param Source $source
+     *
+     * @return Query
+     */
     public function sourceQuery(Source $source) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect('CAST(e.number as unsigned integer) HIDDEN n');
+        $qb->addSelect('CAST(e.number as integer) HIDDEN n');
         $qb->andWhere('e.source = :source');
         $qb->setParameter('source', $source);
         $qb->orderBy('n', 'ASC');

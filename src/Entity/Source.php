@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
@@ -59,7 +60,7 @@ class Source extends AbstractTerm {
     /**
      * Add clipping.
      *
-     * @param \App\Entity\Clipping $clipping
+     * @param Clipping $clipping
      *
      * @return Source
      */
@@ -72,7 +73,7 @@ class Source extends AbstractTerm {
     /**
      * Remove clipping.
      *
-     * @param \App\Entity\Clipping $clipping
+     * @param Clipping $clipping
      */
     public function removeClipping(Clipping $clipping) : void {
         $this->clippings->removeElement($clipping);
@@ -81,7 +82,7 @@ class Source extends AbstractTerm {
     /**
      * Get clippings.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getClippings() {
         return $this->clippings;

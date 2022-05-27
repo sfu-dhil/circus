@@ -10,16 +10,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use Nines\UserBundle\DataFixtures\UserFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UtilBundle\TestCase\ControllerTestCase;
 
-class DefaultControllerTest extends ControllerBaseCase {
-    protected function fixtures() : array {
-        return [
-            UserFixtures::class,
-        ];
-    }
-
+class DefaultControllerTest extends ControllerTestCase {
     public function testIndex() : void {
         $crawler = $this->client->request('GET', '/');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
