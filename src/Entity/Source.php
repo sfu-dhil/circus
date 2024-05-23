@@ -2,89 +2,56 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\SourceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * Source.
- *
- * @ORM\Table(name="source")
- * @ORM\Entity(repositoryClass="App\Repository\SourceRepository")
- */
+#[ORM\Table(name: 'source')]
+#[ORM\Entity(repositoryClass: SourceRepository::class)]
 class Source extends AbstractTerm {
     /**
      * YYYY-MM-DD.
-     *
-     * @var string
-     * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $date;
+    #[ORM\Column(type: Types::STRING, length: 10, nullable: true)]
+    private ?string $date = null;
 
     /**
      * @var Clipping[]|Collection
-     * @ORM\OneToMany(targetEntity="Clipping", mappedBy="source")
      */
-    private $clippings;
+    #[ORM\OneToMany(targetEntity: Clipping::class, mappedBy: 'source')]
+    private Collection $clippings;
 
-    /**
-     * Set date.
-     *
-     * @param string $date
-     *
-     * @return Source
-     */
-    public function setDate($date) {
+    public function __construct() {
+        parent::__construct();
+        $this->clippings = new ArrayCollection();
+    }
+
+    public function setDate(string $date) : self {
         $this->date = $date;
 
         return $this;
     }
 
-    /**
-     * Get date.
-     *
-     * @return string
-     */
-    public function getDate() {
+    public function getDate() : ?string {
         return $this->date;
     }
 
-    /**
-     * Add clipping.
-     *
-     * @param Clipping $clipping
-     *
-     * @return Source
-     */
-    public function addClipping(Clipping $clipping) {
+    public function addClipping(Clipping $clipping) : self {
         $this->clippings[] = $clipping;
 
         return $this;
     }
 
-    /**
-     * Remove clipping.
-     *
-     * @param Clipping $clipping
-     */
     public function removeClipping(Clipping $clipping) : void {
         $this->clippings->removeElement($clipping);
     }
 
-    /**
-     * Get clippings.
-     *
-     * @return Collection
-     */
-    public function getClippings() {
+    public function getClippings() : Collection {
         return $this->clippings;
     }
 }

@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Repository;
 
 use App\Entity\Category;
@@ -29,12 +23,7 @@ class ClippingRepository extends ServiceEntityRepository {
         parent::__construct($registry, Clipping::class);
     }
 
-    /**
-     * @param array $data
-     * @param string $fieldName
-     * @param string $formName
-     */
-    private function fulltextPart(QueryBuilder $qb, $data, $fieldName, $formName) : void {
+    private function fulltextPart(QueryBuilder $qb, array $data, string $fieldName, string $formName) : void {
         if ( ! isset($data[$formName])) {
             return;
         }
@@ -53,12 +42,7 @@ class ClippingRepository extends ServiceEntityRepository {
         }
     }
 
-    /**
-     * @param array $data
-     * @param string $fieldName
-     * @param string $formName
-     */
-    private function textPart(QueryBuilder $qb, $data, $fieldName, $formName) : void {
+    private function textPart(QueryBuilder $qb, array $data, string $fieldName, string $formName) : void {
         if ( ! isset($data[$formName])) {
             return;
         }
@@ -70,16 +54,11 @@ class ClippingRepository extends ServiceEntityRepository {
         $qb->setParameter("{$fieldName}", "%{$term}%");
     }
 
-    /**
-     * @param QueryBuilder $qb
-     * @param array $data
-     * @param string $fieldName
-     * @param string $formName
-     */
-    private function arrayPart($qb, $data, $fieldName, $formName) : void {
+    private function arrayPart(QueryBuilder $qb, array $data, string $fieldName, string $formName) : void {
         if ( ! isset($data[$formName])) {
             return;
         }
+
         /** @var Collection $list */
         $list = $data[$formName];
         if ( ! count($list)) {
@@ -89,12 +68,7 @@ class ClippingRepository extends ServiceEntityRepository {
         $qb->setParameter($fieldName, $list->toArray());
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Query
-     */
-    public function searchQuery($data) {
+    public function searchQuery(array $data) : Query {
         $qb = $this->createQueryBuilder('e');
         $this->fulltextPart($qb, $data, 'transcription', 'transcription');
 
@@ -130,12 +104,7 @@ class ClippingRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
-    /**
-     * @param Category $category
-     *
-     * @return Query
-     */
-    public function categoryQuery(Category $category) {
+    public function categoryQuery(Category $category) : Query {
         $qb = $this->createQueryBuilder('e');
         $qb->addSelect('CAST(e.number as integer) HIDDEN n');
         $qb->andWhere('e.category = :category');
@@ -147,12 +116,7 @@ class ClippingRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
-    /**
-     * @param Source $source
-     *
-     * @return Query
-     */
-    public function sourceQuery(Source $source) {
+    public function sourceQuery(Source $source) : Query {
         $qb = $this->createQueryBuilder('e');
         $qb->addSelect('CAST(e.number as integer) HIDDEN n');
         $qb->andWhere('e.source = :source');

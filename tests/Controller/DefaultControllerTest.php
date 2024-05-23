@@ -2,20 +2,16 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Tests\Controller;
 
 use Nines\UtilBundle\TestCase\ControllerTestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultControllerTest extends ControllerTestCase {
     public function testIndex() : void {
-        $crawler = $this->client->request('GET', '/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request(Request::METHOD_GET, '/');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode(), $this->client->getResponse()->getContent());
         $this->assertStringContainsString('Circus', $crawler->text(null, true));
     }
 }

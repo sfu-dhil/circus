@@ -2,59 +2,22 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Services;
 
 use App\Entity\Clipping;
 use Imagick;
-use ImagickException;
 use ImagickPixel;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * Description of FileUploader.
- *
- * @author Michael Joyce <ubermichael@gmail.com>
- */
 class FileUploader {
-    /**
-     * @var string
-     */
-    private $imageDir;
+    public function __construct(
+        private string $imageDir,
+        private int $thumbWidth,
+        private int $thumbHeight
+    ) {}
 
-    /**
-     * @var int
-     */
-    private $thumbWidth;
-
-    /**
-     * @var int
-     */
-    private $thumbHeight;
-
-    /**
-     * @param string $imageDir
-     * @param int $thumbWidth
-     * @param int $thumbHeight
-     */
-    public function __construct($imageDir, $thumbWidth, $thumbHeight) {
-        $this->imageDir = $imageDir;
-        $this->thumbHeight = $thumbHeight;
-        $this->thumbWidth = $thumbWidth;
-    }
-
-    /**
-     * @param UploadedFile $file
-     *
-     * @return string
-     */
-    public function upload(UploadedFile $file) {
+    public function upload(UploadedFile $file) : string {
         $original = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safe = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $original);
         $filename = $safe . '-' . uniqid() . '.' . $file->guessExtension();
@@ -64,32 +27,23 @@ class FileUploader {
         return $filename;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageDir() {
+    public function getImageDir() : string {
         return $this->imageDir;
     }
 
-    /**
-     * @param Clipping $clipping
-     *
-     * @return string
-     * @throws ImagickException
-     */
-    public function thumbnail(Clipping $clipping) {
+    public function thumbnail(Clipping $clipping) : string {
         $file = $clipping->getImageFile();
-        $thumbname = $file->getBasename('.' . $file->getExtension()) . '_tn.png';
+        $thumbName = $file->getBasename('.' . $file->getExtension()) . '_tn.png';
         $magick = new Imagick($file->getPathname());
 
         $magick->setBackgroundColor(new ImagickPixel('white'));
         $magick->thumbnailimage($this->thumbWidth, $this->thumbHeight, true, true);
         $magick->setImageFormat('png32');
 
-        $handle = fopen($file->getPath() . '/' . $thumbname, 'wb');
+        $handle = fopen($file->getPath() . '/' . $thumbName, 'wb');
         fwrite($handle, $magick->getimageblob());
 
-        return $thumbname;
+        return $thumbName;
     }
 
     public function processClipping(Clipping $clipping) : void {
@@ -107,12 +61,7 @@ class FileUploader {
         $clipping->setThumbnailPath($this->thumbnail($clipping));
     }
 
-    /**
-     * @param bool $asBytes
-     *
-     * @return float|int|string
-     */
-    public function getMaxUploadSize($asBytes = true) {
+    public function getMaxUploadSize(bool $asBytes = true) : float|int|string {
         static $maxBytes = -1;
 
         if ($maxBytes < 0) {
@@ -136,12 +85,7 @@ class FileUploader {
         return $est . $units[$exp];
     }
 
-    /**
-     * @param string $size
-     *
-     * @return float
-     */
-    public function parseSize($size) {
+    public function parseSize(string $size) : float {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
         $bytes = (float) preg_replace('/[^\d\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {

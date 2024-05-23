@@ -1,4 +1,344 @@
-@charset "UTF-8";
+/* lora-400normal - latin */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Lora Regular '),
+    local('Lora-Regular'),
+    url(.././fonts/lora-latin-400.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lora-latin-400.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lora-400italic - latin */
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Lora Regular italic'),
+    local('Lora-Regularitalic'),
+    url(.././fonts/lora-latin-400italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lora-latin-400italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lora-700normal - latin */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('Lora Bold '),
+    local('Lora-Bold'),
+    url(.././fonts/lora-latin-700.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lora-latin-700.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lora-700italic - latin */
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('Lora Bold italic'),
+    local('Lora-Bolditalic'),
+    url(.././fonts/lora-latin-700italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lora-latin-700italic.woff) format('woff'); /* Modern Browsers */
+}
+
+
+/* playfair-display-400normal - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Playfair Display Regular '),
+    local('Playfair Display-Regular'),
+    url(.././fonts/playfair-display-latin-400.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-400.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-400italic - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Playfair Display Regular italic'),
+    local('Playfair Display-Regularitalic'),
+    url(.././fonts/playfair-display-latin-400italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-400italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-500normal - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src:
+    local('Playfair Display Medium '),
+    local('Playfair Display-Medium'),
+    url(.././fonts/playfair-display-latin-500.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-500.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-500italic - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src:
+    local('Playfair Display Medium italic'),
+    local('Playfair Display-Mediumitalic'),
+    url(.././fonts/playfair-display-latin-500italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-500italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-600normal - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src:
+    local('Playfair Display SemiBold '),
+    local('Playfair Display-SemiBold'),
+    url(.././fonts/playfair-display-latin-600.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-600.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-600italic - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src:
+    local('Playfair Display SemiBold italic'),
+    local('Playfair Display-SemiBolditalic'),
+    url(.././fonts/playfair-display-latin-600italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-600italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-700normal - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('Playfair Display Bold '),
+    local('Playfair Display-Bold'),
+    url(.././fonts/playfair-display-latin-700.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-700.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-700italic - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('Playfair Display Bold italic'),
+    local('Playfair Display-Bolditalic'),
+    url(.././fonts/playfair-display-latin-700italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-700italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-800normal - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src:
+    local('Playfair Display ExtraBold '),
+    local('Playfair Display-ExtraBold'),
+    url(.././fonts/playfair-display-latin-800.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-800.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-800italic - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 800;
+  src:
+    local('Playfair Display ExtraBold italic'),
+    local('Playfair Display-ExtraBolditalic'),
+    url(.././fonts/playfair-display-latin-800italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-800italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-900normal - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src:
+    local('Playfair Display Black '),
+    local('Playfair Display-Black'),
+    url(.././fonts/playfair-display-latin-900.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-900.woff) format('woff'); /* Modern Browsers */
+}
+
+/* playfair-display-900italic - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 900;
+  src:
+    local('Playfair Display Black italic'),
+    local('Playfair Display-Blackitalic'),
+    url(.././fonts/playfair-display-latin-900italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/playfair-display-latin-900italic.woff) format('woff'); /* Modern Browsers */
+}
+
+
+/* lato-100normal - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100;
+  src:
+    local('Lato Thin '),
+    local('Lato-Thin'),
+    url(.././fonts/lato-latin-100.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-100.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-100italic - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100;
+  src:
+    local('Lato Thin italic'),
+    local('Lato-Thinitalic'),
+    url(.././fonts/lato-latin-100italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-100italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-300normal - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src:
+    local('Lato Light '),
+    local('Lato-Light'),
+    url(.././fonts/lato-latin-300.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-300.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-300italic - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 300;
+  src:
+    local('Lato Light italic'),
+    local('Lato-Lightitalic'),
+    url(.././fonts/lato-latin-300italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-300italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-400normal - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Lato Regular '),
+    local('Lato-Regular'),
+    url(.././fonts/lato-latin-400.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-400.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-400italic - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Lato Regular italic'),
+    local('Lato-Regularitalic'),
+    url(.././fonts/lato-latin-400italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-400italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-700normal - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('Lato Bold '),
+    local('Lato-Bold'),
+    url(.././fonts/lato-latin-700.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-700.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-700italic - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('Lato Bold italic'),
+    local('Lato-Bolditalic'),
+    url(.././fonts/lato-latin-700italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-700italic.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-900normal - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src:
+    local('Lato Black '),
+    local('Lato-Black'),
+    url(.././fonts/lato-latin-900.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-900.woff) format('woff'); /* Modern Browsers */
+}
+
+/* lato-900italic - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 900;
+  src:
+    local('Lato Black italic'),
+    local('Lato-Blackitalic'),
+    url(.././fonts/lato-latin-900italic.woff2) format('woff2'), /* Super Modern Browsers */
+    url(.././fonts/lato-latin-900italic.woff) format('woff'); /* Modern Browsers */
+}
+
+
 /**
  * Namespaces
  *
@@ -14,13 +354,10 @@
 /* Only include spin */
 /* Override color */
 /* Uses the packages from yarn */
-/* Note: We use @import here in combination with the .css 
- * extension for these. This forces SCSS to interpret 
+/* Note: We use @import here in combination with the .css
+ * extension for these. This forces SCSS to interpret
  * the import as a CSS import and NOT an SCSS, which means paths
  * all stay properly formatted.  */
-@import "../yarn/typeface-lora/index.css";
-@import "../yarn/typeface-playfair-display/index.css";
-@import "../yarn/typeface-lato/index.css";
 /* CSS Library for imagezoom, with some styling support from
  * 
  *  */
@@ -130,7 +467,7 @@
   position: relative;
   padding: 0;
   width: max-content;
-  margin: 0;
+  margin: 0 !important;
   font-size: 1.3125rem;
   font-family: "Lato";
   font-weight: 400;
@@ -161,6 +498,7 @@
 }
 .breadcrumb li > a {
   transform: skew(20deg);
+  text-decoration: none;
 }
 .breadcrumb li > a:hover, .breadcrumb li > a:focus {
   text-decoration: none;
@@ -276,6 +614,10 @@
   text-rendering: optimizeLegibility;
 }
 
+html {
+  font-size: 0.8em;
+}
+
 /*
  *
  * Body
@@ -288,6 +630,24 @@ body {
   color: black;
 }
 
+.table {
+  --bs-table-bg: #fff9f0;
+}
+
+.pagination {
+  --bs-pagination-font-size: 2rem;
+}
+
+.page-actions a,
+.btn-group a,
+.btn-group button {
+  font-size: 1.5rem;
+}
+
+.btn {
+  --bs-btn-font-size: 1.5rem;
+}
+
 /*
  *
  * Index page
@@ -296,7 +656,7 @@ body {
   margin-bottom: 0;
 }
 .index .hero {
-  background: url("../images/circus-hero.jpeg");
+  background: url(.././images/circus-hero.jpg);
   width: 100vw;
   height: 70vh;
   background-attachment: fixed;
@@ -324,6 +684,10 @@ body {
   max-width: 80vw;
   padding: 0.64rem 1.563rem;
   font-weight: normal;
+}
+.index .hero .subtitle h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .index article {
   display: flex;
@@ -360,17 +724,17 @@ body {
 }
 .index article section.nav-blocks > div:first-child {
   width: 100%;
-  background-image: url("../images/microcosm.jpg");
+  background-image: url(.././images/microcosm.jpg);
   margin-bottom: 1rem;
 }
 .index article section.nav-blocks > div:nth-child(2) {
   width: 45%;
   margin-right: 1rem;
-  background-image: url("../images/amphitheatre.jpg");
+  background-image: url(.././images/amphitheatre.jpg);
 }
 .index article section.nav-blocks > div:nth-child(3) {
   width: 45%;
-  background-image: url("../images/astley_riding_school.jpg");
+  background-image: url(.././images/astley_riding_school.jpg);
 }
 .index article section.nav-blocks > div > a {
   display: flex;
@@ -399,6 +763,9 @@ main p {
 }
 main p:not(:last-child) {
   margin-bottom: 3.052rem;
+}
+main table p {
+  font-size: 16px;
 }
 
 /*
@@ -523,25 +890,25 @@ article a:not(.imgContainer):not(.btn):hover {
   /* Sources */
 }
 .cat-gallery li.cat1 {
-  background-image: url("../images/clippings/899af04f49e0ba74b909b438553542d9_tn.png");
+  background-image: url(.././images/cat1.png);
 }
 .cat-gallery li.cat2 {
-  background-image: url("../images/clippings/27fb83d0998a2f6fba964330d3f8a4e7_tn.png");
+  background-image: url(.././images/cat2.png);
 }
 .cat-gallery li.cat3 {
-  background-image: url("../images/clippings/1576b7a3959885e2c64c1bf3f58f129d_tn.png");
+  background-image: url(.././images/cat3.png);
 }
 .cat-gallery li.cat4 {
-  background-image: url("../images/clippings/001c8f295c2e4932cb0330c1b6c6c4b4_tn.png");
+  background-image: url(.././images/cat4.png);
 }
 .cat-gallery li.source1 {
-  background-image: url("../images/clippings/942756040c0f3a3c7a2e2485d752720d_tn.png");
+  background-image: url(.././images/source1.png);
 }
 .cat-gallery li.source2 {
-  background-image: url("../images/clippings/ec8cc84c4350dfba1428af5a31ccd8a8_tn.png");
+  background-image: url(.././images/source2.png);
 }
 .cat-gallery li.source3 {
-  background-image: url("../images/clippings/5d4191fdc072f0dc31b371dcd232e852_tn.png");
+  background-image: url(.././images/source3.png);
 }
 .cat-gallery li h2 {
   padding: 1.25rem;
@@ -678,7 +1045,7 @@ h5 {
  */
 .horses {
   height: 10vh;
-  background: url("../images/circus-header.png");
+  background: url(.././images/circus-header.png);
   background-size: contain;
   background-repeat: repeat-x;
   transform: translateX(0);
@@ -700,11 +1067,26 @@ h5 {
  * bootstrap overrides, grr.
  *
  */
+.navbar-nav {
+  --bs-nav-link-hover-color: white;
+}
+
 .navbar {
+  --bs-navbar-active-color: white;
+  --bs-navbar-nav-link-padding-x: 15px;
   background: #050505;
   border-radius: 0;
+  padding: 0;
   font-size: 1.953rem;
   font-family: "Lora", serif;
+}
+@media (min-width: 1400px) {
+  .navbar {
+    padding-right: 15.5rem;
+  }
+}
+.navbar .container-fluid {
+  padding: 0;
 }
 .navbar .navbar-brand {
   padding-right: 1.5rem;
@@ -718,6 +1100,7 @@ h5 {
 .navbar .dropdown-menu {
   background: #050505;
   font-size: 1.953rem;
+  margin-top: 0px;
 }
 .navbar .dropdown-menu > li > a {
   transition: background 0.2s ease;
@@ -729,24 +1112,23 @@ h5 {
   color: white;
 }
 .navbar a {
+  font-size: 0.8em;
   color: inherit;
   text-shadow: none;
+  padding: 15px;
 }
-.navbar .hamburger {
-  display: none;
-}
-.navbar .nav .open > a {
+.navbar .navbar-nav .show > a {
   background: inherit;
 }
-.navbar .nav .open > a:hover, .navbar .nav .open > a:focus {
+.navbar .navbar-nav .show > a:hover, .navbar .navbar-nav .show > a:focus {
   background: inherit;
 }
-.navbar .nav > li > a {
+.navbar .navbar-nav > li > a {
   border-bottom: 0.2rem solid transparent;
   transition: border-bottom-color 0.2s ease;
   line-height: 1.675;
 }
-.navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
   background-color: inherit;
   border-bottom-color: #C03F2A;
 }
@@ -754,15 +1136,16 @@ h5 {
   color: white;
 }
 .navbar a.dropdown-toggle::after {
-  content: "";
+  content: "\f285";
   font-size: 1rem;
   font-weight: 200;
-  font-family: "Glyphicons Halflings";
+  font-family: bootstrap-icons;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   display: inline-block;
   transform: rotate(0deg);
   transition: transform 0.2s ease-in-out;
+  border: none;
 }
 .navbar a.dropdown-toggle[aria-expanded=true]::after {
   transform: rotate(90deg);
@@ -791,56 +1174,55 @@ h5 {
 /*
  *  Search
  *  */
-.form-horizontal .form-group {
+form .form-group {
   margin: 0;
 }
-.form-horizontal input[type=text] {
+form input[type=text] {
   color: #050505;
   font-size: 1.563rem !important;
   width: 94%;
 }
-.form-horizontal input[type=text]:placeholder {
+form input[type=text]:placeholder {
   color: rgba(242, 242, 242, 0.9);
 }
-.form-horizontal input[type=text] .checkbox input[type=checkbox] {
+form input[type=text] .checkbox input[type=checkbox] {
   margin-top: 6px;
 }
-.form-horizontal .form-label {
+form .form-label {
   font-size: 16px;
   font-weight: bold;
 }
-.form-horizontal .label-grp {
+form .label-grp {
   display: flex;
   align-items: baseline;
 }
-.form-horizontal .label-grp .search-tooltip {
+form .label-grp .search-tooltip {
   margin-left: 0.5rem;
 }
-.form-horizontal .advanced-search {
+form .advanced-search {
   margin-top: 1.953rem;
-}
-.form-horizontal .advanced-search .pull-right {
   margin-right: 6%;
 }
-.form-horizontal #controls {
+form #controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 2.441rem;
 }
-.form-horizontal #controls .checkbox {
+form #controls .checkbox {
   padding-top: 5px;
 }
-.form-horizontal #controls .help-block > p {
+form #controls .help-block > p {
   font-size: 1.25rem;
   line-height: 1.5;
   width: 80%;
 }
-.form-horizontal #controls .form-row {
+form #controls > * {
   flex: 1 1 30%;
   margin-top: 0.64rem;
 }
-.form-horizontal #controls .form-row input[type=text].form-control, .form-horizontal #controls .form-row select.form-control {
+form #controls > * input[type=text].form-control,
+form #controls > * select.form-select {
   width: 80%;
 }
 
@@ -977,7 +1359,6 @@ footer .footer-imgs img:hover {
   .breadcrumb li:nth-last-child(-n+3) {
     display: inline-block;
   }
-
   .index article {
     flex-direction: column;
   }
@@ -1008,7 +1389,6 @@ footer .footer-imgs img:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
   .index {
     /* Necessary for safari */
   }
@@ -1023,13 +1403,11 @@ footer .footer-imgs img:hover {
     line-height: 1.6;
     padding: 0;
   }
-
   article img {
     width: 100%;
     max-width: 320px;
     height: auto;
   }
-
   .clipping {
     flex-direction: column-reverse;
   }
@@ -1048,29 +1426,21 @@ footer .footer-imgs img:hover {
     margin-left: auto;
     margin-right: auto;
   }
-
   #facsCloser {
     left: 0;
   }
-
   .form-row {
     flex-basis: 100% !important;
   }
   .form-row input[type=text] {
     width: 100% !important;
   }
-
   .navbar .hamburger {
     display: block;
   }
-
-  .advanced-search .pull-right {
-    margin-right: 0 !important;
-  }
-
   .nines main img {
     max-width: 80%;
   }
 }
 
-/*# sourceMappingURL=circus.css.map */
+/*# sourceMappingURL=circus.css.map*/

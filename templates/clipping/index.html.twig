@@ -8,7 +8,7 @@
     All Items
 {%- endblock %}
 
-{% set breadpath = 
+{% set breadpath =
 { 0:{
 'title': 'All Items'
 }
@@ -18,17 +18,13 @@
 
 {% block pageheader %}
     <h1>All Items</h1>
-{% endblock %} 
+{% endblock %}
 
-{% block admin %}
+{% block action_buttons %}
     {% if is_granted('ROLE_CONTENT_ADMIN') %}
-        <div class='btn-toolbar pull-right'>
-            <div class='btn-group'>
-                <a href="{{ path('clipping_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New Item
-                </a>
-            </div>
-        </div>
+        <a href="{{ path('clipping_new') }}" class="btn btn-secondary">
+            <span class="bi bi-plus-lg"></span> New Item
+        </a>
     {% endif %}
 {% endblock %}
 
@@ -39,9 +35,9 @@
 
 
 <article>
-    
+
     {% include 'clipping/partial/gallery.html.twig' %}
-    
+
 </article>
 
 
@@ -50,13 +46,13 @@
     {{ knp_pagination_render(clippings) }}
 </div>
 
-        
+
             <!-- List Count -->
             {# <div class="listing-count">
                 <p>Displaying <strong>{{ clippings|length }}</strong> items of
                     <strong>{{ clippings.getTotalItemCount }}</strong> total.</p>
             </div> #}
-            
-           
+
+
 
 {% endblock %}

@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\DataFixtures;
 
 use App\Entity\Clipping;
@@ -24,9 +18,6 @@ class ClippingFixtures extends Fixture implements DependentFixtureInterface, Fix
         return ['dev', 'test'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(ObjectManager $manager) : void {
         for ($i = 0; $i < 4; $i++) {
             $fixture = new Clipping();
@@ -38,7 +29,7 @@ class ClippingFixtures extends Fixture implements DependentFixtureInterface, Fix
             $fixture->setImageHeight(400);
             $fixture->setNumber('Number ' . $i);
             $fixture->setWrittenDate('WrittenDate ' . $i);
-            $fixture->setDate(sprintf("%d", 1850 + $i));
+            $fixture->setDate(sprintf('%d', 1850 + $i));
             $fixture->setTranscription('Transcription ' . $i);
             $fixture->setAnnotations('Annotations ' . $i);
             $fixture->setCategory($this->getReference('category.1'));
@@ -51,9 +42,6 @@ class ClippingFixtures extends Fixture implements DependentFixtureInterface, Fix
         $manager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDependencies() {
         // add dependencies here, or remove this
         // function and "implements DependentFixtureInterface" above

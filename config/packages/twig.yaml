@@ -7,9 +7,7 @@ twig:
         format: Y-m-d g:i:s A
         interval_format: '%%d days'
     form_themes:
-        - 'bootstrap_3_horizontal_layout.html.twig'
-        - "@NinesUtil/form/fields.html.twig"
-        - 'fields.html.twig'
+        - '@NinesUtil/form/bootstrap_5_layout.html.twig'
         - '@TetranzSelect2Entity/Form/fields.html.twig'
         - 'jquery.collection.html.twig'
     globals:
@@ -21,3 +19,7 @@ twig:
         matomo_siteid: '%dhil.matomo_siteid%'
         matomo_domain: '%dhil.matomo_domain%'
         linker: '@Nines\UtilBundle\Services\EntityLinker'
+
+when@test:
+    twig:
+        strict_variables: true

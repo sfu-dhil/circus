@@ -7,7 +7,7 @@
 {%- endblock %}
 
 
-{% set breadpath = 
+{% set breadpath =
 { 0:
     {
     'title': 'Sources'
@@ -17,17 +17,14 @@
 
 {% block pageheader %}
     <h1>Sources</h1>
-{% endblock %} 
+{% endblock %}
 
-{% block admin %}
-<div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-        {% if is_granted('ROLE_CONTENT_ADMIN') %}
-        <a href="{{ path('source_new') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> New </a>
-        {% endif %}
-    </div>
-</div>
+{% block action_buttons %}
+    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <a href="{{ path('source_new') }}" class="btn btn-secondary">
+            <span class="bi bi-plus-lg"></span> New
+        </a>
+    {% endif %}
 {% endblock %}
 
 
@@ -42,7 +39,7 @@
                     <div class="desc">{{ source.description|raw }}</div>
                 </div>
             </a>
-            
+
         </li>
         {% endfor %}
         {% if (sources|length) % 2 == 1 %}

@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Clipping;
@@ -26,22 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Source controller.
- *
- * @Route("/source")
  */
+#[Route(path: '/source')]
 class SourceController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
-    /**
-     * Lists all Source entities.
-     *
-     * @Route("/", name="source_index", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    #[Route(path: '/', name: 'source_index', methods: ['GET'])]
+    #[Template]
+    public function index(Request $request, EntityManagerInterface $em) : array {
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Source::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
@@ -53,17 +39,10 @@ class SourceController extends AbstractController implements PaginatorAwareInter
         ];
     }
 
-    /**
-     * Creates a new Source entity.
-     *
-     * @Route("/new", name="source_new", methods={"GET", "POST"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @Template
-     *
-     * @return array|RedirectResponse
-     */
-    public function newAction(Request $request, EntityManagerInterface $em) {
+    #[Route(path: '/new', name: 'source_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function new(Request $request, EntityManagerInterface $em) : array|RedirectResponse {
         $source = new Source();
         $form = $this->createForm(SourceType::class, $source);
         $form->handleRequest($request);
@@ -83,16 +62,9 @@ class SourceController extends AbstractController implements PaginatorAwareInter
         ];
     }
 
-    /**
-     * Finds and displays a Source entity.
-     *
-     * @Route("/{id}", name="source_show", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function showAction(Request $request, Source $source, EntityManagerInterface $em) {
+    #[Route(path: '/{id}', name: 'source_show', methods: ['GET'])]
+    #[Template]
+    public function show(Request $request, Source $source, EntityManagerInterface $em) : array {
         $repo = $em->getRepository(Clipping::class);
         $query = $repo->sourceQuery($source);
 
@@ -104,17 +76,10 @@ class SourceController extends AbstractController implements PaginatorAwareInter
         ];
     }
 
-    /**
-     * Displays a form to edit an existing Source entity.
-     *
-     * @Route("/{id}/edit", name="source_edit", methods={"GET", "POST"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @Template
-     *
-     * @return array|RedirectResponse
-     */
-    public function editAction(Request $request, Source $source, EntityManagerInterface $em) {
+    #[Route(path: '/{id}/edit', name: 'source_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function edit(Request $request, Source $source, EntityManagerInterface $em) : array|RedirectResponse {
         $editForm = $this->createForm(SourceType::class, $source);
         $editForm->handleRequest($request);
 
@@ -131,16 +96,9 @@ class SourceController extends AbstractController implements PaginatorAwareInter
         ];
     }
 
-    /**
-     * Deletes a Source entity.
-     *
-     * @Route("/{id}/delete", name="source_delete", methods={"GET"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, Source $source, EntityManagerInterface $em) {
-        $em = $this->getDoctrine()->getManager();
+    #[Route(path: '/{id}/delete', name: 'source_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function delete(Source $source, EntityManagerInterface $em) : RedirectResponse {
         $em->remove($source);
         $em->flush();
         $this->addFlash('success', 'The source was deleted.');

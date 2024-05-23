@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Clipping;
@@ -29,22 +23,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Clipping controller.
- *
- * @Route("/clipping")
  */
+#[Route(path: '/clipping')]
 class ClippingController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
-    /**
-     * Lists all Clipping entities.
-     *
-     * @Route("/", name="clipping_index", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    #[Route(path: '/', name: 'clipping_index', methods: ['GET'])]
+    #[Template]
+    public function index(Request $request, EntityManagerInterface $em) : array {
         $qb = $em->createQueryBuilder();
         $qb->select('e')
             ->addSelect('CAST(e.number as integer) HIDDEN n')
@@ -61,16 +47,9 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Search for Clipping entities.
-     *
-     * @Route("/search", name="clipping_search", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function searchAction(Request $request, ClippingRepository $repo) {
+    #[Route(path: '/search', name: 'clipping_search', methods: ['GET'])]
+    #[Template]
+    public function search(Request $request, ClippingRepository $repo) : array {
         $form = $this->createForm(ClippingSearchType::class, null, [
             'method' => 'GET',
         ]);
@@ -94,16 +73,10 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Creates a new Clipping entity.
-     *
-     * @Route("/new", name="clipping_new", methods={"GET", "POST"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template
-     *
-     * @return array|RedirectResponse
-     */
-    public function newAction(Request $request, EntityManagerInterface $em, FileUploader $uploader) {
+    #[Route(path: '/new', name: 'clipping_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function new(Request $request, EntityManagerInterface $em, FileUploader $uploader) : array|RedirectResponse {
         $clipping = new Clipping();
         $form = $this->createForm(ClippingType::class, $clipping);
         $form->handleRequest($request);
@@ -124,32 +97,18 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Finds and displays a Clipping entity.
-     *
-     * @Route("/{id}", name="clipping_show", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function showAction(Clipping $clipping) {
+    #[Route(path: '/{id}', name: 'clipping_show', methods: ['GET'])]
+    #[Template]
+    public function show(Clipping $clipping) : array {
         return [
             'clipping' => $clipping,
         ];
     }
 
-    /**
-     * Displays a form to edit an existing Clipping entity.
-     *
-     * @Route("/{id}/edit", name="clipping_edit", methods={"GET", "POST"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @Template
-     *
-     * @return array|RedirectResponse
-     */
-    public function editAction(Request $request, Clipping $clipping, EntityManagerInterface $em, FileUploader $uploader) {
+    #[Route(path: '/{id}/edit', name: 'clipping_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function edit(Request $request, Clipping $clipping, EntityManagerInterface $em, FileUploader $uploader) : array|RedirectResponse {
         $editForm = $this->createForm(ClippingType::class, $clipping);
         $editForm->remove('imageFile');
         $editForm->add('newImageFile', FileType::class, [
@@ -163,7 +122,7 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if (($upload = $editForm->get('newImageFile')->getData())) {
+            if ($upload = $editForm->get('newImageFile')->getData()) {
                 $clipping->setImageFile($upload);
                 $uploader->processClipping($clipping);
             }
@@ -181,13 +140,10 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
 
     /**
      * Deletes a Clipping entity.
-     *
-     * @Route("/{id}/delete", name="clipping_delete", methods={"GET"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, Clipping $clipping, EntityManagerInterface $em) {
+    #[Route(path: '/{id}/delete', name: 'clipping_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function delete(Clipping $clipping, EntityManagerInterface $em) : RedirectResponse {
         $em->remove($clipping);
         $em->flush();
         $this->addFlash('success', 'The clipping was deleted.');

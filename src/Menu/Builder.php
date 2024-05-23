@@ -2,16 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Menu;
 
-use App\Entity\Source;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\SourceRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\Asset\Packages;
@@ -28,38 +21,13 @@ class Builder implements ContainerAwareInterface {
 
     public const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
 
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authChecker;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var Packages
-     */
-    private $packages;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage, Packages $packages, EntityManagerInterface $em) {
-        $this->factory = $factory;
-        $this->authChecker = $authChecker;
-        $this->tokenStorage = $tokenStorage;
-        $this->packages = $packages;
-        $this->em = $em;
-    }
+    public function __construct(
+        private FactoryInterface $factory,
+        private AuthorizationCheckerInterface $authChecker,
+        private TokenStorageInterface $tokenStorage,
+        private Packages $packages,
+        private SourceRepository $sourceRepository
+    ) {}
 
     /**
      * @param string $role
@@ -81,55 +49,81 @@ class Builder implements ContainerAwareInterface {
      */
     public function mainMenu(array $options) {
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttributes(['class' => 'nav navbar-nav']);
+        $menu->setChildrenAttributes([
+            'class' => 'nav navbar-nav',
+        ]);
 
         $menu->addChild('home', [
             'label' => 'Welcome',
             'route' => 'homepage',
+            'attributes' => [
+                'class' => 'nav-item',
+            ],
+            'linkAttributes' => [
+                'class' => 'nav-link',
+            ],
         ]);
 
         $browse = $menu->addChild('browse', [
             'uri' => '#',
             'label' => 'Archive',
+            'attributes' => [
+                'class' => 'nav-item dropdown',
+            ],
+            'linkAttributes' => [
+                'class' => 'nav-link dropdown-toggle',
+                'role' => 'button',
+                'data-bs-toggle' => 'dropdown',
+                'id' => 'browse-dropdown',
+            ],
+            'childrenAttributes' => [
+                'class' => 'dropdown-menu text-small shadow',
+                'aria-labelledby' => 'browse-dropdown',
+            ],
         ]);
-        $browse->setAttribute('dropdown', true);
-        $browse->setLinkAttribute('class', 'dropdown-toggle');
-        $browse->setLinkAttribute('data-toggle', 'dropdown');
-        $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $sources = $this->em->getRepository(Source::class)
-            ->findBy([], ['id' => 'ASC'])
-        ;
+        $sources = $this->sourceRepository->findBy([], ['id' => 'ASC']);
 
         foreach ($sources as $source) {
             $browse->addChild('astley_' . $source->getId(), [
                 'label' => $source->getLabel(),
                 'route' => 'source_show',
                 'routeParameters' => ['id' => $source->getId()],
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
         }
 
         $browse->addChild('categories', [
             'label' => 'Categories',
             'route' => 'category_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
 
         if ($this->hasRole('ROLE_USER')) {
-            $divider = $browse->addChild('divider', [
+            $browse->addChild('divider1', [
                 'label' => '',
+                'attributes' => [
+                    'role' => 'separator',
+                    'class' => 'divider',
+                ],
             ]);
-            $divider->setAttributes([
-                'role' => 'separator',
-                'class' => 'divider',
-            ]);
-
             $browse->addChild('categories', [
                 'label' => 'Categories',
                 'route' => 'category_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
             $browse->addChild('sources', [
                 'label' => 'Sources',
                 'route' => 'source_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
         }
 

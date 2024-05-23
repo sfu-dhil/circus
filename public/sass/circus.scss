@@ -14,7 +14,7 @@
 @import "_typography.scss";
 @import "_imagezoom.scss";
 @import "_breadcrumb.scss";
-@import '../yarn/hamburgers/_sass/hamburgers/hamburgers.scss';
+@import '../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
 
 /*
  *
@@ -25,6 +25,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+html {
+    font-size: 0.8em;
 }
 
 /*
@@ -40,6 +44,24 @@ body{
     color: black;
 }
 
+.table {
+    --bs-table-bg: #fff9f0;
+}
+
+.pagination {
+    --bs-pagination-font-size: 2rem;
+}
+
+.page-actions a,
+.btn-group a,
+.btn-group button {
+    font-size: 1.5rem;
+}
+
+.btn {
+    --bs-btn-font-size: 1.5rem;
+}
+
 
 /*
  *
@@ -50,7 +72,7 @@ body{
          margin-bottom:0;
      }
    .hero{
-     background:url('../images/circus-hero.jpeg');
+     background:url('../images/circus-hero.jpg');
      width:100vw;
      height:70vh;
      background-attachment:fixed;
@@ -67,7 +89,7 @@ body{
      }
      .title{
           margin-top:-1rem;
-          padding:map.get($typescale, 1)  map.get($typescale, 1);
+          padding: map.get($typescale, 1)  map.get($typescale, 1);
           margin-bottom: map.get($typescale, 2);
           img{
               max-width:80vw;
@@ -78,6 +100,10 @@ body{
          max-width:80vw;
          padding: map.get($typescale, 8) map.get($typescale, 4);
          font-weight:normal;
+         h3 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+         }
      }
  }
    article{
@@ -159,8 +185,12 @@ main{
         font-size: map.get($typescale, 4)* 1.05;
     }
 
-     p:not(:last-child){
+    p:not(:last-child){
         margin-bottom: map.get($typescale, 1);
+    }
+
+    table p {
+        font-size: 16px;
     }
 }
 
@@ -299,36 +329,32 @@ article{
           * there are ways to make these randomized in twig, but the images are too
           * variable in terms of quality to make random selections worthwhile */
 
-            /* Categories */
-              &.cat1{
-                background-image: url('../images/clippings/899af04f49e0ba74b909b438553542d9_tn.png');
-              }
-              &.cat2{
-                  background-image: url('../images/clippings/27fb83d0998a2f6fba964330d3f8a4e7_tn.png');
-              }
-              &.cat3{
-                  background-image: url('../images/clippings/1576b7a3959885e2c64c1bf3f58f129d_tn.png');
-              }
-              &.cat4{
-                  background-image: url('../images/clippings/001c8f295c2e4932cb0330c1b6c6c4b4_tn.png');
-              }
+        /* Categories */
+        &.cat1{
+            background-image: url('../images/cat1.png');
+        }
+        &.cat2{
+            background-image: url('../images/cat2.png');
+        }
+        &.cat3{
+            background-image: url('../images/cat3.png');
+        }
+        &.cat4{
+            background-image: url('../images/cat4.png');
+        }
 
-           /* Sources */
+        /* Sources */
+        &.source1{
+            background-image: url('../images/source1.png');
+        }
 
+        &.source2{
+            background-image: url('../images/source2.png');
+        }
 
-
-              &.source1{
-                    background-image: url('../images/clippings/942756040c0f3a3c7a2e2485d752720d_tn.png');
-                }
-
-               &.source2{
-                    background-image: url('../images/clippings/ec8cc84c4350dfba1428af5a31ccd8a8_tn.png');
-                }
-
-               &.source3{
-                    background-image: url('../images/clippings/5d4191fdc072f0dc31b371dcd232e852_tn.png');
-               }
-
+        &.source3{
+            background-image: url('../images/source3.png');
+        }
 
         h2{
             padding:map.get($typescale, 5);
@@ -479,13 +505,27 @@ article{
  *
  */
 
-
+.navbar-nav {
+    --bs-nav-link-hover-color: white;
+}
 
 .navbar{
+    --bs-navbar-active-color: white;
+    --bs-navbar-nav-link-padding-x: 15px;
     background:$circus-black;
     border-radius:0;
+    padding: 0;
     font-size: map.get($typescale, 3);
     font-family: "Lora", serif;
+
+    @media (min-width: 1400px) {
+        padding-right: calc(1rem + 1.5rem + 13rem);
+    }
+
+    .container-fluid {
+        padding: 0;
+    }
+
     .navbar-brand{
         padding-right:1.5rem;
         margin-right: 1rem;
@@ -499,6 +539,7 @@ article{
     .dropdown-menu{
         background: $circus-black;
         font-size: map.get($typescale, 3);
+        margin-top: 0px;
         & > li > a{
             transition: background 0.2s ease;
             &:focus, &:hover{
@@ -510,22 +551,20 @@ article{
         color:white;
     }
     a{
+        font-size: 0.8em;
         color:inherit;
         text-shadow:none;
+        padding: 15px;
     }
 
-    .hamburger{
-        display:none;
+    .navbar-nav .show > a{
+        background: inherit;
+        &:hover, &:focus{
+            background:inherit;
+        }
     }
 
-    .nav .open > a{
-       background: inherit;
-       &:hover, &:focus{
-           background:inherit;
-       }
-    }
-
-    .nav > li > a{
+    .navbar-nav > li > a{
         border-bottom: .2rem solid transparent;
          transition: border-bottom-color 0.2s ease;
         line-height:1.675;
@@ -540,23 +579,22 @@ article{
     }
     a.dropdown-toggle{
         &::after{
-        content: "\e080";
+        content: "\F285";
         font-size:1rem;
         font-weight:200;
-        font-family: "Glyphicons Halflings";
+        font-family: bootstrap-icons;
         margin-left: .5rem;
         margin-right:.5rem;
         display:inline-block;
         transform: rotate(0deg);
         transition: transform 0.2s ease-in-out;
+        border: none;
        }
        &[aria-expanded='true']::after{
            transform:rotate(90deg);
        }
     }
 }
-
-
 
 
 /*
@@ -594,7 +632,7 @@ article{
 /*
  *  Search
  *  */
-.form-horizontal{
+form {
     .form-group{
         margin:0;
     }
@@ -625,28 +663,28 @@ article{
     }
     .advanced-search{
         margin-top:map.get($typescale, 3);
-        .pull-right{
-            margin-right:6%;
-        }
+        margin-right: 6%;
     }
     #controls{
-          display:flex;
-          flex-wrap:wrap;
-            justify-content:space-between;
-            margin-bottom:map.get($typescale, 2);
-            .checkbox{
-                padding-top:5px;
-            }
-            .help-block > p{
-                font-size:map.get($typescale, 5);
-                line-height: 1.5;
-                width: 80%;
-           }
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:space-between;
+        margin-bottom:map.get($typescale, 2);
 
-        .form-row{
+        .checkbox{
+            padding-top:5px;
+        }
+        .help-block > p{
+            font-size:map.get($typescale, 5);
+            line-height: 1.5;
+            width: 80%;
+        }
+
+        > * {
             flex: 1 1 30%;
             margin-top:map.get($typescale, 8);
-            input[type='text'].form-control, select.form-control{
+            input[type='text'].form-control,
+            select.form-select {
                 width:80%;
             }
         }

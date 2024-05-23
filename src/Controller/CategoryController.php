@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Category;
@@ -26,22 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Category controller.
- *
- * @Route("/category")
  */
+#[Route(path: '/category')]
 class CategoryController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
-    /**
-     * Lists all Category entities.
-     *
-     * @Route("/", name="category_index", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function indexAction(Request $request, EntityManagerInterface $em) {
+    #[Route(path: '/', name: 'category_index', methods: ['GET'])]
+    #[Template]
+    public function index(Request $request, EntityManagerInterface $em) : array {
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Category::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
@@ -53,16 +39,10 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Creates a new Category entity.
-     *
-     * @Route("/new", name="category_new", methods={"GET", "POST"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template
-     *
-     * @return array|RedirectResponse
-     */
-    public function newAction(Request $request, EntityManagerInterface $em) {
+    #[Route(path: '/new', name: 'category_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function new(Request $request, EntityManagerInterface $em) : array|RedirectResponse {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -82,16 +62,9 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Finds and displays a Category entity.
-     *
-     * @Route("/{id}", name="category_show", methods={"GET"})
-     *
-     * @Template
-     *
-     * @return array
-     */
-    public function showAction(Request $request, Category $category, ClippingRepository $repo) {
+    #[Route(path: '/{id}', name: 'category_show', methods: ['GET'])]
+    #[Template]
+    public function show(Request $request, Category $category, ClippingRepository $repo) : array {
         $query = $repo->categoryQuery($category);
         $clippings = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
@@ -101,16 +74,10 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Displays a form to edit an existing Category entity.
-     *
-     * @Route("/{id}/edit", name="category_edit", methods={"GET", "POST"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Template
-     *
-     * @return array|RedirectResponse
-     */
-    public function editAction(Request $request, Category $category, EntityManagerInterface $em) {
+    #[Route(path: '/{id}/edit', name: 'category_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function edit(Request $request, Category $category, EntityManagerInterface $em) : array|RedirectResponse {
         $editForm = $this->createForm(CategoryType::class, $category);
         $editForm->handleRequest($request);
 
@@ -127,15 +94,9 @@ class CategoryController extends AbstractController implements PaginatorAwareInt
         ];
     }
 
-    /**
-     * Deletes a Category entity.
-     *
-     * @Route("/{id}/delete", name="category_delete", methods={"GET"})
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     *
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, Category $category, EntityManagerInterface $em) {
+    #[Route(path: '/{id}/delete', name: 'category_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function delete(Category $category, EntityManagerInterface $em) : RedirectResponse {
         $em->remove($category);
         $em->flush();
         $this->addFlash('success', 'The category was deleted.');
