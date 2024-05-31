@@ -44,3 +44,6 @@ public/dev
 
 # ignore webpack junk
 public/js/dist/circus.js
+
+#docs
+public/docs

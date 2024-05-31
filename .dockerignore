@@ -42,5 +42,11 @@ public/dev
 # Mac DS_Store
 .DS_Store
 
+# ignore webpack junk
+public/js/dist/circus.js
+
+#docs
+public/docs
+
 # Docker image specific
 /.github/
