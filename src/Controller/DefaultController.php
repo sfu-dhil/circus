@@ -24,10 +24,4 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
             'homepage' => $pageRepo->findHomepage(),
         ];
     }
-
-    #[Route(path: '/privacy', name: 'privacy', methods: ['GET'])]
-    #[Template]
-    public function privacy() : array {
-        return [];
-    }
 }

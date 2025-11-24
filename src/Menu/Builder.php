@@ -166,7 +166,10 @@ class Builder implements ContainerAwareInterface {
 
         $menu->addChild('privacy', [
             'label' => 'Privacy',
-            'route' => 'privacy',
+            'uri' => 'https://docs.dhil.lib.sfu.ca/privacy.html',
+            'linkAttributes' => [
+                'target' => '_blank',
+            ],
         ]);
 
         $menu->addChild('github', [
