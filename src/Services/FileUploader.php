@@ -57,7 +57,7 @@ class FileUploader {
         $clippingFile = new File($this->imageDir . '/' . $filename);
         $clipping->setImageFile($clippingFile);
         $clipping->setImageSize($clippingFile->getSize());
-        $clipping->setImageFilePath($this->imageDir . '/' . $filename);
+        $clipping->setImageFilePath($filename);
         $clipping->setThumbnailPath($this->thumbnail($clipping));
     }
 

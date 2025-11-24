@@ -14,7 +14,7 @@ parameters:
     asset.request_context.base_path: '%env(string:ROUTE_BASE)%'
     asset.request_context.secure: auto
 
-    clipping_img_dir: public/images/clippings
+    clipping_img_dir: images/clippings
     clipping_img_prefix: images/clippings/
     clipping_thumb_width: 320
     clipping_thumb_height: 240
