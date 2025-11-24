@@ -14,11 +14,6 @@ parameters:
     asset.request_context.base_path: '%env(string:ROUTE_BASE)%'
     asset.request_context.secure: auto
 
-    dhil.matomo_enabled: '%env(bool:MATOMO_ENABLED)%'
-    dhil.matomo_url: //matomo.lib.sfu.ca/library/
-    dhil.matomo_siteid: 38
-    dhil.matomo_domain: dhil.lib.sfu.ca/circus
-
     clipping_img_dir: public/images/clippings
     clipping_img_prefix: images/clippings/
     clipping_thumb_width: 320
