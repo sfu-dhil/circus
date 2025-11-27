@@ -22,7 +22,7 @@ services:
 
   app:
     container_name: circus_app
-    # image: dhil/circus
+    # image: ghcr.io/sfu-dhil/circus
     build:
       context: .
       target: circus
