@@ -31,8 +31,8 @@ jobs:
           runner: ubuntu-latest
         # - platform: linux/arm/v5
         #   runner: ubuntu-24.04-arm
-        - platform: linux/arm/v7
-          runner: ubuntu-24.04-arm
+        # - platform: linux/arm/v7
+        #   runner: ubuntu-24.04-arm
         - platform: linux/arm64
           runner: ubuntu-24.04-arm
         # - platform: linux/mips64le

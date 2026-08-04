@@ -9,7 +9,7 @@ COPY docs /app
 
 RUN sphinx-build source _site
 
-FROM node:21.6-slim AS circus-webpack
+FROM node:25.5 AS circus-webpack
 WORKDIR /app
 
 RUN apt-get update \

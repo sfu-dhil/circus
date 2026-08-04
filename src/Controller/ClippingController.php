@@ -99,9 +99,31 @@ class ClippingController extends AbstractController implements PaginatorAwareInt
 
     #[Route(path: '/{id}', name: 'clipping_show', methods: ['GET'])]
     #[Template]
-    public function show(Clipping $clipping) : array {
+    public function show(Clipping $clipping, EntityManagerInterface $em) : array {
+        $conn = $em->getConnection();
+        $sql = '
+WITH NumberedRows AS (
+    SELECT
+        id,
+        source_id,
+        CAST(number AS integer) AS n,
+        ROW_NUMBER() OVER (PARTITION BY source_id ORDER BY n ASC, date ASC, id ASC) AS row_num
+    FROM clipping
+)
+SELECT
+    current.id AS current_id,
+    previous.id AS previous_id,
+    next.id AS next_id
+FROM NumberedRows current
+LEFT JOIN NumberedRows previous ON previous.row_num = current.row_num - 1 AND previous.source_id = :source_id
+LEFT JOIN NumberedRows next ON next.row_num = current.row_num + 1 AND next.source_id = :source_id
+WHERE current.id = :clipping_id AND current.source_id = :source_id
+        ';
+        $results = $conn->executeQuery($sql, ['clipping_id' => $clipping->getId(), 'source_id' => $clipping->getSource()->getId()])->fetchAllAssociative();
         return [
             'clipping' => $clipping,
+            'nextId' => count($results) === 1 ? $results[0]['next_id'] : null,
+            'previousId' => count($results) === 1 ? $results[0]['previous_id'] : null,
         ];
     }
 

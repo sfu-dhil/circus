@@ -45,7 +45,33 @@
 {% endif %}
 
 {% block pageheader %}
-    <h1>{{ title }}</h1>
+    <div class="row">
+        <div class="col-6">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-6">
+            <ul class="pagination justify-content-end">
+                {% if previousId %}
+                    <li class="page-item">
+                        <a class="page-link" rel="next" href="{{ path('clipping_show', {'id' : previousId }) }}">«&nbsp;Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">«&nbsp;Previous</span>
+                    </li>
+                {% endif %}
+                {% if nextId %}
+                    <li class="page-item">
+                        <a class="page-link" rel="next" href="{{ path('clipping_show', {'id' : nextId }) }}">Next&nbsp;»</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Next&nbsp;»</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
 {% block action_buttons %}
